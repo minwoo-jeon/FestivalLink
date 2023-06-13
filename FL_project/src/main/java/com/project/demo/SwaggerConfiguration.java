@@ -1,54 +1,82 @@
+
 package com.project.demo;
-
-import java.util.HashSet;
-import java.util.Set;
-
+import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 
+//
+//import java.util.HashSet;
+//import java.util.Set;
+//
+//import org.springframework.context.annotation.Bean;
+//import org.springframework.context.annotation.Configuration;
+//
+//import springfox.documentation.builders.ApiInfoBuilder;
+//import springfox.documentation.builders.PathSelectors;
+//import springfox.documentation.builders.RequestHandlerSelectors;
+//import springfox.documentation.service.ApiInfo;
+//import springfox.documentation.spi.DocumentationType;
+//import springfox.documentation.spring.web.plugins.Docket;
+//import springfox.documentation.swagger2.annotations.EnableSwagger2;
+//
+//@Configuration
+//@EnableSwagger2
+//public class SwaggerConfiguration {
+//	
+//	private ApiInfo apiInfo() {
+//		return new ApiInfoBuilder()
+//			.title("Demo")
+//			.description("API EXAMPLE")
+//			.version("1.0")
+//			.build();
+//	}
+//	
+//	private Set<String> getConsumeContentTypes() {
+//		Set<String> consumes = new HashSet<>();
+//		consumes.add("application/json;charset=UTF-8");
+//		consumes.add("application/x-www-form-urlencoded");
+//		return consumes;
+//	}
+//	
+//	private Set<String> getProduceContentTypes() {
+//		Set<String> produces = new HashSet<>();
+//		produces.add("application/json;charset=UTF-8");
+//		return produces;
+//	}
+//	
+//	@Bean
+//	public Docket commonApi() {
+//		return new Docket(DocumentationType.SWAGGER_2)
+//				.consumes(getConsumeContentTypes())
+//				.produces(getProduceContentTypes())
+//				.apiInfo(apiInfo())
+//				.select()
+//				.apis(RequestHandlerSelectors.any())
+//				.paths(PathSelectors.ant("/api/**"))
+//				.build();
+//	}
+//
+//}
 @Configuration
-@EnableSwagger2
 public class SwaggerConfiguration {
-	
-	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder()
-			.title("Demo")
-			.description("API EXAMPLE")
-			.version("1.0")
-			.build();
-	}
-	
-	private Set<String> getConsumeContentTypes() {
-		Set<String> consumes = new HashSet<>();
-		consumes.add("application/json;charset=UTF-8");
-		consumes.add("application/x-www-form-urlencoded");
-		return consumes;
-	}
-	
-	private Set<String> getProduceContentTypes() {
-		Set<String> produces = new HashSet<>();
-		produces.add("application/json;charset=UTF-8");
-		return produces;
-	}
-	
-	@Bean
-	public Docket commonApi() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.consumes(getConsumeContentTypes())
-				.produces(getProduceContentTypes())
-				.apiInfo(apiInfo())
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.ant("/api/**"))
-				.build();
-	}
+  @Bean
+  public GroupedOpenApi jwtApi() {
+    return GroupedOpenApi.builder()
+        .group("jwt-api")
+        .pathsToMatch("/**")
+        .build();
+  }
 
+  @Bean
+  public OpenAPI customOpenAPI() {
+    return new OpenAPI()
+        .components(new Components())
+        .info(new Info().title("Spring Boot API Example")
+            .description("Spring Boot API 예시 프로젝트입니다.")
+            .version("v0.0.1"));
+  }
 }
