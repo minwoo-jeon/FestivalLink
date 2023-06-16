@@ -22,7 +22,7 @@ public class TestController {
     @GetMapping("/api/test/name")
     public ResponseEntity<String> name() {
         return ResponseEntity.ok()
-                .body("홍길동");
+                .body("김철수");
     }
     
     // @Operation(summary = "테스트 페이지") // 정의하려는 API 명시
