@@ -1,4 +1,4 @@
-package com.project.demo;
+package com.project.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,5 +20,15 @@ public class TestController {
     public ResponseEntity<String> name() {
         return ResponseEntity.ok()
                 .body("홍길동");
+    }
+    // @Operation(summary = "테스트 페이지") // 정의하려는 API 명시
+    // @ApiResponses(value = {
+    //         @ApiResponse(responseCode = "200", description = "테스트 페이지"),
+    //         @ApiResponse(responseCode = "400", description = "테스트 페이지 실패")
+    // })
+    @GetMapping("/test")
+    public String testPage() {
+
+        return"test";
     }
 }
