@@ -35,7 +35,7 @@ public class ServletInitializer extends SpringBootServletInitializer {
                 JspPropertyGroupDescriptorImpl jspPropertyGroupDescriptor = new JspPropertyGroupDescriptorImpl(jspPropertyGroup);
                 context.setJspConfigDescriptor(new JspConfigDescriptorImpl(Collections.singletonList(jspPropertyGroupDescriptor), Collections.emptyList()));
             }
-			
+
 		};
 	}
 
