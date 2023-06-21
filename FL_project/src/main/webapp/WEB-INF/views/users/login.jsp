@@ -25,7 +25,7 @@
                                 </p>
 
                                 <button class="btn btn-outline-light btn-lg btn-block" type="submit" style="margin-bottom: 0px;">Login</button><br>
-                                <button class="btn btn-lg btn-block btn-success" style="margin-bottom: 0px;"
+                                <button class="btn btn-lg btn-block btn-success" style="margin-bottom: 0px;" onclick ="location.href='/users/naver'"
                                 type="submit"><svg
                                 width="15"
                                 height="30"
