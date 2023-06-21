@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="myctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <title>Festival Link</title>
 <meta charset="UTF-8">
@@ -23,10 +23,12 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <style>
 body{
+	height: 100vh;
     background: #4568DC;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to top, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to top, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
+	
+    
     }
 .main-menu {
 	float: right;
@@ -157,9 +159,7 @@ body{
 			<p>Festival Link</p>
 		</div>
 </div>	
-</body>	
-	
-
+</body>
 
 
 
