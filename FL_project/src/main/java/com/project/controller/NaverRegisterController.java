@@ -23,7 +23,7 @@ public class NaverRegisterController {
     @Autowired
 	private NaverUserMapper naverUserMapper;
 
-    @Operation(summary = "네이버 로그인 후 닉네임 정하기") // 정의하려는 API 명시
+    @Operation(summary = "네이버 로그인 후 닉네임 정하기 페이지") // 정의하려는 API 명시
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "닉네임 정하는 페이지로 이동")
     })
