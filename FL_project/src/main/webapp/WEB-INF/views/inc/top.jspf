@@ -115,7 +115,7 @@ body{
 		<div class="container" >
 			<!-- logo -->
 			<div class="nav-logo">
-			<a class="site-logo" href="index.html"> <%@include file="small_logo.jsp"%>festival link
+			<a class="site-logo" href="test"> <%@include file="small_logo.jsp"%>festival link
 			</a></div>
 			<div class="user-panel">
 				<a href="#">로그인</a> / <a href="#">회원가입</a>
@@ -128,7 +128,7 @@ body{
 			<nav class="main-menu">
 				<ul>
 					<li><a href="index.html">축제</a></li>
-					<li><a href="review.html">커뮤니티</a></li>
+					<li><a href="community">커뮤니티</a></li>
 					<li><a href="categories.html">소행사 게시판</a></li>
 					<li><a href="community.html">마이페이지</a></li>
 				</ul>
