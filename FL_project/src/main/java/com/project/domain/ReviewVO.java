@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewVO {
-	private int reviewId;
-	private int userId;
-	private int festivalId;
+	//private int reviewId;
+	//private int userId;
+	//private int festivalId;
 	
 	//private String image;
-	private String title;
-	private String festival;
-	private String nickname;
-	private String content;
-	private Date wdate;
-	private int readnum;
-	private int likes;
+	//private String title;
+	//private String festival;
+	private String review_nickname;
+	private String review_content;
+	private String review_date;
+	private int review_readnum;
+	//private int likes;
 }

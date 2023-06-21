@@ -3,6 +3,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.CommunityMapper">
 	<select id="getReviewList" resultType="com.project.domain.ReviewVO">
-		select * from reviews order by wdate desc
+		select review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date, review_readnum from reviews order by review_date desc
 	</select>
+	
+	<insert id="insertReview" parameterType="string">
+		insert into reviews(review_id, user_id_fk, festival_id_fk, review_nickname, review_content) values(#{uuid}, 1, 1, #{nickname}, #{content})
+	</insert>
 </mapper>
