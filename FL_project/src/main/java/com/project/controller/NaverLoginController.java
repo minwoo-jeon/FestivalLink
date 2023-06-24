@@ -1,6 +1,5 @@
 package com.project.controller;
 
-import java.io.Console;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -17,11 +16,11 @@ import com.project.service.NaverLoginService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.models.info.Info;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -79,6 +78,7 @@ public class NaverLoginController {
         }
         NaverUserVO nUser = naverUserMapper.getNaverUserInfo(vo.getResponse().getId());
         session.setAttribute("userInfo", nUser);
+        session.setAttribute("userId", nUser.getUser_id());
         ///////////////나중에 수정 요망 
         // return "/festivals?pageId=1";
         return "redirect:/test";
