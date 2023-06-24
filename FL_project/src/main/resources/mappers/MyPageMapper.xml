@@ -1,0 +1,32 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.MyPageMapper">
+    <select id="getTotalReviewCount" parameterType="String" resultType="_int">
+        select count(review_id) from Reviews where user_id_fk = #{value}
+    </select>
+    <!-- festival_id로 조인함 -->
+    <select id="listMyReview" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyReviewVO">
+         select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like
+        from(
+		select row_number() over(order by review_date desc) rn, reviews.*
+		from reviews order by review_date desc) a
+        Inner join Festivals b
+        on a.festival_id_fk=b.festival_id
+		<![CDATA[
+		where a.rn > #{start} and a.rn <= #{end}
+		]]> and a.user_id_fk=#{userId} and a.festival_id_fk=b.festival_id 
+    </select>
+    <select id="getTotalFestivalCount" parameterType="String" resultType="int">
+        select count(festival_id_fk) from f_likes where user_id_fk=#{value}
+    </select>
+    <select id="listMyFestival" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyFestivalVO">
+        select a.*, b.festival_name, b.festival_start, b.festival_end, b.festival_place, b.festival_image
+        from(
+		select row_number() over(order by f_like_id desc) rn, f_likes.*
+		from f_likes order by f_like_id desc) a, festivals b
+        <![CDATA[
+		where a.rn > #{start} and a.rn <= #{end}
+		]]>and a.user_id_fk=#{userId} and a.festival_id_fk=b.festival_id
+    </select>
+</mapper>
