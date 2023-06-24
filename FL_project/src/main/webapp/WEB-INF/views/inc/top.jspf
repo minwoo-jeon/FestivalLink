@@ -11,7 +11,11 @@
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Favicon -->
+
 <!-- <link href="img/favicon.ico" rel="shortcut icon" /> -->
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2">
+
 
 <!-- Google Fonts -->
 <link
@@ -24,11 +28,10 @@
 <style>
 body{
 	height: 100vh;
-    background: #4568DC;  /* fallback for old browsers */
-	background: -webkit-linear-gradient(to top, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
-	background: linear-gradient(to top, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	
-    
+	background: #4568DC;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #B06AB3, #4568DC);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #B06AB3, #4568DC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
     }
 .main-menu {
 	float: right;
