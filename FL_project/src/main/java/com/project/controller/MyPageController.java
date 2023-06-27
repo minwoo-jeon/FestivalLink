@@ -33,7 +33,7 @@ public class MyPageController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "내가 쓴 리뷰 리스트 찾아서 모델에 반환 ")
     })
-    @GetMapping("/users/mypage")
+    @GetMapping("/users/myReview")
     public ModelAndView getReviewListByUser(Model model, HttpServletRequest req,
             @RequestParam(defaultValue = "1") int page) {
 
@@ -111,10 +111,45 @@ public class MyPageController {
             return new ModelAndView("users/myFestival");
         }
     }
-    // @GetMapping("/users/myFestival")
-    // public ModelAndView getLikedReviewListByUser(Model model, HttpServletRequest req,
-    //         @RequestParam(defaultValue = "1") int page){
 
-    //             return new ModelAndView("users/myFestival");
-    //         }
+
+    
+    @Operation(summary = "내가 좋아요 한 리뷰") // 정의하려는 API 명시
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "내가 쓴 리뷰 리스트 찾아서 모델에 반환 ")
+    })
+    @GetMapping("/users/likedReview")
+    public ModelAndView getlikedReviewListByUser(Model model, HttpServletRequest req,
+            @RequestParam(defaultValue = "1") int page) {
+
+        HttpSession session = req.getSession();
+        // 세션에서 유저아이디 가져오기
+        String userId = (String) session.getAttribute("userId");
+        log.info("userid={}", userId);
+        int totalCount = this.myPageMapper.getTotalReviewCount(userId);
+        log.info("total ={}", totalCount);
+        int pageSize = 5;
+        int pageCount = (totalCount - 1) / pageSize + 1;
+        if (page < 0) {
+            page = 1;
+        }
+        if (page > pageCount) {
+            page = pageCount;
+        }
+        int end = page * pageSize;
+        int start = end - pageSize;
+        MyPagingVO myP = new MyPagingVO();
+        myP.setEnd(end);
+        myP.setStart(start);
+        myP.setUserId(userId);
+        List<MyReviewVO> likedReviewArr = myPageMapper.listLikedReview(myP);
+        log.info(myP.toString());
+        model.addAttribute("totalCount", totalCount);
+        model.addAttribute("likedReviewArr", likedReviewArr);
+        model.addAttribute("pageCount", pageCount);
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("page", page);
+
+        return new ModelAndView("users/likedReview");
+    }
 }

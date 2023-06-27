@@ -14,4 +14,6 @@ public interface MyPageMapper {
     public List<MyReviewVO>listMyReview(MyPagingVO mypaging);
     public int getTotalFestivalCount(String userId);
     public List<MyFestivalVO>listMyFestival(MyPagingVO myPagingVO);
+    public List<MyReviewVO>listLikedReview(MyPagingVO mypaging);
+    
 }

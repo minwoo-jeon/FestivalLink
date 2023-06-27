@@ -7,7 +7,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     <!-- festival_id로 조인함 -->
     <select id="listMyReview" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyReviewVO">
-         select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like
+         select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like,
+         (SELECT COUNT(*) FROM R_likes d WHERE d.user_id_fk=#{userId} and a.review_id=d.review_id_fk) likeState
         from(
 		select row_number() over(order by review_date desc) rn, reviews.*
 		from reviews order by review_date desc) a
@@ -28,5 +29,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <![CDATA[
 		where a.rn > #{start} and a.rn <= #{end}
 		]]>and a.user_id_fk=#{userId} and a.festival_id_fk=b.festival_id
+    </select>
+    <select id="listLikedReview" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyReviewVO">
+        select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like,
+         (SELECT COUNT(*) FROM R_likes d WHERE d.user_id_fk=#{userId} and a.review_id=d.review_id_fk) likeState
+        from(
+		select row_number() over(order by review_date desc) rn, reviews.*
+		from reviews order by review_date desc) a, Festivals b, r_likes c
+		<![CDATA[
+		where a.rn > #{start} and a.rn <= #{end}
+		]]> and c.user_id_fk=#{userId} and a.review_id=c.review_id_fk and a.festival_id_fk=b.festival_id
     </select>
 </mapper>
