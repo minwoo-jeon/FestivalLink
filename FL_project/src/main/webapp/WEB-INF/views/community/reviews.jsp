@@ -3,8 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <style>
 #reviewTop{
@@ -77,9 +76,7 @@ span.readnum {
 	const getReviews = function(pageId){
 		$.ajax({
 			type:"post",
-			url:"/community/getReviews",
-			data:pageId,
-			contentType:"application/json; charset=UTF-8",
+			url:"/community/getReviews?pageId="+pageId,
 			dataType:"json",
 			cache:false,
 		}).done((res)=>{
@@ -93,6 +90,7 @@ span.readnum {
 	const showList = function(arr){
 		let str = "<ul class='reviewList'>";
 		$.each(arr, (i, review)=>{
+			str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews'>";
 			str += "<li>";
 			str += "<a href='/community/"+review.review_id+"'>";
 			str += "<img src='/community_upload/noimage.png'>";
@@ -107,11 +105,18 @@ span.readnum {
 			str += "</span>";
 			str += "</li>";
 			str += "<li>";
+			str += "<p>";
+			str += "<a href='/community/"+review.review_id+"/edit'>수정";
+			str += "</a> | ";
+			str += "<a onclick='delReview(\""+review.review_id+"\")'>삭제";
+			str += "</a>";
+			str += "</p>";
 			str += "<p>"+review.review_date1+"</p>";
 			str += "<span class='readnum'>";
 			str += "조회수: "+review.review_readnum;
 			str += "</span>";
 			str += "</li>";
+			str += "</div>";
 		});
 		str += "</ul>";
 		$("#list").html(str);
@@ -128,6 +133,22 @@ span.readnum {
 		str += pageCount+"pages"; */
 		
 		$("#pagination").html(str);
+	};
+	
+	const delReview = function(id){
+		$.ajax({
+			type:"delete",
+			url:"/community/"+id+"/del",
+			dataType:"json",
+			cache:false,
+		}).done((res)=>{
+			if(res.result == "fail"){
+				alert("리뷰 삭제 실패");
+			}
+			getReviews(1);
+		}).fail((err)=>{
+			alert("error: "+err.status);
+		});
 	};
 </script>
 <div class="row">

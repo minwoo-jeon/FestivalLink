@@ -1,6 +1,8 @@
 package com.project.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,11 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -50,7 +52,7 @@ public class CommunityController {
 	}
 	
 	@PostMapping(value="getReviews", produces="application/json")
-	public String getReviewList(HttpServletRequest req, @ModelAttribute PaginationVO pagination, @RequestBody String pageId) {	
+	public String getReviewList(HttpServletRequest req, @RequestParam("pageId") String pageId, @ModelAttribute PaginationVO pagination) {	
 		HttpSession session = req.getSession();
 		
 		int cpage = Integer.parseInt(pageId);
@@ -87,7 +89,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@PostMapping(value="write", produces="application/json")
+	@PostMapping(value="write")
 	public ModelAndView writeReview(@RequestParam("nickname") String nickname, @RequestParam("content") String content) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/community");
@@ -98,7 +100,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@GetMapping(value="{review_id}", produces="application/json")
+	@GetMapping(value="{review_id}")
 	public ModelAndView viewReview(@PathVariable("review_id") String review_id) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("community/viewReview");
@@ -106,6 +108,17 @@ public class CommunityController {
 		mv.addObject("review", vo);
 
 		return mv;
+	}
+	
+	@DeleteMapping(value="{review_id}/del", produces="application/json")
+	public Map<String, String> delReview(@PathVariable("review_id") String review_id) {
+		Map<String, String> map = new HashMap<>();
+		
+		int n = cMapper.deleteReview(review_id);
+		String result = (n > 0)? "OK":"fail";
+		map.put("result", result);
+		
+		return map;
 	}
 
 }
