@@ -41,7 +41,7 @@ public class CommunityController {
 			@ApiResponse(responseCode = "400", description = "존재하지 않는 이름 조회") })
 
 	@GetMapping("")
-	public ModelAndView reviewPage(@RequestParam("pageId") String pageId) {
+	public ModelAndView reviewPage(@RequestParam(value="pageId", defaultValue="1") String pageId) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("pageId", pageId);
 		mv.setViewName("community/reviews");
