@@ -3,10 +3,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.CommunityMapper">
 	<select id="getReviewList" resultType="com.project.domain.ReviewVO">
-		select review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date, review_readnum from reviews order by review_date desc
+		select review_id, review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date1, review_readnum 
+		from reviews order by review_date desc
+	</select>
+	
+	<select id="getReviewListPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.ReviewVO">
+		select * from
+		(select row_number() over(order by review_date desc) rn, review_id, review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date1, review_readnum from reviews)
+		<![CDATA[where rn > #{start} and rn < #{end}]]>
 	</select>
 	
 	<insert id="insertReview" parameterType="string">
-		insert into reviews(review_id, user_id_fk, festival_id_fk, review_nickname, review_content) values(#{uuid}, 1, 1, #{nickname}, #{content})
+		insert into reviews(review_id, user_id_fk, festival_id_fk, review_nickname, review_content) values(#{uuid}, '1', '1', #{nickname}, #{content})
 	</insert>
+	
+	<select id="getReview" parameterType="string" resultType="com.project.domain.ReviewVO">
+		select review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date1, review_readnum from reviews
+		where review_id = #{review_id}
+	</select>
+	
+	<select id="getTotalCount" resultType="_int">
+		select count(review_id) from reviews
+	</select>
 </mapper>
