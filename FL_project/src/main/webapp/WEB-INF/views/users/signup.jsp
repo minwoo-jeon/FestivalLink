@@ -31,7 +31,26 @@ display: none;
   <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <script>
-/* 인증번호 이메일 전송 */
+//인증번호 이메일 전송
+       $(document).ready(function(){
+        $('#mail-Check-Btn').click(function() {
+                           // alert('aaaaa');
+                var email = $("#id").val();
+                        $.ajax({
+
+                                type:"GET",
+                                url:"/mailCheck?email=" + email
+
+                            });
+
+
+        });
+
+       });
+
+
+
+
 
 
          function check(){
@@ -172,7 +191,7 @@ display: none;
                         <span class="id_already">이미 가입된 이메일입니다.</span>
 
                           <div class="col-3">
-                            <button type="button" id="checkEmail" class="btn btn-success">인증번호 발송</button>
+                            <button type="button" id="mail-Check-Btn" class="btn btn-success">인증번호 발송</button>
                           </div>
                     </div>
                     <br>
@@ -181,7 +200,7 @@ display: none;
                 <tr>
                        <td width="20%" class="m1"><b>인증번호 확인</b></td>
                        <td width="80%" class="m2">
-                       <input type="password" name="cf" id="cf"   class="user-control" placeholder="인증번호를 입력해주세요">
+                       <input type="password"   class="mail-check-input" placeholder="인증번호를 입력해주세요">
                        <br>
 
                 <tr>

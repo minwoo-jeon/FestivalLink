@@ -3,6 +3,9 @@
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script>
+
+
+
 		const login_check=function(){
 			if(!login_form.email.value){
 				alert('아이디를 입력하세요');
