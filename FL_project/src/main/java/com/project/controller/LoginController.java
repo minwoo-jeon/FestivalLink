@@ -3,14 +3,21 @@ package com.project.controller;
 
 import com.project.domain.UserVo;
 import com.project.service.UserService;
+import jdk.jfr.Frequency;
+import lombok.RequiredArgsConstructor;
 
+import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -30,7 +37,7 @@ public class LoginController {
     }
 
 
-    //로그인 처리
+    //로그인
     @PostMapping("/users/login")
     public String loginPOST(HttpServletRequest request,  UserVo user, RedirectAttributes rttr) throws Exception{
 
@@ -64,3 +71,7 @@ public class LoginController {
     }
 
 }
+
+
+
+

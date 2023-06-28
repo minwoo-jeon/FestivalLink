@@ -32,12 +32,7 @@ display: none;
 
 <script>
 /* 인증번호 이메일 전송 */
-     $(function(){
-               $("#checkEmail").click(function(){
-                  //alert("버튼체크");
-                  var email =$(#id).val();
-               });
-            });
+
 
          function check(){
                         //이메일

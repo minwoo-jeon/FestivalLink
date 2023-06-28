@@ -22,3 +22,13 @@
         SELECT COUNT(nickname) FROM users WHERE nickname=#{nick}
     </select>
 
+
+    <!-- 로그인 처리 -->
+
+    <select id="userlogin" resultType="com.project.domain.UserVo" >
+        select email,password,nickname
+        from users
+        where email = #{email} and password =#{password}
+    </select>
+
+</mapper>
