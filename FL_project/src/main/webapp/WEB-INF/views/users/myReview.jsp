@@ -56,7 +56,6 @@
                                     </div>
                                     <div class="reviews-members-body">
                                         <p>${vo.review_content}</p>
-                                        <p>${vo.likeState}</p>
                                     </div>
 
                                 </div>
@@ -65,16 +64,15 @@
 
                     </div>
                 </c:forEach>
-            </c:if>
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
                         <c:forEach var="i" begin="1" end="${pageCount }">
                             <li class="page-item"><a class="page-link" href="myReview?page=${i}">${i}</a></li>
                         </c:forEach>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                </ul>
-            </nav>
+                    </ul>
+                </nav>
+            </c:if>
+            
         </div>
     </section>
 <script>
