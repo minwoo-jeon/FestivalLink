@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     public int createUser(UserVo user) {
         //System.out.println(">>>"+userMapper);
         //비밀번호 암호화 처리----------
+
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userMapper.createUser(user);
     }
