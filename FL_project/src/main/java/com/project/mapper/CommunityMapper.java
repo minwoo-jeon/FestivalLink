@@ -14,5 +14,7 @@ public interface CommunityMapper {
 	int insertReview(String uuid, String nickname, String content);
 	ReviewVO getReview(String review_id);
 	int getTotalCount();
+	int updateReadnum(String review_id);
+	int updateReview(String review_id, String content);
 	int deleteReview(String review_id);
 }

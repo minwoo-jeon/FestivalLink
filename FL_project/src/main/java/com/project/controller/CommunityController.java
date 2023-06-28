@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -82,7 +83,7 @@ public class CommunityController {
 	}
 	
 	@GetMapping("write")
-	public ModelAndView Writeform() {
+	public ModelAndView writeform() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("community/writeform");
 		
@@ -104,9 +105,30 @@ public class CommunityController {
 	public ModelAndView viewReview(@PathVariable("review_id") String review_id) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("community/viewReview");
+		cMapper.updateReadnum(review_id);
 		ReviewVO vo  = cMapper.getReview(review_id);
 		mv.addObject("review", vo);
 
+		return mv;
+	}
+	
+	@GetMapping(value="{review_id}/edit")
+	public ModelAndView editform(@PathVariable("review_id") String review_id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("community/editform");
+		ReviewVO vo = cMapper.getReview(review_id);
+		mv.addObject("review", vo);
+		
+		return mv;
+	}
+	
+	@PostMapping(value="{review_id}/edit")
+	public ModelAndView editReview(@PathVariable("review_id") String review_id, @RequestParam("content") String content) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/community");
+		
+		cMapper.updateReview(review_id, content);
+		
 		return mv;
 	}
 	

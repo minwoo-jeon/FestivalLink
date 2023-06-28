@@ -9,21 +9,24 @@
 #reviewTop{
 	margin: auto;
 }
+#reviewTop a{
+	color:black;
+}
 
 p.board {
 	font-size: 1.5em;
 }
 
-#list {
+/* #list div {
 	width: 100%;
 	margin: auto;
 }
-#list ul {
+#list div ul {
 	width: 85%;
 	margin: auto;
 }
 
-#list ul.reviewList>li {
+#list div ul.reviewList>li {
 	list-style: none;
 	float: left;
 	height: 100px;
@@ -34,32 +37,58 @@ p.board {
 	justify-content: center;
 	align-items: flex-start;
 }
-#list ul.reviewList>li a {
+#list div ul.reviewList>li a {
 	height: 100%;
 }
-#list ul.reviewList>li a img {
+#list div ul.reviewList>li a img {
 	height: 100%;
 }
-#list ul.reviewList>li:nth-child(3n+1) {
+#list div ul.reviewList>li:nth-child(3n+1) {
 	width: 20%;
 }
-#list ul.reviewList>li:nth-child(3n+2) {
+#list div ul.reviewList>li:nth-child(3n+2) {
 	width: 70%;
 	font-weight: bold;
 	font-size: 1.2em;
 }
-#list ul.reviewList>li:nth-child(3n) {
+#list div ul.reviewList>li:nth-child(3n) {
 	width: 10%;
+} */
+
+div.reviews{
+	width:90%;
+	margin:auto;
+}
+div.reviews div{
+	float:left;
+}
+div.reviews div.image{
+	width:15%;
+}
+div.reviews div.image img{
+	width:100%;
+}
+div.reviews div.title{
+	width:70%;
+	padding-left:10px;
+}
+div.reviews div.title a p{
+	font-size:1.5em;
+}
+div.reviews div.etc{
+	width:15%;
+}
+div.reviews div.etc *{
+	display:inline-block;
 }
 
-span.nickname {
-	font-size: 0.7em;
+span.nickname, span.readnum{
 	color: gray;
 }
 
-span.readnum {
-	font-size: 0.8em;
-	color: gray;
+p.click{
+	color:gray;
+	cursor:pointer;
 }
 
 #pagination ul{
@@ -88,37 +117,47 @@ span.readnum {
 	};
 	
 	const showList = function(arr){
-		let str = "<ul class='reviewList'>";
+		//let str = "<ul class='reviewList'>";
+		let str = "";
 		$.each(arr, (i, review)=>{
 			str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews'>";
-			str += "<li>";
+			//str += "<li>";
+			str += "<div class='image'>";
 			str += "<a href='/community/"+review.review_id+"'>";
 			str += "<img src='/community_upload/noimage.png'>";
 			str += "</a>";
-			str += "</li>";
-			str += "<li>";
+			str += "</div>";
+			//str += "</li>";
+			//str += "<li>";
+			str += "<div class='title'>";
 			str += "<a href='/community/"+review.review_id+"'>";
 			str += review.review_content;
 			str += "<span class='nickname'>";
 			str += review.review_nickname;
-			str += "</a>";
 			str += "</span>";
-			str += "</li>";
-			str += "<li>";
-			str += "<p>";
-			str += "<a href='/community/"+review.review_id+"/edit'>수정";
-			str += "</a> | ";
-			str += "<a onclick='delReview(\""+review.review_id+"\")'>삭제";
 			str += "</a>";
-			str += "</p>";
-			str += "<p>"+review.review_date1+"</p>";
+			str += "</div>";
+			//str += "</li>";
+			//str += "<li>";
+			str += "<div class='etc'>";
+			str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
+			str += "</p> | ";
+			str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
+			str += "</p><br>";
+			str += review.review_date1+"<br><br>";
 			str += "<span class='readnum'>";
 			str += "조회수: "+review.review_readnum;
-			str += "</span>";
-			str += "</li>";
+			str += "</span><br>";
+			str += "<button onclick='' class='btn btn-outline-primary btn-sm' style='margin-top:10px;'>좋아요";
+			str += "<b id='like_count-"+review.review_id+"'>0</b>";
+			str += "<i class='bi bi-hand-thumbs-up-fill' id='thumbs-up-"+review.review_id+"'></i>";
+			str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";
+			str += "</button>";
+			str += "</div>";
+			//str += "</li>";
 			str += "</div>";
 		});
-		str += "</ul>";
+		//str += "</ul>";
 		$("#list").html(str);
 	};
 	
@@ -155,7 +194,7 @@ span.readnum {
 	<div class="col-12 text-center">
 		<h2>리뷰 게시판</h2>
 	</div>
-	<div class="col-10" id="reviewTop">
+	<div class="col-11" id="reviewTop">
 		<p class="board">
 			<a href="/community">리뷰 게시판</a> | <a href="/community/notice">공지사항</a>
 		</p>
@@ -166,7 +205,7 @@ span.readnum {
 		</p>
 	</div>
 </div>
-<div class="row mt-3 float-left" id="list"></div>
+<div class="row mt-3" id="list"></div>
 <div class="row text-center" id="pagination">
 	<input type="hidden" id="pageId" name="pageId" value="${pageId}">
 </div>
