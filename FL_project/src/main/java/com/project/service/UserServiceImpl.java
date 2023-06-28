@@ -3,6 +3,8 @@ package com.project.service;
 import com.project.domain.UserVo;
 import com.project.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +12,10 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
-
+    
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     private final UserMapper userMapper;
 
     @Override
