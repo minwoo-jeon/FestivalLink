@@ -8,10 +8,10 @@ public interface UserService {
     public int createUser(UserVo user);
 
     //아이디 중복체크
-    public int idCheck(String id);
+    public int emailCheck(String email);
 
     //닉네임 중복체크
-    public int nickCheck(String nick);
+    public int nickCheck(String nickname);
 
 
     //로그인 처리

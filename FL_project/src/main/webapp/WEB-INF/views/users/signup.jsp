@@ -3,25 +3,33 @@
 
 <head>
 <style>
-.id_ok{
+.email_ok{
 color:##2f1007;
 display: none;
 }
 
-.id_already{
+.email_already{
 color:##2f1007;
 display: none;
 }
 
 
-.nick_ok{
+.nickname_ok{
 color:##2f1007;
 display: none;
 }
 
-.nick_already{
+.nickname_already{
 color:##2f1007;
 display: none;
+}
+
+
+.correct{
+    color : green;
+}
+.incorrect{
+    color : red;
 }
 
 </style>
@@ -31,23 +39,42 @@ display: none;
   <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <script>
+var code = ""; //이메일전송 인증번호 저장위한 코드
 //인증번호 이메일 전송
        $(document).ready(function(){
         $('#mail-Check-Btn').click(function() {
-                           // alert('aaaaa');
-                var email = $("#id").val();
+                           alert('인증번호가 발송되었습니다');
+                var email = $("#email").val();
                         $.ajax({
 
                                 type:"GET",
-                                url:"/mailCheck?email=" + email
+                                url:"/mailCheck?email=" + email,
+                                success:function(data){
+                                code=data;
+
+                                    }
 
                             });
 
-
         });
 
-       });
+      });//-------
 
+
+         /* 인증번호 비교 */
+                  $(document).ready(function(){
+                 $("#mail-checkNum-Btn").click(function(){
+
+                          var inputCode = $("#mail_check_input").val();             // 입력코드
+
+                            if(inputCode == code){                                  // 일치할 경우
+                                   alert('인증번호가 일치합니다.');
+                                }else{                                            // 일치하지 않을 경우
+                                    alert('인증번호를 다시 확인해주세요.');
+                                }
+
+                    });
+                });
 
 
 
@@ -55,15 +82,15 @@ display: none;
 
          function check(){
                         //이메일
-                    if(mf.id.value.length == 0){ // mf.id.value == "" 이것도 가능
+                    if(mf.email.value.length == 0){ // mf.email.value == "" 이것도 가능
                     				alert("이메일을 입력해주세요.");
-                    				mf.id.focus(); // 포커스를 이동시켜 바로 아이디를 입력할 수 있게
+                    				mf.email.focus(); // 포커스를 이동시켜 바로 아이디를 입력할 수 있게
                     				return false;
                     			}
 
-                   if(mf.id.value.indexOf('@') == -1){
+                   if(mf.email.value.indexOf('@') == -1){
                    				alert("이메일 형식이 아닙니다.");
-                   				mf.id.focus();
+                   				mf.email.focus();
                    				return false;
                    			}
 
@@ -95,32 +122,33 @@ display: none;
                   			}
 
                   			//닉네임
-                  		    if(mf.nick.value.length == 0){
+                  		    if(mf.nickname.value.length == 0){
                                   alert("닉네임을 입력해주세요.");
-                                  mf.nick.focus();
+                                  mf.nickname.focus();
                                   return false;
                              }
+                             return true;
 
 
         }
 
             //이메일 중복체크
-            function checkId(){
-            var id = $('#id').val(); //id값이 "id"인 입력란의 값을 저장
-            console.log(id);
+            function checkEmail(){
+            var email = $('#email').val(); //email값이 "email"인 입력란의 값을 저장
+            console.log(email);
                 $.ajax({
-                url:'/idCheck', //Controller에서 요청 받을 주소
+                url:'/emailCheck', //Controller에서 요청 받을 주소
                 type:'post',
-                data:{id:id},
+                data:{email:email},
                 success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
                     if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                        $('.id_ok').css("display","inline-block");
-                        $('.id_already').css("display", "none");
+                        $('.email_ok').css("display","inline-block");
+                        $('.email_already').css("display", "none");
                     } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                        $('.id_already').css("display","inline-block");
-                        $('.id_ok').css("display", "none");
+                        $('.email_already').css("display","inline-block");
+                        $('.email_ok').css("display", "none");
                         alert("이메일을 다시 입력해주세요");
-                        $('#id').val('');
+                        $('#email').val('');
                     }
                 },
                 error:function(){
@@ -132,21 +160,21 @@ display: none;
 
         //닉네임 중복체크
 
-            function checkNick(){
-                        var nick = $('#nick').val(); //id값이 "nick"인 입력란의 값을 저장
+            function checkNickname(){
+                        var nickname = $('#nickname').val(); //id값이 "nickname"인 입력란의 값을 저장
                             $.ajax({
-                            url:'/nickCheck', //Controller에서 요청 받을 주소
+                            url:'/nicknameCheck', //Controller에서 요청 받을 주소
                             type:'post',
-                            data:{nick:nick},
+                            data:{nickname:nickname},
                             success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
                                 if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 닉네임
-                                    $('.nick_ok').css("display","inline-block");
-                                    $('.nick_already').css("display", "none");
+                                    $('.nickname_ok').css("display","inline-block");
+                                    $('.nickname_already').css("display", "none");
                                 } else { // cnt가 1일 경우 -> 이미 존재하는 닉네임
-                                    $('.nick_already').css("display","inline-block");
-                                    $('.nick_ok').css("display", "none");
+                                    $('.nickname_already').css("display","inline-block");
+                                    $('.nickname_ok').css("display", "none");
                                     alert("닉네임을 다시 입력해주세요");
-                                    $('#nick').val('');
+                                    $('#nickname').val('');
                                 }
                             },
                             error:function(){
@@ -165,16 +193,9 @@ display: none;
         </script>
 
 
-
-
-
-
-
-
-        <section class="vh-100 gradient-custom">
-                <div class="container py-5 h-100">
-        <div class="container">
+      <div class="container">
             <h1 class="text-center mb-3">회원 가입</h1>
+
             <form name="mf" action="/users/signup" method="post">
 
             <table class='table'>
@@ -183,12 +204,12 @@ display: none;
                     <td width="80%" class="m2">
                     <div class="row">
                         <div class="col-3">
-                            <input type="text" name="id" id="id"   oninput ="checkId()" placeholder="이메일">
+                            <input type="email" name="email" id="email"   oninput ="checkEmail()" placeholder="이메일">
                          </div>
 
                     <!-- id ajax 중복체크 -->
-                        <span class="id_ok">사용 가능한 이메일입니다.</span><br>
-                        <span class="id_already">이미 가입된 이메일입니다.</span>
+                        <span class="email_ok">사용 가능한 이메일입니다.</span><br>
+                        <span class="email_already">이미 가입된 이메일입니다.</span>
 
                           <div class="col-3">
                             <button type="button" id="mail-Check-Btn" class="btn btn-success">인증번호 발송</button>
@@ -198,10 +219,20 @@ display: none;
                     </td>
                 </tr>
                 <tr>
-                       <td width="20%" class="m1"><b>인증번호 확인</b></td>
+                       <td width="20%" class="m1"><b>인증번호</b></td>
                        <td width="80%" class="m2">
-                       <input type="password"   class="mail-check-input" placeholder="인증번호를 입력해주세요">
+                        <div class="row">
+                        	<div class="col-6">
+                       	        <input type="text"  class="mail-check-input" placeholder="인증번호 6자리를  입력해주세요"">
+                            </div>
+                            <div class="col-3">
+                            	<button type="button" id="mail-checkNum-Btn"  class="btn btn-success">인증번호 확인</button>
+                           	</div>
+                            <br>
+                                <span id="mail_check_input_box_wrap"></span>
+                         </div>
                        <br>
+                       </td>
 
                 <tr>
                     <td width="20%" class="m1"><b>비밀번호</b></td>
@@ -227,14 +258,14 @@ display: none;
                     <td width="80%" class="m2">
                     <div class="row">
                         <div class="col-6">
-                            <input type="text" name="nick" id="nick" oninput ="checkNick()"
+                            <input type="text" name="nickname" id="nickname" oninput ="checkNickname()"
                              placeholder="닉네임을 입력하세요">
                          </div>
 
 
                         <!-- nickname ajax 중복체크 -->
-                                    <span class="nick_ok">사용 가능한 닉네임입니다.</span>
-                                    <span class="nick_already">이미 사용중인 닉네임 입니다.</span>
+                                    <span class="nickname_ok">사용 가능한 닉네임입니다.</span>
+                                    <span class="nickname_already">이미 사용중인 닉네임 입니다.</span>
                     </div>
                     <br>
                     </td>
@@ -253,4 +284,3 @@ display: none;
             </form>
         </div>
         </div>
-        </section>

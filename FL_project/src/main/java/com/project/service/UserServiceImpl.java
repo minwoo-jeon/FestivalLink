@@ -20,22 +20,22 @@ public class UserServiceImpl implements UserService {
         //비밀번호 암호화 처리----------
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        return userMapper.createUser(user);
+         return userMapper.createUser(user);
     }
 
 
 
     //아이디 중복체크 mapper 접근
     @Override
-    public int idCheck(String id) {
-        int cnt = userMapper.idCheck(id);
+    public int emailCheck(String email) {
+        int cnt = userMapper.emailCheck(email);
         System.out.println("cnt: " + cnt);
         return cnt;
     }
 
     @Override
-    public int nickCheck(String nick) {
-        int cnt = userMapper.nickCheck(nick);
+    public int nickCheck(String nickname) {
+        int cnt = userMapper.nickCheck(nickname);
         System.out.println("cnt: " + cnt);
         return cnt;
     }

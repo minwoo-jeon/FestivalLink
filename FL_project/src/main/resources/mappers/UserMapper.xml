@@ -5,21 +5,20 @@
     <!-- [주의] UserMapper인터페이스의 "패키지명.인터페이스명" 를 namespace에 지정해야 함
         각 element들의 id 값은 메서드명으로 지정해야 한다
      -->
+    <!--회원가입-->
     <insert id="createUser" parameterType="com.project.domain.UserVo">
-
-        <!-- insert문 -->
         insert into users
         values(#{user_id},#{email:VARCHAR},#{password:VARCHAR},#{nickname},1,SYSDATE)
     </insert>
 
     <!-- 회원가입 할떄 이메일 중복 체크 -->
-    <select id="idCheck" parameterType="String" resultType="int">
-        SELECT COUNT(email) FROM users WHERE email=#{id}
+    <select id="emailCheck" parameterType="String" resultType="int">
+        SELECT COUNT(email) FROM users WHERE email=#{email}
     </select>
 
     <!-- 닉네임 중복 체크 -->
     <select id="nickCheck" parameterType="String" resultType="int">
-        SELECT COUNT(nickname) FROM users WHERE nickname=#{nick}
+        SELECT COUNT(nickname) FROM users WHERE nickname=#{nickname}
     </select>
 
 

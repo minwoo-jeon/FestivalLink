@@ -9,9 +9,9 @@ public interface  UserMapper {
     //회원가입
     int createUser(UserVo user);
 
-    int idCheck(String id);
+    int emailCheck(String email);
 
-    int nickCheck(String nick);
+    int nickCheck(String nickname);
 
 
     //로그인 처리
