@@ -48,5 +48,5 @@ buildNumber.properties
 
 ###Inperson###
 ApiKey.properties
-
+festival_detail_kakaoMap.jsp
 # End of https://www.toptal.com/developers/gitignore/api/java,maven
