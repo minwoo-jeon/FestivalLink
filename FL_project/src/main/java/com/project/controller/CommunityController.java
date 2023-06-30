@@ -169,6 +169,18 @@ public class CommunityController {
 		cMapper.pushUnlike(uid, review_id);
 	}
 	
+	@GetMapping("{review_id}/report")
+	public ModelAndView reviewReportform(@PathVariable("review_id") String review_id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("community/review/reportform");
+		
+		ReviewVO vo = cMapper.getReview(review_id);
+		mv.addObject("title", vo.getReview_content());
+		mv.addObject("nickname", vo.getReview_nickname());
+		
+		return mv;
+	}
+	
 	
 	
 	
@@ -266,7 +278,6 @@ public class CommunityController {
 	public Map<String, String> delNotice(@PathVariable("notice_id") String notice_id) {
 		Map<String, String> map = new HashMap<>();
 		
-		cMapper.deleteLikes(notice_id);
 		int n = cMapper.deleteNotice(notice_id);
 		
 		String result = (n > 0)? "OK":"fail";

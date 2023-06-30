@@ -3,7 +3,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.CommunityMapper">
 	<select id="getReviewList" resultType="com.project.domain.ReviewVO">
-		select a.review_id, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_readnum, b.likes
+		select a.review_id, a.user_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_readnum, b.likes
 		from reviews a 
 		left join (select review_id_fk, count(user_id_fk) likes from r_likes group by review_id_fk) b
 		on a.review_id = b.review_id_fk
@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getReviewListLatestPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.ReviewVO">
 		select * from
-		(select row_number() over(order by a.review_date desc) rn, a.review_id, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_readnum, nvl(b.likes, 0) likes
+		(select row_number() over(order by a.review_date desc) rn, a.review_id, a.user_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_readnum, nvl(b.likes, 0) likes
 		from reviews a 
 		left join (select review_id_fk, count(user_id_fk) likes from r_likes group by review_id_fk) b
 		on a.review_id = b.review_id_fk)
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getReviewListPopularPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.ReviewVO">
 		select * from
-		(select rownum rn, a.review_id, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_readnum, nvl(b.likes, 0) likes
+		(select rownum rn, a.review_id, a.user_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_readnum, nvl(b.likes, 0) likes
 		from reviews a 
 		left join (select review_id_fk, count(user_id_fk) likes from r_likes group by review_id_fk) b
 		on a.review_id = b.review_id_fk
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="getReview" parameterType="string" resultType="com.project.domain.ReviewVO">
-		select review_id, review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date1, review_readnum 
+		select review_id, user_id_fk, review_nickname, review_content, to_char(review_date, 'yy-mm-dd') review_date1, review_readnum 
 		from reviews
 		where review_id = #{review_id}
 	</select>
@@ -76,14 +76,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="getNoticeList" resultType="com.project.domain.NoticeVO">
-		select notice_id, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum
+		select notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum
 		from notices
 		order by notice_date desc
 	</select>
 	
 	<select id="getNoticeListPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.NoticeVO">
 		select * from
-		(select row_number() over(order by notice_date desc) rn, notice_id, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum
+		(select row_number() over(order by notice_date desc) rn, notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum
 		from notices)
 		<![CDATA[where rn > #{start} and rn < #{end}]]>
 	</select>
@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="getNotice" parameterType="string" resultType="com.project.domain.NoticeVO">
-		select notice_id, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum 
+		select notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum 
 		from notices
 		where notice_id = #{notice_id}
 	</select>

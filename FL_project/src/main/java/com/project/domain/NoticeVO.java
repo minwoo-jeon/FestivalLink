@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NoticeVO {
 	private String notice_id;
-	//private String userId;
+	private String user_id_fk;
 	
 	//private String image;
 	//private String title;

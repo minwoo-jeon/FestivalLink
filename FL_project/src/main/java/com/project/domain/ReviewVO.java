@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReviewVO {
 	private String review_id;
-	//private String userId;
+	private String user_id_fk;
 	//private String festivalId;
 	
 	//private String image;
