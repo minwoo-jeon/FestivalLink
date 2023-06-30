@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <style>
@@ -63,20 +61,20 @@ div.reviews div{
 	float:left;
 }
 div.reviews div.image{
-	width:15%;
+	width:10%;
 }
 div.reviews div.image img{
 	width:100%;
 }
 div.reviews div.title{
-	width:70%;
+	width:80%;
 	padding-left:10px;
 }
 div.reviews div.title a p{
 	font-size:1.5em;
 }
 div.reviews div.etc{
-	width:15%;
+	width:10%;
 }
 div.reviews div.etc *{
 	display:inline-block;
@@ -98,14 +96,13 @@ p.click{
 
 <script>
 	$(function(){
-		let pageId = $("#pageId").val();
-		getReviews(pageId);
+		getReviews("${sort}", ${pageId});
 	});
 	
-	const getReviews = function(pageId){
+	const getReviews = function(sort, pageId){
 		$.ajax({
 			type:"post",
-			url:"/community/getReviews?pageId="+pageId,
+			url:"/community/getReviews?sort="+sort+"&pageId="+pageId,
 			dataType:"json",
 			cache:false,
 		}).done((res)=>{
@@ -144,14 +141,18 @@ p.click{
 			str += "</p> | ";
 			str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
 			str += "</p><br>";
-			str += review.review_date1+"<br><br>";
+			str += review.review_date1+"<br>";
 			str += "<span class='readnum'>";
 			str += "조회수: "+review.review_readnum;
 			str += "</span><br>";
-			str += "<button onclick='' class='btn btn-outline-primary btn-sm' style='margin-top:10px;'>좋아요";
-			str += "<b id='like_count-"+review.review_id+"'>0</b>";
-			str += "<i class='bi bi-hand-thumbs-up-fill' id='thumbs-up-"+review.review_id+"'></i>";
-			str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";
+			str += "<button onclick='pushLike(\""+review.review_id+"\", \""+1+"\", \""+1+"\")' class='btn btn-outline-primary btn-sm' style='margin-top:10px;'>좋아요: ";
+			str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
+			if(review.likeState == 0){
+				str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";
+			}
+			else{
+				str += "<i class='bi bi-hand-thumbs-up-fill' id='thumbs-up-"+review.review_id+"'></i>";
+			}		
 			str += "</button>";
 			str += "</div>";
 			//str += "</li>";
@@ -184,13 +185,43 @@ p.click{
 			if(res.result == "fail"){
 				alert("리뷰 삭제 실패");
 			}
-			getReviews(1);
+			
+			getReviews("${sort}", ${pageId});
 		}).fail((err)=>{
 			alert("error: "+err.status);
 		});
 	};
+	
+	const pushLike = function(rid, uid){
+		if($("#thumbs-up-"+rid).hasClass("bi-hand-thumbs-up")){
+			$.ajax({
+				type:"post",
+				url:"/community/"+rid+"/like?uid="+uid,
+				cache:false,
+			}).done((res)=>{
+				$("#thumbs-up-"+rid).removeClass("bi-hand-thumbs-up");
+				$("#thumbs-up-"+rid).addClass("bi-hand-thumbs-up-fill");			
+			}).fail((err)=>{
+				alert("error: "+err.status);
+			});
+		}
+		else if($("#thumbs-up-"+rid).hasClass("bi-hand-thumbs-up-fill")){
+			$.ajax({
+				type:"delete",
+				url:"/community/"+rid+"/like?uid="+uid,
+				cache:false,
+			}).done((res)=>{
+				$("#thumbs-up-"+rid).addClass("bi-hand-thumbs-up");
+                $("#thumbs-up-"+rid).removeClass("bi-hand-thumbs-up-fill");
+			}).fail((err)=>{
+				alert("error: "+err.status);
+			});
+		}
+		
+		getReviews("${sort}", ${pageId});
+	};
 </script>
-<div class="row">
+<div class="row mt-3">
 	<div class="col-12 text-center">
 		<h2>리뷰 게시판</h2>
 	</div>
@@ -199,13 +230,11 @@ p.click{
 			<a href="/community">리뷰 게시판</a> | <a href="/community/notice">공지사항</a>
 		</p>
 		<p class="sort">
-			<a href="#" onclick="">인기순</a> | <a href="#" onclick="">최신순</a>
+			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
 			<button class="btn btn-primary float-right" id="write" name="write"
 				onclick="location.href='/community/write'">리뷰쓰기</button>
 		</p>
 	</div>
 </div>
 <div class="row mt-3" id="list"></div>
-<div class="row text-center" id="pagination">
-	<input type="hidden" id="pageId" name="pageId" value="${pageId}">
-</div>
+<div class="row text-center" id="pagination"></div>

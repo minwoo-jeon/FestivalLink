@@ -2,9 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<h2 class="text-center my-3">리뷰 내용 보기</h2>
+<style>
+	table.table{
+		width:90%;
+		margin:auto;
+	}
+</style>
 
-<table class="table mt-4">
+<h2 class="text-center my-3">리뷰 내용</h2>
+
+<table class="rounded shadow-sm table border='1'">
 	<tr>
 		<td width="20%">작성일</td>
 		<td width="30%"><c:out value="${review.review_date1}" /></td>
@@ -17,6 +24,6 @@
 	</tr>
 	<tr height="60">
 		<td width="20%">글내용</td>
-		<td colspan="3" align="left">${review.review_content}</td>
+		<td class="bg-white" colspan="3" align="left">${review.review_content}</td>
 	</tr>
 </table>
