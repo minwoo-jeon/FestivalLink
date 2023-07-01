@@ -14,5 +14,6 @@ public class UserVo {
     private String nickname;
     private int state;
     private java.sql.Date indate;
+    private int newPassword;
 
 }

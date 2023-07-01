@@ -3,7 +3,6 @@ package com.project.service;
 import com.project.domain.UserVo;
 import com.project.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 public class UserServiceImpl implements UserService {
 
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
     private final UserMapper userMapper;
 
     @Override
@@ -19,7 +18,7 @@ public class UserServiceImpl implements UserService {
         //System.out.println(">>>"+userMapper);
         //비밀번호 암호화 처리----------
 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
          return userMapper.createUser(user);
     }
 
@@ -42,8 +41,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserVo userlogin(UserVo user) throws Exception{
+
         return  userMapper.userlogin(user);
     }
+    //회원정보수정
+    @Override
+    public void modify(UserVo user) throws Exception{
+        userMapper.modify(user);
+    }
+
+    @Override
+    public void userDelete(UserVo user)throws Exception{
+         userMapper.userDelete(user);
+    }
+
+
+
 
 }
 

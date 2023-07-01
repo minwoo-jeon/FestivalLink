@@ -21,13 +21,38 @@
         SELECT COUNT(nickname) FROM users WHERE nickname=#{nickname}
     </select>
 
-
     <!-- 로그인 처리 -->
-
     <select id="userlogin" resultType="com.project.domain.UserVo" >
         select email,password,nickname
         from users
         where email = #{email} and password =#{password}
     </select>
+
+    <!-- 비밀번호 변경 -->
+    <update id="update_pw" parameterType="com.project.domain.UserVo">
+        update users set password = #{password} where email = #{email}
+    </update>
+
+    <!-- 회원탈퇴 -->
+    <delete id="userDelete">
+        delete from users
+            where email = #{email} and password =#{password}
+    </delete>
+
+    <!--회원정보 수정 -->
+    <update id="modify">
+        update users
+        <set>
+        <if test="nickname!=null and nickname!=''">
+            nickname = #{nickname}
+        </if>
+            <if test="newPassword!=null and newPassword!=''">
+                ,password = #{newPassword}
+            </if>
+        </set>
+        <where>
+         email = #{email}
+        </where>
+    </update>
 
 </mapper>

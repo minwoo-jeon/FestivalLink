@@ -32,7 +32,7 @@ public class LoginController {
     //로그인폼
     @GetMapping("/users/login")
     public String loginForm() throws Exception{
-        log.info("login 폼으로 이동");
+        //log.info("login 폼으로 이동");
         return "users/login";
     }
 
@@ -41,8 +41,8 @@ public class LoginController {
     @PostMapping("/users/login")
     public String loginPOST(HttpServletRequest request,  UserVo user, RedirectAttributes rttr) throws Exception{
 
-        System.out.println("login 메서드 진입");
-        System.out.println("전달된 데이터 : " + user);
+       // System.out.println("login 메서드 진입");
+       // System.out.println("전달된 데이터 : " + user);
 
         HttpSession session = request.getSession();
         UserVo lvo = service.userlogin(user);

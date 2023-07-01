@@ -141,7 +141,10 @@ body{
 					<li><a href="index.html">축제</a></li>
 					<li><a href="review.html">커뮤니티</a></li>
 					<li><a href="categories.html">소행사 게시판</a></li>
-					<li><a href="community.html">마이페이지</a></li>
+					<!-- 로그인한 상태 -->
+                       <c:if test="${ user != null }">
+					<li><a href="/users">마이페이지</a></li>
+					   </c:if>
 				</ul>
 			</nav>
 		</div>

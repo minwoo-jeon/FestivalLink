@@ -17,4 +17,10 @@ public interface UserService {
     //로그인 처리
     public UserVo userlogin( UserVo user) throws Exception;
 
+    //회원정보 수정
+    public void modify(UserVo user) throws Exception;
+
+
+    //회원정보 삭제
+    public void userDelete(UserVo user) throws Exception;
 }

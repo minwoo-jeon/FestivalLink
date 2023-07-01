@@ -42,7 +42,7 @@
                         <div class="card-body p-5 text-center">
 
 
-                      <form name="login_form"  action="login" method="post" onsubmit="return login_check()">
+                      <form name="login_form"  action="/users/login" method="post" onsubmit="return login_check()">
                       <!--  onsubmit이벤트 핸들러는 form이 전송될때 실행된다. onsubmit에서 호출하는 함수의 반환값에 따라 전송 여부를 결정한다.
                       				true를 반환하면 전송하고, false를 반환하면 전송하지 않는다.
                       			 -->
@@ -68,7 +68,7 @@
                                                 </c:if>
 
 
-                                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">비밀번호를 잊으셨나요?</a>
+                                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="/users/password">비밀번호를 잊으셨나요?</a>
                                 </p>
 
 
@@ -95,7 +95,7 @@
                             </div>
 
                             <div>
-                                <p class="mb-0">계정이 없으신가요? <a href="#!" class="text-white-50 fw-bold">회원가입
+                                <p class="mb-0">계정이 없으신가요? <a href="/users/signup" class="text-white-50 fw-bold">회원가입
                                         </a>
                                 </p>
                             </div>
