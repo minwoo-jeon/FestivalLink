@@ -195,7 +195,10 @@
 <div class="container">
     <h1 class="text-center mb-3" div style="padding:30px">회원 가입</h1>
 
-    <form name="mf" action="/users/signup" method="post">
+    <form name="mf" action="/users/signup" method="post" style="background-color: #ffffff;
+                                                                        margin: 0px auto;
+                                                                        padding: 40px;
+                                                                        border-radius: 10px">
 
         <table class='table'>
             <tr>
