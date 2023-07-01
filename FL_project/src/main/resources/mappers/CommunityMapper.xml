@@ -71,6 +71,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from r_likes where review_id_fk = #{review_id} and user_id_fk = #{uid}
 	</delete>
 	
+	<insert id="reportReview" parameterType="string">
+		insert into r_reports values(#{uuid}, #{review_id}, #{user_id}, #{content})
+	</insert>
 	
 	
 	

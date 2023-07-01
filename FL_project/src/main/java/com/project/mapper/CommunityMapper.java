@@ -23,6 +23,7 @@ public interface CommunityMapper {
 	int pushLike(String uuid, String uid, String review_id);
 	int pushUnlike(String uid, String review_id);
 	Object isLiked(String uid, String review_id);
+	int reportReview(String uuid, String review_id, String user_id, String content);
 	
 	
 	

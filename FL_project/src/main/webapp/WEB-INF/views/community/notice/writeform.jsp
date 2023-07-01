@@ -5,7 +5,9 @@
 
 <script>
 	$(function(){
-		CKEDITOR.replace("content");
+		CKEDITOR.replace("content", {
+			autoParagraph: false,
+		});
 		$("#nf").submit(function(){
 			if(!CKEDITOR.instances.content.getData()){
 				alert("글내용을 입력하세요");

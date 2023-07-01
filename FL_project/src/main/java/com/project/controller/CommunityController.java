@@ -177,6 +177,18 @@ public class CommunityController {
 		ReviewVO vo = cMapper.getReview(review_id);
 		mv.addObject("title", vo.getReview_content());
 		mv.addObject("nickname", vo.getReview_nickname());
+		mv.addObject("user_id", vo.getUser_id_fk());
+		
+		return mv;
+	}
+	
+	@PostMapping("{review_id}/report")
+	public ModelAndView reportReview(@PathVariable("review_id") String review_id, @RequestParam("user_id") String user_id, @RequestParam("content") String content) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("redirect:/community");
+		
+		UUID uuid = UUID.randomUUID();
+		cMapper.reportReview(uuid.toString(), review_id, user_id, content);
 		
 		return mv;
 	}

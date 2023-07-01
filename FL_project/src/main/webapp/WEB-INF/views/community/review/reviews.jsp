@@ -70,9 +70,6 @@ div.reviews div.title{
 	width:80%;
 	padding-left:10px;
 }
-div.reviews div.title a p{
-	font-size:1.5em;
-}
 div.reviews div.etc{
 	width:10%;
 }
@@ -128,7 +125,9 @@ p.click{
 			//str += "<li>";
 			str += "<div class='title'>";
 			str += "<a href='/community/"+review.review_id+"'>";
+			str += "<h4>";
 			str += review.review_content;
+			str += "</h4>";
 			str += "<span class='nickname'>";
 			str += review.review_nickname;
 			str += "</span>";
@@ -145,7 +144,7 @@ p.click{
 			str += "<span class='readnum'>";
 			str += "조회수: "+review.review_readnum;
 			str += "</span><br>";
-			str += "<button onclick='pushLike(\""+review.review_id+"\", \""+1+"\", \""+1+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요: ";
+			str += "<button onclick='pushLike(\""+review.review_id+"\", \""+1+"\", \""+1+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 ";
 			str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
 			if(review.likeState == 0){
 				str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";

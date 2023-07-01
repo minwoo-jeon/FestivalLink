@@ -5,13 +5,17 @@
 
 <script>
 	$(function(){
-		CKEDITOR.replace("content");
+		CKEDITOR.replace("content", {
+			autoParagraph: false,
+		});
 		$("#rf").submit(function(){
-			if(!CKEDITOR.instances.content.getData()){
+			let str = CKEDITOR.instances.content.getData();
+			if(!str){
 				alert("글내용을 입력하세요");
 				CKEDITOR.instances.content.focus();
 				return false;
 			}
+									
 			return true;
 		});
 	});
@@ -24,9 +28,10 @@
  			method: POST
   			enctype: multipart/form-data 
    		-->
-		<form name="rf" id="rf" action="write" method="post" enctype="multipart/form-data">
+		<form name="rf" id="rf" action="report" method="post">
 			<!-- 글쓰기: write, 답글쓰기: rewrite, 수정: edit -->
 			<input type="hidden" name="mode" value="write">
+			<input type="hidden" name="user_id" value="${user_id}">
 			<table class="table">
 				<tr>
 					<td style="width: 20%"><b>글쓴이</b></td>

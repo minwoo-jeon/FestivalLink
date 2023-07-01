@@ -32,9 +32,6 @@ div.notices div.title{
 	width:80%;
 	padding-left:10px;
 }
-div.notices div.title a p{
-	font-size:1.5em;
-}
 div.notices div.etc{
 	width:10%;
 }
@@ -86,8 +83,9 @@ p.click{
 			str += "</div>";
 			str += "<div class='title'>";
 			str += "<a href='/community/notice/"+notice.notice_id+"'>";
-			str += "[공지] ";
-			str += notice.notice_content;
+			str += "<h4>";
+			str += "[공지] "+notice.notice_content;
+			str += "</h4>";
 			str += "<span class='nickname'>";
 			str += notice.notice_nickname;
 			str += "</span>";
