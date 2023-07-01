@@ -9,8 +9,8 @@
     </style>    
 <section class="h-100 gradient-custom">
         <div class="container py-5 h-100">
-            <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 쓴 리뷰 </h1>
-            <c:if test="${myReviewArr eq null or empty myReviewArr}">
+            <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 좋아요 한 리뷰</h1>
+            <c:if test="${likedReviewArr eq null or empty likedReviewArr}">
                 <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
 
                     <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
@@ -18,14 +18,14 @@
                     <div class="pt-4 pb-4">
 
                         <p>
-                        <h2>아직 내가 쓴 리뷰가 없습니다.</h2>
+                        <h2>아직 내가 좋아요 한 리뷰가 없습니다.</h2>
                         </p>
                     </div>
 
                 </div>
             </c:if>
-            <c:if test="${myReviewArr ne null and not empty myReviewArr}">
-                <c:forEach var="vo" items="${myReviewArr}">
+            <c:if test="${likedReviewArr ne null and not empty likedReviewArr}">
+                <c:forEach var="vo" items="${likedReviewArr}">
                     
                     <div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">
                         <input type="hidden" value="L" class="state">
@@ -67,12 +67,11 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <c:forEach var="i" begin="1" end="${pageCount }">
-                            <li class="page-item"><a class="page-link" href="myReview?page=${i}">${i}</a></li>
+                            <li class="page-item"><a class="page-link" href="likedReview?page=${i}">${i}</a></li>
                         </c:forEach>
                     </ul>
                 </nav>
             </c:if>
-            
         </div>
     </section>
 <script>

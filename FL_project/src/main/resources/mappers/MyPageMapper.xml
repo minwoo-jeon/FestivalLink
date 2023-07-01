@@ -2,7 +2,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.MyPageMapper">
-    <select id="getTotalReviewCount" parameterType="String" resultType="_int">
+<!-- == 내가 쓴 리뷰 == -->
+    <select id="getTotalMyReviewCount" parameterType="String" resultType="_int">
         select count(review_id) from Reviews where user_id_fk = #{value}
     </select>
     <!-- festival_id로 조인함 -->
@@ -18,6 +19,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.rn > #{start} and a.rn <= #{end}
 		]]> and a.user_id_fk=#{userId} and a.festival_id_fk=b.festival_id 
     </select>
+
+<!-- ==내가 좋아요 한 리뷰== -->
+    <select id="getTotalLikedReviewCount" parameterType="String" resultType="int">
+        select count(r_likes_id) from r_likes where user_id_fk=#{value}
+    </select>
+    <select id="listLikedReview" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyReviewVO">
+        select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like,
+         (SELECT COUNT(*) FROM R_likes d WHERE d.user_id_fk=#{userId} and a.review_id=d.review_id_fk) likeState
+        from(
+		select row_number() over(order by r_likes_id desc) rn, r_likes.*
+		from r_likes order by r_likes_id desc) c, Festivals b, reviews a
+		<![CDATA[
+		where c.rn > #{start} and c.rn <= #{end}
+		]]>and c.user_id_fk= #{userId}
+        and c.review_id_fk=a.review_id 
+        and a.festival_id_fk = b.festival_id
+    </select>
+
+<!-- ==내가 좋아요 한 축제 목록 == -->
     <select id="getTotalFestivalCount" parameterType="String" resultType="int">
         select count(festival_id_fk) from f_likes where user_id_fk=#{value}
     </select>
@@ -30,14 +50,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.rn > #{start} and a.rn <= #{end}
 		]]>and a.user_id_fk=#{userId} and a.festival_id_fk=b.festival_id
     </select>
-    <select id="listLikedReview" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyReviewVO">
-        select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like,
-         (SELECT COUNT(*) FROM R_likes d WHERE d.user_id_fk=#{userId} and a.review_id=d.review_id_fk) likeState
-        from(
-		select row_number() over(order by review_date desc) rn, reviews.*
-		from reviews order by review_date desc) a, Festivals b, r_likes c
-		<![CDATA[
-		where a.rn > #{start} and a.rn <= #{end}
-		]]> and c.user_id_fk=#{userId} and a.review_id=c.review_id_fk and a.festival_id_fk=b.festival_id
+    
+<!-- ==신고된 리뷰== -->
+    <select id="getTotalReviewReportCount" resultType="int">
+        select count(r_report_id) from r_reports
     </select>
+    <select id="listReviewReport" resultType="com.project.domain.R_reportVO" parameterType="com.project.domain.MyPagingVO">
+        select a.*
+        from(
+		select row_number() over(order by r_report_id desc) rn, r_reports.*
+		from r_reports order by r_report_id desc) a
+        <![CDATA[
+		where a.rn > #{start} and a.rn <= #{end}
+		]]>
+    </select>
+    <delete id="delReviewReport" parameterType="String">
+        delete r_reports where r_report_id=#{value}
+    </delete>
 </mapper>
