@@ -19,6 +19,7 @@ public interface CommunityMapper {
 	int updateReviewReadnum(String review_id);
 	int updateReview(String review_id, String content);
 	int deleteLikes(String review_id);
+	int deleteReports(String review_id);
 	int deleteReview(String review_id);
 	int pushLike(String uuid, String uid, String review_id);
 	int pushUnlike(String uid, String review_id);

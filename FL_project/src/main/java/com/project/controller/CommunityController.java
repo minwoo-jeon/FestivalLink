@@ -150,6 +150,7 @@ public class CommunityController {
 		Map<String, String> map = new HashMap<>();
 		
 		cMapper.deleteLikes(review_id);
+		cMapper.deleteReports(review_id);
 		int n = cMapper.deleteReview(review_id);
 		
 		String result = (n > 0)? "OK":"fail";

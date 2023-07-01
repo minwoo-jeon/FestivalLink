@@ -55,6 +55,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from r_likes where review_id_fk = #{review_id}
 	</delete>
 	
+	<delete id="deleteReports" parameterType="string">
+		delete from r_reports where review_id_fk = #{review_id}
+	</delete>
+	
 	<delete id="deleteReview" parameterType="string">
 		delete from reviews where review_id = #{review_id}
 	</delete>
