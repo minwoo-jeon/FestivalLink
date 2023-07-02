@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,9 +36,9 @@ public class MyPageController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "내가 쓴 리뷰 리스트 찾아서 모델에 반환 ")
     })
-    @GetMapping("/users/myReview")
+    @GetMapping("/users/myReview/{page}")
     public ModelAndView getReviewListByUser(Model model, HttpServletRequest req,
-            @RequestParam(defaultValue = "1") int page) {
+            @PathVariable int page) {
 
         HttpSession session = req.getSession();
         // 세션에서 유저아이디 가져오기
@@ -74,9 +75,9 @@ public class MyPageController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "내가 좋아요한 축제 찾아서 모델에 반환")
     })
-    @GetMapping("/users/myFestival")
+    @GetMapping("/users/myFestival/{page}")
     public ModelAndView getFestivalListByUser(Model model, HttpServletRequest req,
-            @RequestParam(defaultValue = "1") int page) {
+            @PathVariable int page) {
         HttpSession session = req.getSession();
         // 세션에서 유저아이디 가져오기
         String userId = (String) session.getAttribute("userId");
@@ -118,9 +119,9 @@ public class MyPageController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "내가 좋아요 한 리뷰 리스트 찾아서 모델에 반환 ")
     })
-    @GetMapping("/users/likedReview")
+    @GetMapping("/users/likedReview/{page}")
     public ModelAndView getlikedReviewListByUser(Model model, HttpServletRequest req,
-            @RequestParam(defaultValue = "1") int page) {
+            @PathVariable int page) {
 
         HttpSession session = req.getSession();
         // 세션에서 유저아이디 가져오기
@@ -189,8 +190,8 @@ public class MyPageController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "리뷰 신고 처리 후 삭제 ")
     })
-    @DeleteMapping("/users/report")
-    public int delReviewReport(@RequestParam String r_report_id) {
+    @DeleteMapping("/users/report/{r-report-id}")
+    public int delReviewReport(@PathVariable String r_report_id) {
         myPageMapper.delReviewReport(r_report_id);
         return 1;
     }
