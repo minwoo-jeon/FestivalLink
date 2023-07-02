@@ -9,4 +9,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <delete id="unlikeReview" parameterType="map">
         delete r_likes where user_id_fk=#{userId} and review_id_fk=#{reviewId}
     </delete>
+
+    <!-- 유저가 축제 좋아요 했는지 안했는지 -->
+    <select id="didLikeFestival" parameterType="map" resultType="int">
+        select count(f_like_id) from f_likes where festival_id_fk=#{festivalId} and user_id_fk=#{userId}
+    </select>
+    <!-- 유저가 축제 좋아요 -->
+    <insert id="likeFestival" parameterType="com.project.domain.F_likesVO">
+        insert into f_likes(f_like_id, user_id_fk, festival_id_fk) 
+        values(#{f_like_id}, #{user_id_fk}, #{festival_id_fk})
+    </insert>
+
+    <!-- 유저가 축제 좋아요 취소 -->
+    <delete id="delLikeFestival" parameterType="map">
+        delete f_likes where user_id_fk=#{userId} and festival_id_fk=#{festivalId}
+    </delete>
+
+    <!-- 유저가 리뷰에 좋아요했는지 안햇는지 확인 -->
+
+    <select id="didLikeReview" parameterType="map" resultType="int">
+        select count(r_likes_id) from r_likes where review_id_fk=#{reviewId} and user_id_fk=#{userId}
+    </select>
 </mapper>
