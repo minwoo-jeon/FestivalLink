@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
+
     private final UserMapper userMapper;
 
     @Override
@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
         return cnt;
     }
 
+
     @Override
     public UserVo userlogin(UserVo user) throws Exception{
         return  userMapper.userlogin(user);
@@ -51,18 +52,18 @@ public class UserServiceImpl implements UserService {
 
 
 
+
+
+    //회원정보 삭제
     @Override
-    public void modify(UserVo user) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'modify'");
+    public void userDelete(UserVo user) throws Exception{
+        userMapper.userDelete(user);
     }
 
-
-
     @Override
-    public void userDelete(UserVo user) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'userDelete'");
+    //회원정보 수정
+    public void modify(UserVo user) throws Exception{
+        userMapper.modify(user);
     }
 
 }
