@@ -3,26 +3,26 @@
 
 <head>
 <style>
-.id_ok{
-color:#2f1007;
+<style>
+.email_ok{
+color:##2f1007;
 display: none;
 }
 
-.id_already{
-color:#2f1007;
+.email_already{
+color:##2f1007;
 display: none;
 }
 
-
-.nick_ok{
-color:#2f1007;
+.nickname_ok{
+color:##2f1007;
 display: none;
 }
 
-.nick_already{
-color:#2f1007;
-display: none;
-}
+.nickname_already {
+ color: ##2f1007;
+  display: none;
+        }
 
 </style>
 </head>
@@ -35,21 +35,21 @@ display: none;
      $(function(){
                $("#checkEmail").click(function(){
                   //alert("버튼체크");
-                  var email =$('#id').val();
+                  var email =$('#email').val();
                });
             });
 
          function check(){
                         //이메일
-                    if(mf.id.value.length == 0){ // mf.id.value == "" 이것도 가능
+                    if(mf.email.value.length == 0){ // mf.email.value == "" 이것도 가능
                     				alert("이메일을 입력해주세요.");
-                    				mf.id.focus(); // 포커스를 이동시켜 바로 아이디를 입력할 수 있게
+                    				mf.email.focus(); // 포커스를 이동시켜 바로 아이디를 입력할 수 있게
                     				return false;
                     			}
 
-                   if(mf.id.value.indexOf('@') == -1){
+                   if(mf.email.value.indexOf('@') == -1){
                    				alert("이메일 형식이 아닙니다.");
-                   				mf.id.focus();
+                   				mf.email.focus();
                    				return false;
                    			}
 
@@ -81,7 +81,7 @@ display: none;
                   			}
 
                   			//닉네임
-                  		    if(mf.nick.value.length == 0){
+                  		    if(mf.nickname.value.length == 0){
                                   alert("닉네임을 입력해주세요.");
                                   mf.nick.focus();
                                   return false;
