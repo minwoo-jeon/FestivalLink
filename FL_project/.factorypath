@@ -83,4 +83,5 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/com/nimbusds/lang-tag/1.6/lang-tag-1.6.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/security/spring-security-oauth2-jose/5.7.8/spring-security-oauth2-jose-5.7.8.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/nimbusds/nimbus-jose-jwt/9.22/nimbus-jose-jwt-9.22.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
