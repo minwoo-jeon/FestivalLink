@@ -74,8 +74,8 @@
 
 
                                 <button class="btn btn-outline-light btn-lg btn-block" style="margin-bottom: 0px;">Login</button><br>
-                                <button class="btn btn-lg btn-block btn-success" style="margin-bottom: 0px;"
-                                type="submit"><svg
+                                <button class="btn btn-lg btn-block btn-success" style="margin-bottom: 0px;" type="button" onclick="location.href='/users/naver';"
+                                ><svg
                                 width="15"
                                 height="30"
                                 viewBox="0 0 15 30"
