@@ -119,7 +119,7 @@ body{
 		<div class="container" >
 			<!-- logo -->
 			<div class="nav-logo">
-			<a class="site-logo" href="index.html"> <%@include file="small_logo.jsp"%>festival link
+			<a class="site-logo" href="/test"> <%@include file="small_logo.jsp"%>festival link
 			</a></div>
 			<div class="user-panel">
 				 <!-- 로그인 하지 않을 시 코드 처리-->
@@ -142,8 +142,8 @@ body{
 			<!-- site menu -->
 			<nav class="main-menu">
 				<ul>
-					<li><a href="index.html">축제</a></li>
-					<li><a href="review.html">커뮤니티</a></li>
+					<li><a href="/test">축제</a></li>
+					<li><a href="/community">커뮤니티</a></li>
 					<li><a href="categories.html">소행사 게시판</a></li>
 					<!-- 로그인한 상태 -->
                        <c:if test="${ user != null }">
