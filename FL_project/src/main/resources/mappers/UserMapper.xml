@@ -21,4 +21,4 @@
     <select id="nickCheck" parameterType="String" resultType="int">
         SELECT COUNT(nickname) FROM users WHERE nickname=#{nick}
     </select>
-
+</mapper>
