@@ -67,7 +67,7 @@
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <c:forEach var="i" begin="1" end="${pageCount }">
-                            <li class="page-item"><a class="page-link" href="likedReview?page=${i}">${i}</a></li>
+                            <li class="page-item"><a class="page-link" href="${i}">${i}</a></li>
                         </c:forEach>
                     </ul>
                 </nav>
@@ -76,10 +76,7 @@
     </section>
 <script>
     
-    const likeCheck=function(review_id){
-        alert('hi');
-        $("#reviewId").html(`<h2>`+review_id+`를 선택했군요</h2>`);
-    }
+    
     const pushLike=function(reviewId, state){
         //alert("pushLike1");
         if(state==0 && !$("#thumbs-up-"+reviewId).hasClass("bi-hand-thumbs-up-fill")){
@@ -97,11 +94,11 @@
                     let likeCountStr  = $(`#like_count-` + reviewId).text();
                     let likeCount = Number(likeCountStr) + 1;
                     $(`#like_count-` + reviewId).text(likeCount);
-                    alert(likeCount);
+                   
                     
                 },
                 error:function(err){
-                    alert(err.status);
+                    console.log(err.status);
                 }
 		    })
             
@@ -121,7 +118,7 @@
 
                 },
                 error:function(err){
-                    alert(err.status);
+                    console.log(err.status);
                 }
 		    })
         }

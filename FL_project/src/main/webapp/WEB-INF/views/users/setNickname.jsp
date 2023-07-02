@@ -64,7 +64,7 @@
           }
         },
         error: function (err) {
-          alert('error: ' + err.status);
+          console.log('error: ' + err.status);
         }
 
 

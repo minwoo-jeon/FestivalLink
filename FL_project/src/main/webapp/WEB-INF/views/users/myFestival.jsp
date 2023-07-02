@@ -33,11 +33,11 @@
         <div class="row">
         <c:forEach var="vo" items="${myFestivalArr}">
           
-            <div class="card m-2" style="width: 16em; height: 23em;">
-              <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/041.webp" class="card-img-top" id="festimg"
+            <div class="card m-2" style="width: 250px; height: 480px;">
+              <img src="https://search.pstatic.net/common?type=n&size=174x250&quality=85&direct=true&src=https%3A%2F%2Fcsearch-phinf.pstatic.net%2F20220916_140%2F1663309277082PNdja_JPEG%2F2854404_image2_1.jpg" class="card-img-top" id="festimg"
                 alt="Hollywood Sign on The Hill" />
               <div class="card-body">
-                <h5 class="card-title"><a href="#">${vo.festival_name}</a></h5>
+                <h5 class="card-title"><a href="/festivals/${vo.festival_id_fk}">${vo.festival_name}</a></h5>
                 <span>${vo.festival_place}</span> | <span>${vo.festival_start} ~ ${vo.festival_end}</span>
               </div>
             </div>
@@ -49,7 +49,7 @@
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                 <c:forEach var="i" begin="1" end="${pageCount }">
-                    <li class="page-item"><a class="page-link" href="myFestival?page=${i}">${i}</a></li>
+                    <li class="page-item"><a class="page-link" href="${i}">${i}</a></li>
                 </c:forEach>
             <li class="page-item"><a class="page-link" href="#">Next</a></li>
         </ul>

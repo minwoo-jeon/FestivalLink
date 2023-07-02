@@ -101,14 +101,14 @@
         //alert(reportId);
         $.ajax({
                 type:'delete',
-                url:'/users/report?r_report_id='+reportId,
+                url:'/users/report/'+reportId,
                 dataType:'json',
                 success:function(res){
-                    alert(res);
+                    //alert(res);
                     $('#reviewCard-'+reportId).empty();
                 },
                 error:function(err){
-                    alert(err.status);
+                    console.log(err.status);
                 }
             })
     }
