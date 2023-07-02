@@ -1,0 +1,29 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.YFestivalMapper">
+    <select id="getFestivalInfoById" parameterType="String" resultType="com.project.domain.YFestivalVO">
+        select a.*, (select count(f_like_id) from f_likes b where b.festival_id_fk=a.festival_id) f_like
+        from festivals a where a.festival_id = #{value}
+    </select>
+    <!-- userId라고했지만 사실 festivalId값임 페이징객체 재활용하려고 그런것 -->
+    <select id="getReviewByFid" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.YReviewVO">
+        
+        select a.*, b.festival_name, (select count(r_likes_id) from r_likes c where c.review_id_fk=a.review_id) r_like from(
+		select row_number() over(order by review_date desc) rn, reviews.*
+		from reviews where festival_id_fk=#{userId} order by review_date desc) a, festivals b
+		<![CDATA[
+		where a.rn > #{start} and a.rn <= #{end}
+		]]>
+		and a.festival_id_fk=#{userId} and a.festival_id_fk=b.festival_id
+    </select>
+
+    <select id="totalReviewCountByFest" parameterType="String" resultType="int">
+        select count(review_id) from reviews where festival_id_fk=#{value}
+    </select>
+
+    <insert id="insertFestival" parameterType="com.project.domain.YFestivalVO">
+        insert into festivals(festival_id, festival_contents,festival_name, festival_host, festival_place, festival_addr,festival_latitude,festival_longitude, festival_homepage, festival_end, festival_start, festival_image)
+        values(#{festival_id},#{festival_contents},#{festival_name}, #{festival_host},#{festival_place, jdbcType=VARCHAR}, #{festival_addr}, #{festival_latitude, jdbcType=NUMERIC}, #{festival_longitude, jdbcType=NUMERIC}, #{festival_homepage, jdbcType=VARCHAR}, #{festival_end, jdbcType=VARCHAR}, #{festival_start},#{festival_image})
+    </insert>
+</mapper>
