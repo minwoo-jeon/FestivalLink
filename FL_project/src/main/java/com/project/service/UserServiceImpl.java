@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
-
+    
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -47,6 +47,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVo userlogin(UserVo user) throws Exception{
         return  userMapper.userlogin(user);
+    }
+
+
+
+    @Override
+    public void modify(UserVo user) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'modify'");
+    }
+
+
+
+    @Override
+    public void userDelete(UserVo user) throws Exception {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'userDelete'");
     }
 
 }

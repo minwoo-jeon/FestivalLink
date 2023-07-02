@@ -11,6 +11,7 @@
       font-style: normal;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <section class="h-100 gradient-custom">
     <div class="container py-5 h-100">
       <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 좋아요 한 축제 ${totalCount}</h1>
@@ -34,8 +35,7 @@
         <c:forEach var="vo" items="${myFestivalArr}">
           
             <div class="card m-2" style="width: 250px; height: 480px;">
-              <img src="https://search.pstatic.net/common?type=n&size=174x250&quality=85&direct=true&src=https%3A%2F%2Fcsearch-phinf.pstatic.net%2F20220916_140%2F1663309277082PNdja_JPEG%2F2854404_image2_1.jpg" class="card-img-top" id="festimg"
-                alt="Hollywood Sign on The Hill" />
+              <img src="${vo.festival_image}" />
               <div class="card-body">
                 <h5 class="card-title"><a href="/festivals/${vo.festival_id_fk}">${vo.festival_name}</a></h5>
                 <span>${vo.festival_place}</span> | <span>${vo.festival_start} ~ ${vo.festival_end}</span>
