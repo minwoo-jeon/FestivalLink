@@ -3,19 +3,21 @@ package com.project.controller;
 
 
 import com.project.domain.UserVo;
+import com.project.email.dto.EmailResponseDto;
+import com.project.email.entity.EmailMessage;
+import com.project.email.service.EmailService;
 import com.project.service.UserService;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.Random;
 import java.util.UUID;
 
@@ -23,70 +25,177 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Log4j2
 public class UserController {
-
+    //생성자 주입
     private final UserService userService;
+    private final EmailService emailService;
 
-
-    @RequestMapping(value="/users/signup",method=RequestMethod.GET)
+    //회원가입 사이트 요청 get
+    @RequestMapping(value = "/users/signup", method = RequestMethod.GET)
     public String usersForm() {
 
         return "/users/signup";
     }
 
-
-    @RequestMapping(value="/users/signup",method=RequestMethod.POST)
+    //폼에서 받은 데이터 받기 post
+    @RequestMapping(value = "/users/signup", method = RequestMethod.POST)
     public String signupProcess(Model m, @ModelAttribute UserVo user) {
-
-        if (user.getEmail() == null || user.getPassword() == null || user.getNickname() == null ||
-                user.getEmail().trim().isEmpty() ||
-                user.getPassword().trim().isEmpty() ||
-                user.getNickname().trim().isEmpty()) {
+        //log.info("user==" + user);
+        user.setUser_id(UUID.randomUUID().toString());  //user_id 값이 계속 부적합한열 유형 null값이떠서 userid값생성
+        if (user.getEmail() == null || user.getPassword() == null || user.getEmail().trim().isEmpty() || user.getPassword().trim().isEmpty()) {
             return "redirect:/users/signup";
         }
-        String uid=UUID.randomUUID().toString();
-        user.setUser_id(uid);
-        System.out.println(user);
-        int n=userService.createUser(user);
-        String str=(n>0)?"회원가입 완료-로그인 하세요":"가입 실패";
-        String loc=(n>0)?"login":"javascript:history.back()";
-
-        m.addAttribute("msg",str);
-        m.addAttribute("loc",loc);
-        return "message";
+        int n = userService.createUser(user);
+        String str = (n > 0) ? "회원가입 완료-로그인 하세요" : "가입 실패";
+        String loc = (n > 0) ? "login" : "javascript:history.back()";
+        m.addAttribute("msg", str);
+        m.addAttribute("loc", loc);
+        return "users/message";
     }//------------------------------
 
     //이메일 중복체크
-    @PostMapping("/idCheck")
+    @PostMapping("/emailCheck")
     @ResponseBody
-    public int idCheck(@RequestParam("id") String id) {
+    public int emailCheck(@RequestParam("email") String email) {
 
-        int cnt = userService.idCheck(id);
+        int cnt = userService.emailCheck(email);
         return cnt;
 
     }
 
     //닉네임 중복체크
-    @PostMapping("/nickCheck")
+    @PostMapping("/nicknameCheck")
     @ResponseBody
-    public int nickCheck(@RequestParam("nick") String nick) {
+    public int nickCheck(@RequestParam("nickname") String nickname) {
 
-        int cnt = userService.nickCheck(nick);
+        int cnt = userService.nickCheck(nickname);
         return cnt;
 
     }
 
 
-    @GetMapping("/mailCheck")
+    //이메일 인증
+    @RequestMapping(value = "/mailCheck", method = RequestMethod.GET)
     @ResponseBody
-    public void mailChekGet(String email) throws Exception{
+    public String mailCheckGET(String email) throws Exception {
 
-        //뷰로 부터 넘어온 데이터 확인
-        log.info("이메일 데이터 전송확인");
-        log.info("인증번호:"+email);
+        /* 뷰(View)로부터 넘어온 데이터 확인 */
+        //log.info("이메일 데이터 전송 확인");
+        //log.info("인증번호 : " + email);
 
+        /* 인증번호(난수) 생성 */
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;  //111111 ~ 999999 범위의 숫자를 얻기 위해서 nextInt(888888) + 111111를 사용
+        //log.info("인증번호" + checkNum); //인증번호가 정상적으로 생성되었는지
+
+        String setFrom = "jeonminwoo2000@gmail.com"; //내이메일 쓰는곳
+        String toMail = "jeonminsoo2013@@mail.com";      //받는사람
+        String title = "회원가입 인증 이메일 입니다.";
+        String content =                                           //보내는 내용 작성해주기
+                "홈페이지를 방문해주셔서 감사합니다." +
+                        "<br><br>" +
+                        "인증 번호는 " + checkNum + "입니다." +
+                        "<br>" +
+                        "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+        EmailMessage emailMessage = EmailMessage.builder()
+                .to(email)
+                .subject("[SAVIEW]  festival link 이메일 인증을 위한 인증 코드 발송")
+                .build();
+
+        String code = emailService.sendMail(emailMessage, "email");
+        log.info(code);
+        EmailResponseDto emailResponseDto = new EmailResponseDto();
+        emailResponseDto.setCode(code);
+        return code;
     }
 
 
+    //비밀번호 찾기jsp 가져오기 get
+    @GetMapping("/users/password")
+    public String findPwForm() {
+
+        return "/users/findPw";
+    }
+
+    //비밀번호 찾기
+    @RequestMapping(value = "/users/findpw", method = RequestMethod.POST)
+    @ResponseBody
+    public void findPw(String email) throws Exception {
+
+        /* 뷰(View)로부터 넘어온 데이터 확인 */
+       // log.info("이메일 데이터 전송 확인1");
+        //log.info("인증번호 : " + email);
+
+        /* 인증번호(난수) 생성 */
+        Random random = new Random();
+        int checkNum = random.nextInt(888888) + 111111;  //111111 ~ 999999 범위의 숫자를 얻기 위해서 nextInt(888888) + 111111를 사용
+        //log.info("인증번호1" + checkNum); //인증번호가 정상적으로 생성되었는지
+
+
+        EmailMessage emailMessage = EmailMessage.builder()
+                .to(email)
+                .subject("[SAVIEW] festival link 임시 비밀번호 발송")
+                .build();
+
+        String code = emailService.sendMail(emailMessage, "email");
+
+        EmailResponseDto emailResponseDto = new EmailResponseDto();
+        emailResponseDto.setCode(code);
+    }
+
+    //마이페이지 뷰페이지 반환
+    @GetMapping("/users")
+    public String mypageForm() {
+        return "/users/myPage";
+    }
+
+    //내정보 수정 뷰페이지 반환
+    @GetMapping("/users/modify")
+    public String modifyForm() {
+        return "/users/modify";
+    }
+
+    // 회원정보 수정 post
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    public String postModify(HttpSession session, UserVo user) throws Exception {
+        //log.info("post modify:" + user);
+
+        userService.modify(user);
+
+        session.invalidate();
+
+        return "redirect:test";
+    }
+
+    //회원 탈퇴 뷰 페이지
+    @GetMapping("/users/mypage/delete")
+    public String deleteUser() {
+        return "/users/delete";
+    }
+
+
+    // 회원 탈퇴 post
+    @RequestMapping(value = "/userDelete", method = RequestMethod.POST)
+    public String userDelete(UserVo user, HttpSession session, RedirectAttributes rttr) throws Exception {
+
+        //세션에 있는 user를 가져와 user변수에 넣어줌
+        UserVo users = (UserVo)session.getAttribute("user");
+        log.info("users:"+users);
+        //세션에 있는 비밀번호
+        String sessionPass = users.getPassword();
+        log.info("sessionPass:"+sessionPass);
+        //vo로 들어가는 비밀번호
+        String voPass = user.getPassword();
+        log.info("voPass:"+voPass);
+        if(!(sessionPass.equals(voPass))){
+            rttr.addFlashAttribute("msg",false);
+            return "redirect:/users/mypage/delete";
+        }
+        userService.userDelete(user);
+        session.invalidate();
+        return "redirect:/test";
+    }
 
 
 }
+
+
