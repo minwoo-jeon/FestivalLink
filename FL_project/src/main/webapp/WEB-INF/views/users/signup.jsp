@@ -4,23 +4,23 @@
 <head>
 <style>
 .id_ok{
-color:##2f1007;
+color:#2f1007;
 display: none;
 }
 
 .id_already{
-color:##2f1007;
+color:#2f1007;
 display: none;
 }
 
 
 .nick_ok{
-color:##2f1007;
+color:#2f1007;
 display: none;
 }
 
 .nick_already{
-color:##2f1007;
+color:#2f1007;
 display: none;
 }
 
@@ -35,7 +35,7 @@ display: none;
      $(function(){
                $("#checkEmail").click(function(){
                   //alert("버튼체크");
-                  var email =$(#id).val();
+                  var email =$('#id').val();
                });
             });
 
