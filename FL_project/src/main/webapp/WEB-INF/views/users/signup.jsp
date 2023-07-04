@@ -38,6 +38,7 @@
                 url: "/mailCheck?email=" + email,
                 success: function(data) {
                     code = data;
+                    console.log("code"+code);
                 }
             });
         });
@@ -47,6 +48,8 @@
     /* 인증번호 비교 */
     $(document).ready(function() {
         $("#mail-checkNum-Btn").click(function() {
+            alert('a')
+
             var inputCode = $("#mail_check_input").val(); // 입력코드
             if (inputCode == code) { // 일치할 경우
                 alert('인증번호가 일치합니다.');
@@ -193,7 +196,10 @@
                         <td width="20%" class="m1"><b>인증번호 확인</b></td>
                         <td width="80%" class="m2">
                             <input type="password" name="cf" id="cf" class="user-control" placeholder="인증번호를 입력해주세요">
-                            <br>
+                                 <br>
+                              <div class="col-3">
+                                 <button type="button" id="mail-checkNum-Btn" class="btn btn-success">인증번호 확인</button>
+                                </div>
 
                     <tr>
                         <td width="20%" class="m1"><b>비밀번호</b></td>

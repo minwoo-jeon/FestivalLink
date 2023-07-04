@@ -22,7 +22,7 @@
     			<td><a href=/users/modify>내 정보 수정</td>
     		</tr>
     		<tr>
-    			<td>내가 좋아요한 축제</td>
+    			<td><a href=/users/myFestival>내가 좋아요한 축제</td>
     		</tr>
     		<tr>
     			<td>내가 쓴 글</td>

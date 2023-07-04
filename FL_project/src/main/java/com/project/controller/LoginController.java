@@ -45,6 +45,8 @@ public class LoginController {
        // System.out.println("전달된 데이터 : " + user);
 
         HttpSession session = request.getSession();
+        String rawPw="";
+        String encodePw;
         UserVo lvo = service.userlogin(user);
 
 
