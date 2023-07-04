@@ -1,5 +1,7 @@
 
 package com.project.controller;
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,9 +45,14 @@ public class MainfestivalsController {
     }   
     @PostMapping("/search")
     public ModelAndView festivalssearch(@RequestParam String keyword) {
-    	SearchVO vo=Fservice.getSearch(keyword); 
+
+    	
+    	List<SearchVO> SearchList = Fservice.getSearchList(keyword); 
+    	System.out.println(SearchList);
+    	  
+    	
     	ModelAndView mv=new ModelAndView("festivals/search");
-    	mv.addObject("vo", vo);
+    	mv.addObject("searchList", SearchList);
         return mv;
     }   
 }
