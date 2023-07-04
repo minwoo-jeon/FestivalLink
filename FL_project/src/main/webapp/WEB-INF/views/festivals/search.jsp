@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.project.domain.SearchVO" %>
 <%@ page import="com.project.mapper.SearchMapper"%>
+<%@ page import="com.project.domain.PaginationVO" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,7 +179,7 @@
         <th>종료일</th>
         <th>주소</th>
         <th>홈페이지</th>
-        <th>USER_ID</th>
+        <th>조회수</th>
         <th>NO</th>
       </tr>
   <tr>
@@ -199,6 +201,38 @@
 </c:forEach>
 </tbody>
     </table>
+</div>
+<div>
+	<!-- Display pagination links -->
+    <div>
+    ${pageStr }
+    <%-- 
+        <ul class="pagination justify-content-center">
+            <%-- Previous link
+            <c:if test="${pagination.prevBlock > 0}">
+                <li class="page-item">
+                    <a class="page-link" href="${myctx}/search?pageId=${pagination.prevBlock}">Prev</a>
+                </li>
+            </c:if>
+			--%>
+            <%-- Page links 
+            <c:forEach var="i" begin="${pagination.prevBlock + 1}" end="${pagination.nextBlock - 1}">
+            <c:if test="i<=pagination.pageCount">
+                <c:set var="css" value="${(i == pagination.pageId) ? 'active' : ''}" />
+                <li class="page-item ${css}">
+                    <a class="page-link" href="${myctx}/search?pageId=${i}">${i}</a>
+                </li>
+             </c:if>   
+            </c:forEach>
+--%>
+            <%-- Next link 
+            <c:if test="${pagination.nextBlock <= pagination.pageCount}">
+                <li class="page-item">
+                    <a class="page-link" href="${myctx}/search?pageId=${pagination.nextBlock}">Next</a>
+                </li>
+            </c:if>
+        </ul>--%>
+    </div>
 </div>
 </body>
 </html>

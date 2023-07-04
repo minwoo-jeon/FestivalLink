@@ -24,8 +24,8 @@ public class FestivalServiceImpl implements FestivalService{
 
    
 
-    public int getTotalCount() {
-        return FestivalDAO.getTotalCount();
+    public int getTotalCount(PaginationVO v) {
+        return FestivalDAO.getTotalCount(v);
     }
 
     public SearchVO getSearch(String FESTIVAL_NAME) {

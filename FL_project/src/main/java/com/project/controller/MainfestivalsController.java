@@ -3,13 +3,16 @@ package com.project.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.domain.PaginationVO;
 import com.project.domain.SearchVO;
 import com.project.service.FestivalServiceImpl;
 
@@ -43,16 +46,27 @@ public class MainfestivalsController {
     	
         return new ModelAndView("festivals/Review");
     }   
-    @PostMapping("/search")
-    public ModelAndView festivalssearch(@RequestParam String keyword) {
-
+    @RequestMapping("/search")
+    public ModelAndView festivalssearch(@ModelAttribute PaginationVO pvo,HttpServletRequest req) {
+    	HttpSession ses=req.getSession();
+    	int cnt=Fservice.getTotalCount(pvo);
     	
-    	List<SearchVO> SearchList = Fservice.getSearchList(keyword); 
-    	System.out.println(SearchList);
-    	  
+    	pvo.setTotalCount(cnt);
+    	pvo.setPageSize(12);
+    	pvo.setPagingBlock(10);
+    	pvo.init(ses);
+    	System.out.println(pvo);
     	
+    	String myctx=req.getContextPath();
+    	
+    	String pageStr=pvo.getPageNavi(myctx,"search");
+    	
+    	List<SearchVO> SearchList = Fservice.getSearchListPaging(pvo); 
+    	System.out.println(SearchList.size()+"<<<<");
     	ModelAndView mv=new ModelAndView("festivals/search");
     	mv.addObject("searchList", SearchList);
+    	mv.addObject("totalcount",cnt);
+    	mv.addObject("pageStr", pageStr);
         return mv;
     }   
 }

@@ -41,14 +41,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE FESTIVAL_ID = #{festivalId}
     </delete>
     
-    <select id="getSearchList" parameterType="java.lang.String" resultType="com.project.domain.SearchVO">
-    SELECT
+   <!--  <select id="getSearchList" parameterType="java.lang.String" resultType="com.project.domain.SearchVO">
+    select * from (
+SELECT row_number() over(order by FESTIVAL_START DESC) rnum,
         FESTIVAL_ID, FESTIVAL_CONTENTS, FESTIVAL_NAME,
         FESTIVAL_START, FESTIVAL_END, FESTIVAL_HOST,
         FESTIVAL_PLACE, FESTIVAL_ADDR, FESTIVAL_LATITUDE,
         FESTIVAL_LONGITUDE, FESTIVAL_HOMEPAGE, FESTIVAL_IMAGE
-   		 FROM FESTIVALS
+   		 FROM FESTIVALS        
+    	WHERE FESTIVAL_NAME like '%'||#{keyword}||'%')
+        where rnum between #{start} and #{end} 
+		</select> -->
+		
+		<select id="getTotalCount" parameterType="com.project.domain.PaginationVO" resultType="int">
+			select count(*) FROM FESTIVALS
     	WHERE FESTIVAL_NAME like '%'||#{keyword}||'%'
+		</select>
+		
+		<select id="getSearchListPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.SearchVO">
+    select * from (
+SELECT row_number() over(order by FESTIVAL_START DESC) rnum,
+        FESTIVAL_ID, FESTIVAL_CONTENTS, FESTIVAL_NAME,
+        FESTIVAL_START, FESTIVAL_END, FESTIVAL_HOST,
+        FESTIVAL_PLACE, FESTIVAL_ADDR, FESTIVAL_LATITUDE,
+        FESTIVAL_LONGITUDE, FESTIVAL_HOMEPAGE, FESTIVAL_IMAGE
+   		 FROM FESTIVALS        
+    	WHERE FESTIVAL_NAME like '%'||#{keyword}||'%')
+        where rnum between #{start} and #{end} 
 		</select>
     
 </mapper>

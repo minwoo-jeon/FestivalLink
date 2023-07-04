@@ -10,7 +10,7 @@ public interface FestivalService {
     public List<SearchVO> getSearchListPaging(PaginationVO vo) ;
    
 
-    public int getTotalCount() ;
+    public int getTotalCount(PaginationVO v) ;
 
     public SearchVO getSearch(String FESTIVAL_NAME) ;
 }
