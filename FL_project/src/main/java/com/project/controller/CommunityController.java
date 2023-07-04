@@ -20,9 +20,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.project.domain.NaverUserVO;
 import com.project.domain.NoticeVO;
 import com.project.domain.PaginationVO;
 import com.project.domain.ReviewVO;
+import com.project.domain.UserVo;
+import com.project.domain.YFestivalVO;
 import com.project.mapper.CommunityMapper;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,7 +68,7 @@ public class CommunityController {
 		int start = (cpage - 1) * pagination.getPageSize();
 		int end = cpage * pagination.getPageSize() + 1;
 		pagination.setStart(start);
-		pagination.setEnd(end);		
+		pagination.setEnd(end);
 		
 		String myctx = req.getContextPath();
 		String loc = "/community";
@@ -96,20 +99,64 @@ public class CommunityController {
 	}
 	
 	@GetMapping("write")
-	public ModelAndView reviewWriteform() {
+	public ModelAndView reviewWriteform(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("community/review/writeform");
+		
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			String nickname = null;
+			if(user instanceof UserVo) {
+				nickname = ((UserVo)user).getNickname();
+			}
+			else if(user instanceof NaverUserVO){
+				nickname = ((NaverUserVO)user).getNickname();
+			}
+			
+			mv.addObject("nickname", nickname);
+			mv.setViewName("community/review/writeform");
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
 		
 		return mv;
 	}
 	
+	@GetMapping("festivalSearch")
+	public ModelAndView festivalSearchForm() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("community/review/festivalSearch");
+		
+		return mv;
+	}
+	
+	@PostMapping(value="/autoComp", produces="application/json")
+	public List<String> getAutoComplete(@RequestParam(defaultValue="") String keyword){
+		return cMapper.getAutoComplete(keyword);
+	}
+	
 	@PostMapping("write")
-	public ModelAndView writeReview(@RequestParam("nickname") String nickname, @RequestParam("content") String content) {
+	public ModelAndView writeReview(HttpSession session, @RequestParam("nickname") String nickname, @RequestParam("festName") String festName, @RequestParam("content") String content) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/community");
 		
-		UUID uuid = UUID.randomUUID();
-		cMapper.insertReview(uuid.toString(), nickname, content);
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			String uid = null;
+			if(user instanceof UserVo) {
+				uid = ((UserVo)user).getUser_id();
+			}
+			else if(user instanceof NaverUserVO){
+				uid = ((NaverUserVO)user).getUser_id();
+			}
+			
+			YFestivalVO vo = cMapper.getFestivalByName(festName);
+			UUID uuid = UUID.randomUUID();
+			cMapper.insertReview(uuid.toString(), uid, vo.getFestival_id(), nickname, content, vo.getFestival_image());
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
 		
 		return mv;
 	}
@@ -119,18 +166,29 @@ public class CommunityController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("community/review/viewReview");
 		cMapper.updateReviewReadnum(review_id);
-		ReviewVO vo  = cMapper.getReview(review_id);
-		mv.addObject("review", vo);
+		ReviewVO rvo  = cMapper.getReview(review_id);
+		YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
+		rvo.setFestival_name(fvo.getFestival_name());
+		mv.addObject("review", rvo);
 
 		return mv;
 	}
 	
 	@GetMapping(value="{review_id}/edit")
-	public ModelAndView reviewEditform(@PathVariable("review_id") String review_id) {
+	public ModelAndView reviewEditform(@PathVariable("review_id") String review_id, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("community/review/editform");
-		ReviewVO vo = cMapper.getReview(review_id);
-		mv.addObject("review", vo);
+		
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			mv.setViewName("community/review/editform");
+			ReviewVO rvo  = cMapper.getReview(review_id);
+			YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
+			rvo.setFestival_name(fvo.getFestival_name());
+			mv.addObject("review", rvo);
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
 		
 		return mv;
 	}
@@ -171,14 +229,20 @@ public class CommunityController {
 	}
 	
 	@GetMapping("{review_id}/report")
-	public ModelAndView reviewReportform(@PathVariable("review_id") String review_id) {
+	public ModelAndView reviewReportform(@PathVariable("review_id") String review_id, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("community/review/reportform");
 		
-		ReviewVO vo = cMapper.getReview(review_id);
-		mv.addObject("title", vo.getReview_content());
-		mv.addObject("nickname", vo.getReview_nickname());
-		mv.addObject("user_id", vo.getUser_id_fk());
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			ReviewVO rvo  = cMapper.getReview(review_id);
+			YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
+			rvo.setFestival_name(fvo.getFestival_name());
+			mv.addObject("review", rvo);
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
 		
 		return mv;
 	}
@@ -238,8 +302,12 @@ public class CommunityController {
 	}
 	
 	@GetMapping("notice/write")
-	public ModelAndView noticeWriteform() {
+	public ModelAndView noticeWriteform(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		
+		UserVo user = (UserVo)session.getAttribute("user");
+        String nickname = user.getNickname();
+		mv.addObject("nickname", nickname);
 		mv.setViewName("community/notice/writeform");
 		
 		return mv;

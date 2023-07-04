@@ -13,17 +13,17 @@
     </insert>
 
     <!-- 회원가입 할떄 이메일 중복 체크 -->
-    <select id="idCheck" parameterType="String" resultType="int">
-        SELECT COUNT(email) FROM users WHERE email=#{id}
+    <select id="emailCheck" parameterType="String" resultType="int">
+        SELECT COUNT(email) FROM users WHERE email=#{email}
     </select>
 
     <!-- 닉네임 중복 체크 -->
     <select id="nickCheck" parameterType="String" resultType="int">
-        SELECT COUNT(nickname) FROM users WHERE nickname=#{nick}
+        SELECT COUNT(nickname) FROM users WHERE nickname=#{nickname}
     </select>
 
     <!-- 비밀번호 변경 -->
-    <update id="update_pw" parameterType="com.project.domain.UserVo">
+    <update id="update_password" parameterType="map">
         update users set password = #{password} where email = #{email}
     </update>
 

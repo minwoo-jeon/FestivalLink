@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
@@ -118,7 +119,7 @@ p.click{
 			//str += "<li>";
 			str += "<div class='image'>";
 			str += "<a href='/community/"+review.review_id+"'>";
-			str += "<img src='/community_upload/noimage.png'>";
+			str += "<img src='"+review.review_image+"'>";
 			str += "</a>";
 			str += "</div>";
 			//str += "</li>";
@@ -136,14 +137,17 @@ p.click{
 			//str += "</li>";
 			//str += "<li>";
 			str += "<div class='etc'>";
+			str += "<c:if test='${user ne null}'>";
 			str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
 			str += "</p> | ";
 			str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
 			str += "</p><br>";
+			str += "</c:if>";
 			str += review.review_date1+"<br>";
 			str += "<span class='readnum'>";
 			str += "조회수: "+review.review_readnum;
 			str += "</span><br>";
+			str += "<c:if test='${user ne null}'>";
 			str += "<button onclick='pushLike(\""+review.review_id+"\", \""+1+"\", \""+1+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 ";
 			str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
 			if(review.likeState == 0){
@@ -154,6 +158,7 @@ p.click{
 			}		
 			str += "</button><br>";
 			str += "<button class='btn btn-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기</button>";
+			str += "</c:if>";
 			str += "</div>";
 			//str += "</li>";
 			str += "</div>";
@@ -231,8 +236,10 @@ p.click{
 		</p>
 		<p class="sort">
 			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
-			<button class="btn btn-primary float-right" id="write" name="write"
-				onclick="location.href='/community/write'">리뷰쓰기</button>
+			<c:if test="${user ne null}">
+				<button class="btn btn-primary float-right" id="write" name="write"
+					onclick="location.href='/community/write'">리뷰쓰기</button>
+			</c:if>
 		</p>
 	</div>
 </div>

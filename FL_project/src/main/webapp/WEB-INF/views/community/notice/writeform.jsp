@@ -33,7 +33,7 @@
 				<tr>
 					<td style="width: 20%"><b>글쓴이</b></td>
 					<td style="width: 80%; border:1">
-						<input type="text" name="nickname" id="nickname" class="form-control" value="관리자" readonly>
+						<input type="text" name="nickname" id="nickname" class="form-control" value="${nickname}" readonly>
 					</td>
 				</tr>
 				<tr>

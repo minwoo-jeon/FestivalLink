@@ -22,6 +22,11 @@
 		<td width="20%">조회수</td>
 		<td width="30%"><c:out value="${review.review_readnum}" /></td>
 	</tr>
+	<tr>
+		<td width="20%">축제</td>
+		<td width="30%"><c:out value="${review.festival_name}" /></td>
+		<td width="30%"><img src="${review.review_image}"></td>
+	</tr>
 	<tr height="60">
 		<td width="20%">글내용</td>
 		<td class="bg-white" colspan="3" align="left">${review.review_content}</td>

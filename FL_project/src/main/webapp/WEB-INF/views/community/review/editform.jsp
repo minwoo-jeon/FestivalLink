@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -39,15 +40,14 @@
 					</td>
 				</tr>
 				<tr>
+					<td width="20%">축제</td>
+					<td width="30%"><c:out value="${review.festival_name}" /></td>
+					<td width="30%"><img src="${review.review_image}"></td>
+				</tr>
+				<tr>
 					<td style="width: 20%"><b>글내용</b></td>
 					<td style="width: 80%">
 						<textarea name="content" id="content" rows="10" cols="50" class="form-control">${review.review_content}</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 20%"><b>첨부파일</b></td>
-					<td style="width: 80%">
-						<input type="file" name="filename" id="filename" class="form-control">
 					</td>
 				</tr>
 				<tr>

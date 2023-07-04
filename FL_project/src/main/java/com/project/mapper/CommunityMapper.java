@@ -7,14 +7,18 @@ import org.apache.ibatis.annotations.Mapper;
 import com.project.domain.NoticeVO;
 import com.project.domain.PaginationVO;
 import com.project.domain.ReviewVO;
+import com.project.domain.YFestivalVO;
 
 @Mapper
 public interface CommunityMapper {
 	List<ReviewVO> getReviewList();
 	List<ReviewVO> getReviewListLatestPaging(PaginationVO vo);
 	List<ReviewVO> getReviewListPopularPaging(PaginationVO vo);
-	int insertReview(String uuid, String nickname, String content);
+	List<String> getAutoComplete(String keyword);
+	YFestivalVO getFestivalByName(String festName);
+	int insertReview(String uuid, String uid, String festival_id, String nickname, String content, String festival_image);
 	ReviewVO getReview(String review_id);
+	YFestivalVO getFestivalById(String festival_id_fk);
 	int getTotalReviewCount();
 	int updateReviewReadnum(String review_id);
 	int updateReview(String review_id, String content);

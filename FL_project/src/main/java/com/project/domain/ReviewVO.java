@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 public class ReviewVO {
 	private String review_id;
 	private String user_id_fk;
-	//private String festivalId;
+	private String festival_id_fk;
 	
-	//private String image;
-	//private String title;
-	//private String festival;
+	private String title;
+	private String festival_name;
 	private String review_nickname;
 	private String review_content;
 	private String review_date1;
+	private String review_image;
 	private int review_readnum = 0;
 	private int likes = 0;
 	private int likeState = 0;
