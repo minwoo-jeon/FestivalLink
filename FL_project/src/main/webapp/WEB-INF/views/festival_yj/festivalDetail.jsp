@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@include file="festival_detail_kakaoMap.jsp" %>
+    <%@include file="festivalDetailKakaoMap.jsp" %>
         <section class="h-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="bg-light row">
