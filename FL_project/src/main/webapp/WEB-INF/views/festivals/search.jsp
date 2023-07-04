@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.project.domain.SearchVO" %>
 <%@ page import="com.project.mapper.SearchMapper"%>
@@ -182,18 +183,21 @@
   <tr>
     </thead>
     <tbody>
-    	<tr>
-      	<td></td>
-        <td>${vo.FESTIVAL_NAME }</td>
-        <td>${vo.FESTIVAL_CONTENTS}</td>
-        <td>${vo.FESTIVAL_START }</td>
-        <td>${vo.FESTIVAL_END}</td>
-        <td>${vo.FESTIVAL_ADDR}</td>
-        <td>${vo.FESTIVAL_HOMEPAGE}</td>
-        <td></td>
-        <td>NO</td>
-      </tr>
-    </tbody>
+  
+<c:forEach var="vo" items="${ searchList}">
+    <tr>
+      <td></td>
+      <td>${ vo.getFESTIVAL_NAME()  }</td>
+      <td>${ vo.getFESTIVAL_CONTENTS() }</td>
+      <td>${ vo.getFESTIVAL_START() }</td>
+      <td>${ vo.getFESTIVAL_END() }</td>
+      <td>${ vo.getFESTIVAL_ADDR() }</td>
+      <td>${ vo.getFESTIVAL_HOMEPAGE() }</td>
+      <td></td>
+      <td></td>
+    </tr>
+</c:forEach>
+</tbody>
     </table>
 </div>
 </body>

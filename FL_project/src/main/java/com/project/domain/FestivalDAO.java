@@ -50,7 +50,7 @@ public class FestivalDAO {
         return totalCount;
     }
 
-    public SearchVO getSearch(String FESTIVAL_ID) {
+    public SearchVO getSearch(String FESTIVAL_NAME) {
 
         SearchVO searchVO = null;
 

@@ -6,11 +6,11 @@ import com.project.domain.PaginationVO;
 import com.project.domain.SearchVO;
 
 public interface FestivalService {
-	public List<SearchVO> getSearchList();
+	public List<SearchVO> getSearchList(String keyword);
     public List<SearchVO> getSearchListPaging(PaginationVO vo) ;
    
 
     public int getTotalCount() ;
 
-    public SearchVO getSearch(String FESTIVAL_ID) ;
+    public SearchVO getSearch(String FESTIVAL_NAME) ;
 }

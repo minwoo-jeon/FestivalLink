@@ -14,8 +14,8 @@ public class FestivalServiceImpl implements FestivalService{
 	@Inject
     private SearchMapper FestivalDAO; // Assuming the existence of a FestivalDAO class
 
-    public List<SearchVO> getSearchList() {
-        return FestivalDAO.getSearchList();
+    public List<SearchVO> getSearchList(String keyword) {
+        return FestivalDAO.getSearchList(keyword);
     }
 
     public List<SearchVO> getSearchListPaging(PaginationVO vo) {
@@ -28,8 +28,8 @@ public class FestivalServiceImpl implements FestivalService{
         return FestivalDAO.getTotalCount();
     }
 
-    public SearchVO getSearch(String FESTIVAL_ID) {
-        return FestivalDAO.getSearch(FESTIVAL_ID);
+    public SearchVO getSearch(String FESTIVAL_NAME) {
+        return FestivalDAO.getSearch(FESTIVAL_NAME);
     }
 }
 

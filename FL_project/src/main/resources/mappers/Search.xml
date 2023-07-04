@@ -41,14 +41,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         WHERE FESTIVAL_ID = #{festivalId}
     </delete>
     
-    <select id="getSearch" parameterType="java.lang.String" resultType="com.project.domain.SearchVO">
+    <select id="getSearchList" parameterType="java.lang.String" resultType="com.project.domain.SearchVO">
     SELECT
         FESTIVAL_ID, FESTIVAL_CONTENTS, FESTIVAL_NAME,
         FESTIVAL_START, FESTIVAL_END, FESTIVAL_HOST,
         FESTIVAL_PLACE, FESTIVAL_ADDR, FESTIVAL_LATITUDE,
         FESTIVAL_LONGITUDE, FESTIVAL_HOMEPAGE, FESTIVAL_IMAGE
-    	FROM FESTIVALS
-    	WHERE FESTIVAL_NAME = #{festivalName}
+   		 FROM FESTIVALS
+    	WHERE FESTIVAL_NAME like '%'||#{keyword}||'%'
 		</select>
     
 </mapper>
