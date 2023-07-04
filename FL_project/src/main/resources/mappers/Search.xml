@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mapper.SearchMapper">
+
+    <insert id="insertSearch" parameterType="com.project.domain.SearchVO">
+        INSERT INTO FESTIVALS (
+            FESTIVAL_ID, FESTIVAL_CONTENTS, FESTIVAL_NAME,
+            FESTIVAL_START, FESTIVAL_END, FESTIVAL_HOST,
+            FESTIVAL_PLACE, FESTIVAL_ADDR, FESTIVAL_LATITUDE,
+            FESTIVAL_LONGITUDE, FESTIVAL_HOMEPAGE, FESTIVAL_IMAGE
+        )
+        VALUES (
+            #{FESTIVAL_ID}, #{FESTIVAL_CONTENTS}, #{FESTIVAL_NAME},
+            #{FESTIVAL_START}, #{FESTIVAL_END}, #{FESTIVAL_HOST},
+            #{FESTIVAL_PLACE}, #{FESTIVAL_ADDR}, #{FESTIVAL_LATITUDE},
+            #{FESTIVAL_LONGITUDE}, #{FESTIVAL_HOMEPAGE}, #{FESTIVAL_IMAGE}
+        )
+    </insert>
+    
+    <update id="updateSearch" parameterType="com.project.domain.SearchVO">
+        UPDATE FESTIVALS
+        SET
+            FESTIVAL_CONTENTS = #{FESTIVAL_CONTENTS},
+            FESTIVAL_NAME = #{FESTIVAL_NAME},
+            FESTIVAL_START = #{FESTIVAL_START},
+            FESTIVAL_END = #{FESTIVAL_END},
+            FESTIVAL_HOST = #{FESTIVAL_HOST},
+            FESTIVAL_PLACE = #{FESTIVAL_PLACE},
+            FESTIVAL_ADDR = #{FESTIVAL_ADDR},
+            FESTIVAL_LATITUDE = #{FESTIVAL_LATITUDE},
+            FESTIVAL_LONGITUDE = #{FESTIVAL_LONGITUDE},
+            FESTIVAL_HOMEPAGE = #{FESTIVAL_HOMEPAGE},
+            FESTIVAL_IMAGE = #{FESTIVAL_IMAGE}
+        WHERE FESTIVAL_NAME = #{festivalName}
+    </update>
+    
+    <delete id="deleteSearch" parameterType="java.lang.String">
+        DELETE FROM FESTIVALS
+        WHERE FESTIVAL_ID = #{festivalId}
+    </delete>
+    
+    <select id="getSearch" parameterType="java.lang.String" resultType="com.project.domain.SearchVO">
+    SELECT
+        FESTIVAL_ID, FESTIVAL_CONTENTS, FESTIVAL_NAME,
+        FESTIVAL_START, FESTIVAL_END, FESTIVAL_HOST,
+        FESTIVAL_PLACE, FESTIVAL_ADDR, FESTIVAL_LATITUDE,
+        FESTIVAL_LONGITUDE, FESTIVAL_HOMEPAGE, FESTIVAL_IMAGE
+    	FROM FESTIVALS
+    	WHERE FESTIVAL_NAME = #{festivalName}
+		</select>
+    
+</mapper>

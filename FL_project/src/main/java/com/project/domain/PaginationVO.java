@@ -40,7 +40,7 @@ public class PaginationVO {
 		nextBlock = prevBlock + (pagingBlock + 1);
 	}
 	
-	public String getReviewPageNavi(String myctx, String loc) {		
+	public String getPageNavi(String myctx, String loc) {		
 		StringBuilder buf = new StringBuilder("<ul class=\"pagination justify-content-center\">");
 		if(prevBlock > 0) {
 			buf.append("<li class=\"page-item\">")
@@ -60,35 +60,6 @@ public class PaginationVO {
 		if(nextBlock <= pageCount) {
 			buf.append("<li class=\"page-item\">")
 			.append("<a class='page-link' href='/community?pageId="+nextBlock+"'>")
-			.append("Next")
-			.append("</a>")
-			.append("</li>");
-		}
-		buf.append("</ul>");
-		
-		return buf.toString();
-	}
-	
-	public String getNoticePageNavi(String myctx, String loc) {		
-		StringBuilder buf = new StringBuilder("<ul class=\"pagination justify-content-center\">");
-		if(prevBlock > 0) {
-			buf.append("<li class=\"page-item\">")
-			.append("<a class='page-link' href='/community/notice?pageId="+prevBlock+"'>")
-			.append("Prev")
-			.append("</a>")
-			.append("</li>");
-		}
-		for(int i=prevBlock+1; i<=nextBlock-1 && i<=pageCount; i++) {
-			String css = (i == pageId)? "active":"";
-			buf.append("<li class='page-item "+css+"'>")
-			.append("<a class='page-link' href='/community/notice?pageId="+i+"'>")
-			.append(i)
-			.append("</a>")
-			.append("</li>");
-		}
-		if(nextBlock <= pageCount) {
-			buf.append("<li class=\"page-item\">")
-			.append("<a class='page-link' href='/community/notice?pageId="+nextBlock+"'>")
 			.append("Next")
 			.append("</a>")
 			.append("</li>");
