@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<style>	
+<style>
+	header.header-section, div.container-fluid{
+		display:none;
+	}
+
 	ul.festnames{
 		list-style:none;
 	}
@@ -53,10 +57,10 @@
 		<div class="col-sm-6">
 			<input type="text" name="festname" id="festname"
 				onkeyup="autoComp(this.value)" placeholder="축제 검색" class="form-control">
-			<div id="lst1" class="listbox" style="display: none">
+			<div id="lst1" class="listbox bg-light mt-3" style="display: none">
 				<div id="lst2" class="flist" style="display: none"></div>
 			</div>
+			<button id="confirm" class="btn btn-secondary mt-3" onclick="setName()" style="display: none">확인</button>
 		</div>
-		<button id="confirm" class="btn btn-secondary" onclick="setName()" style="display: none">확인</button>
 	</div>
 </div>
