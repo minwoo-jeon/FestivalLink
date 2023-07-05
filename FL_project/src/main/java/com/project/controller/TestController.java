@@ -36,10 +36,10 @@ public class TestController {
 
         return new ModelAndView("test");
     }
-    @GetMapping("/test2")
+    @GetMapping("/events")
     public ModelAndView testPage2() {
 
-        return new ModelAndView("festival_yj/festivalList");
+        return new ModelAndView("eventPrevent");
     }
     
     
