@@ -130,13 +130,7 @@
                     <br>
                 </td>
             </tr>
-            <td width="20%" class="m1"><b>현재 비밀번호</b></td>
-            <td width="80%" class="m2">
-                <input type="password" name="password" id="password" class="user-control" placeholder="Password">
-                <br>
-                <span class="ck">*현재 사용하고 있는 비밀번호를 입력해주세요</span>
-            </td>
-            </tr>
+
 
             <tr>
                 <td width="20%" class="m1"><b>새 비밀번호 </b></td>

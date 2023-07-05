@@ -23,7 +23,7 @@
     </select>
 
     <!-- 비밀번호 변경 -->
-    <update id="update_pw" parameterType="com.project.domain.UserVo">
+    <update id="update_password" parameterType="map">
         update users set password = #{password} where email = #{email}
     </update>
 

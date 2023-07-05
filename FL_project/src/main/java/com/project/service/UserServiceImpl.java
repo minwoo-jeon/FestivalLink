@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 @RequiredArgsConstructor
 
@@ -23,7 +25,7 @@ public class UserServiceImpl implements UserService {
         //System.out.println(">>>"+userMapper);
         //비밀번호 암호화 처리----------
 
-
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
          return userMapper.createUser(user);
     }
 
@@ -36,7 +38,7 @@ public class UserServiceImpl implements UserService {
         System.out.println("cnt: " + cnt);
         return cnt;
     }
-
+    //닉네임체크
     @Override
     public int nickCheck(String nickname) {
         int cnt = userMapper.nickCheck(nickname);
@@ -44,14 +46,12 @@ public class UserServiceImpl implements UserService {
         return cnt;
     }
 
-
+    //로그인
     @Override
     public UserVo userlogin(UserVo user) throws Exception{
+
         return  userMapper.userlogin(user);
     }
-
-
-
 
 
     //회원정보 삭제
@@ -65,6 +65,8 @@ public class UserServiceImpl implements UserService {
     public void modify(UserVo user) throws Exception{
         userMapper.modify(user);
     }
+
+    // 비밀번호 찾기
 
 }
 

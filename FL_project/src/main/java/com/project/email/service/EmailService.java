@@ -1,8 +1,10 @@
 package com.project.email.service;
 
+import com.project.mapper.UserMapper;
 import com.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -21,9 +23,9 @@ public class EmailService {
 
 
 
-
     public String sendMail(EmailMessage emailMessage, String type) {
         String authNum = createCode();
+
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
 
