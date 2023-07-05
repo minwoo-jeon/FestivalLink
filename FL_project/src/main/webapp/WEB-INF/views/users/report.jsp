@@ -6,31 +6,32 @@
             min-height: 170px;
             max-height: 170px;
         }
-        .reportBoard a{
+
+        .reportBoard a {
             font-size: 30px;
-	        color: #ffff;
+            color: #ffff;
         }
     </style>
 
-<c:if test="${user eq null}">
-    <section class="h-100 gradient-custom">
-        <div class="container py-5 h-100">
-            <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
+    <c:if test="${user eq null}">
+        <section class="h-100 gradient-custom">
+            <div class="container py-5 h-100">
+                <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
 
-                <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
+                    <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
 
-                <div class="pt-4 pb-4">
+                    <div class="pt-4 pb-4">
 
-                    <p>
-                    <h2>관리자아이디로 로그인하세요.</h2>
-                    </p>
+                        <p>
+                        <h2>관리자아이디로 로그인하세요.</h2>
+                        </p>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
-    </section>
-</c:if>
-    <c:if test="${user.state ne 0 and user ne null}">
+        </section>
+    </c:if>
+    <c:if test="${user.state ne 3 and user ne null}">
         <section class="h-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
@@ -48,14 +49,14 @@
             </div>
         </section>
     </c:if>
-    <c:if test="${user.state eq 0}">
+    <c:if test="${user.state eq 3}">
         <section class="h-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="reportBoard">
                     <a href="users/report">신고된 리뷰 |</a>
                     <a href="#"> 신고된 소행사</a>
                 </div>
-                
+
                 <c:if test="${reportArr eq null or empty reportArr}">
                     <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
 
@@ -72,19 +73,21 @@
                 </c:if>
                 <c:if test="${reportArr ne null and not empty reportArr}">
                     <div class="row">
-                    <c:forEach var="vo" items="${reportArr}">
-                        <div class="col-sm-6" id="reviewCard-${vo.r_report_id}">
-                            <div class="card" id="reviewCard">
-                                <div class="card-body">
-                                    <h6 class="card-title">신고 유저 id=${vo.user_id_fk}</h6>
-                                    <p class="card-text">${vo.r_report_content}</p>
-                                    <a href="/community?reviewId=${vo.review_id_fk}" class="btn btn-primary">리뷰 보러가기</a>
-                                    <button onclick="delReviewReport('${vo.r_report_id}')" class="btn btn-danger">신고 삭제</button>
+                        <c:forEach var="vo" items="${reportArr}">
+                            <div class="col-sm-6" id="reviewCard-${vo.r_report_id}">
+                                <div class="card" id="reviewCard">
+                                    <div class="card-body">
+                                        <h6 class="card-title">신고 유저 id=${vo.user_id_fk}</h6>
+                                        <p class="card-text">${vo.r_report_content}</p>
+                                        <a href="/community?reviewId=${vo.review_id_fk}" class="btn btn-primary">리뷰
+                                            보러가기</a>
+                                        <button onclick="delReviewReport('${vo.r_report_id}')" class="btn btn-danger">신고
+                                            삭제</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </c:forEach>
-                </div>
+                        </c:forEach>
+                    </div>
                     <nav aria-label="Page navigation example" class="mt-5">
                         <ul class="pagination">
                             <c:forEach var="i" begin="1" end="${pageCount }">
@@ -96,20 +99,20 @@
             </div>
         </section>
     </c:if>
-<script>
-    const delReviewReport = function(reportId){
-        //alert(reportId);
-        $.ajax({
-                type:'delete',
-                url:'/users/report/'+reportId,
-                dataType:'json',
-                success:function(res){
+    <script>
+        const delReviewReport = function (reportId) {
+            //alert(reportId);
+            $.ajax({
+                type: 'delete',
+                url: '/users/report/' + reportId,
+                dataType: 'json',
+                success: function (res) {
                     //alert(res);
-                    $('#reviewCard-'+reportId).empty();
+                    $('#reviewCard-' + reportId).empty();
                 },
-                error:function(err){
+                error: function (err) {
                     console.log(err.status);
                 }
             })
-    }
-</script>
+        }
+    </script>

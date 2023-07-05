@@ -25,7 +25,7 @@
                       <div class="form-outline">
                         <button id="nickCheckButton" class="btn btn-primary btn-lg" type="button" onclick="fn_nickCheck();"
                           >중복체크</button>
-                          <input id="nickCheck" type="text" value="N"/>
+                          <input id="nickCheck" type="hidden" value="N"/>
                       </div>
 
                     </div>

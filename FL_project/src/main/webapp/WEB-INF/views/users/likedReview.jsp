@@ -52,7 +52,7 @@
                                 <div class="media-body">
                                     <div class="reviews-members-header">
                                         <h6 class="mb-1"><a class="text-black" href="#">${vo.review_nickname}</a></h6>
-                                        <p class="text-gray">${vo.review_date}</p>
+                                        <p class="text-gray">${vo.review_date1}</p>
                                     </div>
                                     <div class="reviews-members-body">
                                         <p>${vo.review_content}</p>
