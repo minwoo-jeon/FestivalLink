@@ -36,6 +36,11 @@ public class TestController {
 
         return new ModelAndView("test");
     }
+    @GetMapping("/test2")
+    public ModelAndView testPage2() {
+
+        return new ModelAndView("festival_yj/festivalList");
+    }
     
     
 }

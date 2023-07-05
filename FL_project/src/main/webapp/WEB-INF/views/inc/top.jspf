@@ -142,7 +142,7 @@ body{
 			<!-- site menu -->
 			<nav class="main-menu">
 				<ul>
-					<li><a href="/test">축제</a></li>
+					<li><a href="/festivals">축제</a></li>
 					<li><a href="/community">커뮤니티</a></li>
 					<li><a href="categories.html">소행사 게시판</a></li>
 					<!-- 로그인한 상태 -->
