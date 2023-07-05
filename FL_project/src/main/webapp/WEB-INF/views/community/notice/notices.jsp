@@ -79,7 +79,7 @@ p.click{
 			str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 notices'>";
 			str += "<div class='image'>";
 			str += "<a href='/community/notice/"+notice.notice_id+"'>";
-			str += "<img src='/community_upload/noimage.png'>";
+			str += "<img src='"+notice.notice_image+"'>";
 			str += "</a>";
 			str += "</div>";
 			str += "<div class='title'>";

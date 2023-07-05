@@ -16,9 +16,23 @@
 				CKEDITOR.instances.content.focus();
 				return false;
 			}
+			
+			let file = $("#filename").val();
+			if(!isImage(file)){
+				alert("이미지를 첨부하세요");
+				return false;
+			}
+			
 			return true;
 		});
 	});
+	
+	function isImage(file) {
+		if(file == "" || /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(file))
+			return true;
+		else
+			return false;
+	}
 </script>
 
 <div class="row">
@@ -46,9 +60,9 @@
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>첨부파일</b></td>
+					<td style="width: 20%"><b>이미지 파일 첨부</b></td>
 					<td style="width: 80%">
-						<input type="file" name="filename" id="filename" class="form-control">
+						<input type="file" accept="image/*" name="filename" id="filename" class="form-control">
 					</td>
 				</tr>
 				<tr>
