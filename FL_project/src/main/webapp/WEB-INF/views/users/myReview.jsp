@@ -47,7 +47,7 @@
                         <div class="pt-4 pb-4">
                             <div class="media">
                                 <a href="#"><img alt="Generic placeholder image"
-                                        src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                                        src="${vo.f_image}"
                                         class="mr-2 rounded-pill"></a>
                                 <div class="media-body">
                                     <div class="reviews-members-header">

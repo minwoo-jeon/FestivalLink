@@ -21,5 +21,6 @@ public class MyReviewVO {
 	private int review_readnum;
 	private String festival_name;
 	private int r_like;
+	private String f_image;
 	private String likeState;
 }
