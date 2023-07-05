@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
@@ -92,10 +93,12 @@ p.click{
 			str += "</a>";
 			str += "</div>";
 			str += "<div class='etc'>";
+			str += "<c:if test='${user ne null and user.state eq 3}'>";
 			str += "<p class='click' onclick='location.href=\"/community/notice/"+notice.notice_id+"/edit\"'>수정";
 			str += "</p> | ";
 			str += "<p class='click' onclick='delNotice(\""+notice.notice_id+"\")'>삭제";
 			str += "</p><br>";
+			str += "</c:if>";
 			str += notice.notice_date1+"<br>";
 			str += "<span class='readnum'>";
 			str += "조회수: "+notice.notice_readnum;
@@ -144,8 +147,10 @@ p.click{
 		<p class="board float-left">
 			<a href="/community">리뷰 게시판</a> | <a href="/community/notice">공지사항</a>
 		</p>
-		<button class="btn btn-primary float-right" id="write" name="write"
-				onclick="location.href='/community/notice/write'">공지쓰기</button>
+		<c:if test="${user ne null and user.state eq 3}">
+			<button class="btn btn-primary float-right" id="write" name="write"
+					onclick="location.href='/community/notice/write'">공지쓰기</button>
+		</c:if>
 	</div>
 </div>
 <div class="row mt-3" id="list"></div>

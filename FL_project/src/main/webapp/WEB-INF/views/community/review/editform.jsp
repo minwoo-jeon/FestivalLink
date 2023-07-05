@@ -41,19 +41,20 @@
 				</tr>
 				<tr>
 					<td width="20%">축제</td>
-					<td width="30%"><c:out value="${review.festival_name}" /></td>
-					<td width="30%"><img src="${review.review_image}"></td>
+					<td style="width: 80%; border:1">
+						<input type="text" name="nickname" id="nickname" class="form-control" value="${review.festival_name}" readonly>
+					</td>
 				</tr>
 				<tr>
 					<td style="width: 20%"><b>글내용</b></td>
 					<td style="width: 80%">
-						<textarea name="content" id="content" rows="10" cols="50" class="form-control">${review.review_content}</textarea>
+						<textarea name="content" id="content" rows="10" cols="50" class="form-control"><c:out value="${review.review_content}"/></textarea>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="2" class="text-center">
 						<button type="submit" id="btnEdit" class="btn btn-success">수정하기</button>
-						<button type="reset" id="btnReset" class="btn btn-warning">다시쓰기</button>
+						<button type="button" class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
 					</td>
 				</tr>
 			</table>

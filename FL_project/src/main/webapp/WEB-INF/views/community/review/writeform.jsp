@@ -13,11 +13,16 @@
 			autoParagraph: false,
 		});
 		$("#rf").submit(function(){
-			if(!CKEDITOR.instances.content.getData()){
+			if(!$("#festName").val()){
+				alert("축제를 입력하세요");
+				return false;
+			}
+			else if(!CKEDITOR.instances.content.getData()){
 				alert("글내용을 입력하세요");
 				CKEDITOR.instances.content.focus();
 				return false;
 			}
+			
 			return true;
 		});
 	});
@@ -48,7 +53,7 @@
 				<tr>
 					<td style="width: 20%"><b>축제</b></td>
 					<td style="width: 80%; border:1">
-						<input type="text" name="festName" id="festName" class="form-control" value="축제 이름" readonly>
+						<input type="text" name="festName" id="festName" class="form-control" placeholder="축제 이름" readonly>
 						<button type="button" class="btn btn-primary" onclick="openFestivalSearch()">검색</button>
 					</td>
 				</tr>
@@ -61,7 +66,7 @@
 				<tr>
 					<td colspan="2" class="text-center">
 						<button type="submit" id="btnWrite" class="btn btn-success">글쓰기</button>
-						<button type="reset" id="btnReset" class="btn btn-warning">다시쓰기</button>
+						<button type="button" class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
 					</td>
 				</tr>
 			</table>

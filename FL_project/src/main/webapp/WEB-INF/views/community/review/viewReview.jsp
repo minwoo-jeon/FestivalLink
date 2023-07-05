@@ -25,10 +25,16 @@
 	<tr>
 		<td width="20%">축제</td>
 		<td width="30%"><c:out value="${review.festival_name}" /></td>
-		<td width="30%"><img src="${review.review_image}"></td>
 	</tr>
 	<tr height="60">
 		<td width="20%">글내용</td>
-		<td class="bg-white" colspan="3" align="left">${review.review_content}</td>
+		<td class="bg-white" colspan="3" align="left">
+			<textarea name="content" id="content" rows="10" cols="50" class="form-control" readonly><c:out value="${review.review_content}"/></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="text-center" colspan="4">
+			<button class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
+		</td>
 	</tr>
 </table>
