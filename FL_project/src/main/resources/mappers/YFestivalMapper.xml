@@ -26,4 +26,59 @@
         insert into festivals(festival_id, festival_contents,festival_name, festival_host, festival_place, festival_addr,festival_latitude,festival_longitude, festival_homepage, festival_end, festival_start, festival_image)
         values(#{festival_id},#{festival_contents},#{festival_name}, #{festival_host},#{festival_place, jdbcType=VARCHAR}, #{festival_addr}, #{festival_latitude, jdbcType=NUMERIC}, #{festival_longitude, jdbcType=NUMERIC}, #{festival_homepage, jdbcType=VARCHAR}, #{festival_end, jdbcType=VARCHAR}, #{festival_start},#{festival_image})
     </insert>
+
+    <!-- 키워드 지역 없을 때 -->
+    <select id="getTotalFestivalCount" resultType="int">
+        select count(festival_id) from festivals
+    </select>
+    <select id="getFestivalList" parameterType="com.project.domain.FestivalPagingVO" resultType="com.project.domain.YFestivalVO">
+        select * from
+		(select rownum rn, a.*, nvl(b.likes, 0) likes
+		from festivals a 
+		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
+		on a.festival_id = b.festival_id_fk
+		order by likes desc)
+        <![CDATA[where rn > #{start} and rn < #{end}]]>
+    </select>
+    <!-- keyword -->
+    <select id="getTotalFestivalCountWithKeyword" resultType="int" parameterType="String">
+        select count(festival_id) from festivals WHERE FESTIVAL_NAME like '%'||#{value}||'%' or festival_contents like '%'||#{value}||'%'
+    </select>
+    <select id="getFestivalListWithKeyword" resultType="com.project.domain.YFestivalVO" parameterType="com.project.domain.FestivalPagingVO">
+         select * from
+		(select rownum rn, a.*, nvl(b.likes, 0) likes
+		from festivals a 
+		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
+		on a.festival_id = b.festival_id_fk
+		order by likes desc)
+        <![CDATA[where rn > #{start} and rn < #{end}]]> 
+        and(FESTIVAL_NAME like '%'||#{keyword}||'%' or festival_contents like '%'||#{keyword}||'%')
+    </select>
+    <!-- location -->
+    <select id="getTotalFestivalCountWithLoc" resultType="int" parameterType="String">
+        select count(festival_id) from festivals WHERE FESTIVAL_addr like '%'||#{value}||'%'
+    </select>
+    <select id="getFestivalListWithLoc" resultType="com.project.domain.YFestivalVO" parameterType="com.project.domain.FestivalPagingVO">
+         select * from
+		(select rownum rn, a.*, nvl(b.likes, 0) likes
+		from festivals a 
+		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
+		on a.festival_id = b.festival_id_fk
+		order by likes desc)
+        <![CDATA[where rn > #{start} and rn < #{end}]]> 
+        and FESTIVAL_addr like '%'||#{loc}||'%'
+    </select>
+    <select id="getTotalFestivalCountWithKeywordNLoc" resultType="int" parameterType="map">
+        select count(festival_id) from festivals WHERE FESTIVAL_addr like '%'||#{loc}||'%' and (FESTIVAL_NAME like '%'||#{keyword}||'%' or festival_contents like '%'||#{keyword}||'%')
+    </select>
+    <select id="getFestivalListWithKeywordNLoc" resultType="com.project.domain.YFestivalVO" parameterType="com.project.domain.FestivalPagingVO">
+         select * from
+		(select rownum rn, a.*, nvl(b.likes, 0) likes
+		from festivals a 
+		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
+		on a.festival_id = b.festival_id_fk
+		order by likes desc)
+        <![CDATA[where rn > #{start} and rn < #{end}]]> 
+        and FESTIVAL_addr like '%'||#{loc}||'%' and (FESTIVAL_NAME like '%'||#{keyword}||'%' or festival_contents like '%'||#{keyword}||'%')
+    </select>
 </mapper>

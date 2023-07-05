@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <%@include file="festival_detail_kakaoMap.jsp" %>
+    <%@include file="festivalDetailKakaoMap.jsp" %>
         <section class="h-100 gradient-custom">
             <div class="container py-5 h-100">
                 <div class="bg-light row">
@@ -32,6 +32,9 @@
                                                 class="btn btn-outline-primary btn-lg float-right">좋아요
                                                 <b id="like_count-f">${festivalInfo.f_like}</b>
                                                 <i class="bi bi-hand-thumbs-up" id="thumbs-up-f"></i>
+                                            </button>
+                                            <button class="btn btn-outline-primary btn-lg float-right mr-1" onclick="location.href='/community/write'">
+                                                리뷰쓰러가기
                                             </button>
                                         </c:if>
 

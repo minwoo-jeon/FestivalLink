@@ -6,6 +6,7 @@ import com.project.domain.UserVo;
 import com.project.email.dto.EmailResponseDto;
 import com.project.email.entity.EmailMessage;
 import com.project.email.service.EmailService;
+import com.project.mapper.UserMapper;
 import com.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,6 +29,7 @@ public class UserController {
     //생성자 주입
     private final UserService userService;
     private final EmailService emailService;
+    private final UserMapper userMapper;
 
     //회원가입 사이트 요청 get
     @RequestMapping(value = "/users/signup", method = RequestMethod.GET)
@@ -87,15 +89,7 @@ public class UserController {
         int checkNum = random.nextInt(888888) + 111111;  //111111 ~ 999999 범위의 숫자를 얻기 위해서 nextInt(888888) + 111111를 사용
         //log.info("인증번호" + checkNum); //인증번호가 정상적으로 생성되었는지
 
-        String setFrom = "jeonminwoo2000@gmail.com"; //내이메일 쓰는곳
-        String toMail = "jeonminsoo2013@@mail.com";      //받는사람
-        String title = "회원가입 인증 이메일 입니다.";
-        String content =                                           //보내는 내용 작성해주기
-                "홈페이지를 방문해주셔서 감사합니다." +
-                        "<br><br>" +
-                        "인증 번호는 " + checkNum + "입니다." +
-                        "<br>" +
-                        "해당 인증번호를 인증번호 확인란에 기입하여 주세요.";
+
         EmailMessage emailMessage = EmailMessage.builder()
                 .to(email)
                 .subject("[SAVIEW]  festival link 이메일 인증을 위한 인증 코드 발송")
@@ -136,7 +130,9 @@ public class UserController {
                 .subject("[SAVIEW] festival link 임시 비밀번호 발송")
                 .build();
 
+
         String code = emailService.sendMail(emailMessage, "email");
+        userMapper.update_password(email,code);
 
         EmailResponseDto emailResponseDto = new EmailResponseDto();
         emailResponseDto.setCode(code);
@@ -160,6 +156,7 @@ public class UserController {
         //log.info("post modify:" + user);
 
         userService.modify(user);
+
 
         session.invalidate();
 

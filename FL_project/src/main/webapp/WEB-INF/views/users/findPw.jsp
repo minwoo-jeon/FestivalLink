@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
+
+
+
 	$(function(){
 		$("#findBtn").click(function(){
 		       alert("계정의 이메일 주소로 임시 패스워드가 발송되었습니다");
@@ -58,7 +61,7 @@
 			<div>
 				<p>
 					<label>이메일</label>
-					<input class="w3-input" type="text" id="email" name="email" placeholder="회원가입한 이메일주소를 입력하세요" required>
+					<input class="w3-input" type="text" id="email" name="email" oninput="checkEmail()" placeholder="회원가입한 이메일주소를 입력하세요" required>
 				</p>
 				<p class="w3-center">
 					<button type="button" id="findBtn" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">찾기</button>
