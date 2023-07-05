@@ -51,7 +51,7 @@
 				<tr>
 					<td colspan="2" class="text-center">
 						<button type="submit" id="btnWrite" class="btn btn-success">글쓰기</button>
-						<button type="reset" id="btnReset" class="btn btn-warning">다시쓰기</button>
+						<button type="button" class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
 					</td>
 				</tr>
 			</table>

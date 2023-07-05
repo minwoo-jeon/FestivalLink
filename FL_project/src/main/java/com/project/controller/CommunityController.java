@@ -105,10 +105,10 @@ public class CommunityController {
 		Object user = session.getAttribute("user");
 		if(user != null) {
 			String nickname = null;
-			if(user instanceof UserVo) {
+			if(user instanceof UserVo && ((UserVo)user).getState() != 2) {
 				nickname = ((UserVo)user).getNickname();
 			}
-			else if(user instanceof NaverUserVO){
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() != 2){
 				nickname = ((NaverUserVO)user).getNickname();
 			}
 			
@@ -143,10 +143,10 @@ public class CommunityController {
 		Object user = session.getAttribute("user");
 		if(user != null) {
 			String uid = null;
-			if(user instanceof UserVo) {
+			if(user instanceof UserVo && ((UserVo)user).getState() != 2) {
 				uid = ((UserVo)user).getUser_id();
 			}
-			else if(user instanceof NaverUserVO){
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() != 2){
 				uid = ((NaverUserVO)user).getUser_id();
 			}
 			
@@ -180,11 +180,19 @@ public class CommunityController {
 		
 		Object user = session.getAttribute("user");
 		if(user != null) {
-			mv.setViewName("community/review/editform");
-			ReviewVO rvo  = cMapper.getReview(review_id);
-			YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
-			rvo.setFestival_name(fvo.getFestival_name());
-			mv.addObject("review", rvo);
+			if(user instanceof UserVo && ((UserVo)user).getState() == 2) {
+				mv.setViewName("redirect:/community");
+			}
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() == 2){
+				mv.setViewName("redirect:/community");
+			}
+			else {
+				mv.setViewName("community/review/editform");
+				ReviewVO rvo  = cMapper.getReview(review_id);
+				YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
+				rvo.setFestival_name(fvo.getFestival_name());
+				mv.addObject("review", rvo);
+			}
 		}
 		else {
 			mv.setViewName("redirect:/community");
@@ -235,10 +243,18 @@ public class CommunityController {
 		
 		Object user = session.getAttribute("user");
 		if(user != null) {
-			ReviewVO rvo  = cMapper.getReview(review_id);
-			YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
-			rvo.setFestival_name(fvo.getFestival_name());
-			mv.addObject("review", rvo);
+			if(user instanceof UserVo && ((UserVo)user).getState() == 2) {
+				mv.setViewName("redirect:/community");
+			}
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() == 2){
+				mv.setViewName("redirect:/community");
+			}
+			else {
+				ReviewVO rvo  = cMapper.getReview(review_id);
+				YFestivalVO fvo = cMapper.getFestivalById(rvo.getFestival_id_fk());
+				rvo.setFestival_name(fvo.getFestival_name());
+				mv.addObject("review", rvo);
+			}
 		}
 		else {
 			mv.setViewName("redirect:/community");
@@ -305,11 +321,23 @@ public class CommunityController {
 	public ModelAndView noticeWriteform(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 		
-		UserVo user = (UserVo)session.getAttribute("user");
-        String nickname = user.getNickname();
-		mv.addObject("nickname", nickname);
-		mv.setViewName("community/notice/writeform");
-		
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			String nickname = null;
+			if(user instanceof UserVo && ((UserVo)user).getState() == 3) {
+				nickname = ((UserVo)user).getNickname();
+			}
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() == 3){
+				nickname = ((NaverUserVO)user).getNickname();
+			}
+			
+			mv.addObject("nickname", nickname);
+			mv.setViewName("community/notice/writeform");
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
+	
 		return mv;
 	}
 	
@@ -336,11 +364,26 @@ public class CommunityController {
 	}
 	
 	@GetMapping(value="notice/{notice_id}/edit")
-	public ModelAndView noticeEditform(@PathVariable("notice_id") String notice_id) {
+	public ModelAndView noticeEditform(@PathVariable("notice_id") String notice_id, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("community/notice/editform");
-		NoticeVO vo = cMapper.getNotice(notice_id);
-		mv.addObject("notice", vo);
+		
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			if(user instanceof UserVo && ((UserVo)user).getState() != 3) {
+				mv.setViewName("redirect:/community");
+			}
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() != 3){
+				mv.setViewName("redirect:/community");
+			}
+			else {
+				mv.setViewName("community/notice/editform");
+				NoticeVO vo = cMapper.getNotice(notice_id);
+				mv.addObject("notice", vo);
+			}
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
 		
 		return mv;
 	}

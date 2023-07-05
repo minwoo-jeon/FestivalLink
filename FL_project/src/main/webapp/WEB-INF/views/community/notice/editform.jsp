@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -41,7 +42,7 @@
 				<tr>
 					<td style="width: 20%"><b>글내용</b></td>
 					<td style="width: 80%">
-						<textarea name="content" id="content" rows="10" cols="50" class="form-control">${notice.notice_content}</textarea>
+						<textarea name="content" id="content" rows="10" cols="50" class="form-control"><c:out value="${notice.notice_content}"/></textarea>
 					</td>
 				</tr>
 				<tr>
@@ -53,7 +54,7 @@
 				<tr>
 					<td colspan="2" class="text-center">
 						<button type="submit" id="btnEdit" class="btn btn-success">수정하기</button>
-						<button type="reset" id="btnReset" class="btn btn-warning">다시쓰기</button>
+						<button type="button" class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
 					</td>
 				</tr>
 			</table>
