@@ -9,7 +9,7 @@
         }
 
         .nickname_already {
-            color: ##2f1007;
+            color: #b90000;
             display: none;
         }
 
@@ -104,12 +104,14 @@
     <h1 class="text-center mb-3" div style="padding:30px">내 정보 수정</h1>
     <form name="mf" action="/modify" method="post">
         <table class='table'>
-
+            <tr>
              <td width="20%" class="m1"><b>이메일</b></td>
                 <td width="80%" class="m2">
-                  <input type="text" name="email" id="email" class="user-control" value="${user.email}" readonly >
+                <div class="row">
+                  <div class="col-6">
+                  <input type="text" name="email" id="email"   class="form-control" value="${user.email}" readonly >
                     <br>
-                     <br>
+                     <div>
                         </td>
                         </tr>
 
@@ -119,15 +121,16 @@
                 <td width="20%" class="m1"><b>사용할 닉네임</b></td>
                 <td width="80%" class="m2">
                     <div class="row">
-                        <div class="col-3">
-                            <input type="text" name="nickname" id="nickname" oninput="checkNickname()" placeholder="닉네임">
-                        </div>
+                        <div class="col-6">
+                            <input type="text" name="nickname" id="nickname"  class="form-control" oninput="checkNickname()"
+                            placeholder="사용할 닉네임을 입력해주세요">
 
+                        <br>
                         <!-- nickname ajax 중복체크 -->
                         <span class="nickname_ok">사용 가능한 닉네임입니다.</span>
                         <span class="nickname_already">이미 사용중인 닉네임 입니다.</span>
                     </div>
-                    <br>
+
                 </td>
             </tr>
 
@@ -135,26 +138,30 @@
             <tr>
                 <td width="20%" class="m1"><b>새 비밀번호 </b></td>
                 <td width="80%" class="m2">
-                    <input type="password" name="newPassword" id="newPassword" class="user-control" placeholder="Password">
+                <div class="row">
+                  <div class="col-6">
+                    <input type="password" name="newPassword" id="newPassword" class="form-control" placeholder="Password">
                     <br>
                     <span class="ck">*비밀번호는 문자,숫자,!,.포함해서 4~8자 이내</span>
-                    <br>
+                    </div>
                 </td>
             </tr>
 
             <tr>
                 <td width="20%" class="m1"><b>새 비밀번호 확인</b></td>
                 <td width="80%" class="m2">
-                    <input type="password" name="rePassword" id="rePassword" class="user-control" placeholder="Re Password">
+                <div class="row">
+                 <div class="col-6">
+                    <input type="password" name="rePassword" id="rePassword" class="form-control" placeholder="Re Password">
                     <br>
                     <span class="ck">*비밀번호는 문자,숫자,!,.포함해서 4~8자 이내</span>
-                    <br>
+                  <div>
                 </td>
             </tr>
 
              <tr>
                 <td colspan="2" class="m2" style="text-align:left">
-                <span><a href="/users/mypage/delete">회원탈퇴</span>
+                <button type="button"  class="btn btn-warning"><a href="/users/mypage/delete">회원탈퇴</span>
              </tr>
             <tr>
                 <td colspan="2" class="m2" style="text-align:center">

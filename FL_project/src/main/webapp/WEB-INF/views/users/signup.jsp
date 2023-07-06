@@ -9,7 +9,7 @@
         }
 
         .email_already {
-            color: ##2f1007;
+            color: #b90000;
             display: none;
         }
 
@@ -19,7 +19,7 @@
         }
 
         .nickname_already {
-            color: ##2f1007;
+            color: #b90000;
             display: none;
         }
     </style>
@@ -28,6 +28,7 @@
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
+var code="";
     /* 인증번호 이메일 전송 */
     $(document).ready(function() {
         $('#mail-Check-Btn').click(function() {
@@ -38,7 +39,7 @@
                 url: "/mailCheck?email=" + email,
                 success: function(data) {
                     code = data;
-                    console.log("code"+code);
+                    console.log("code1:"+code);
                 }
             });
         });
@@ -48,11 +49,14 @@
     /* 인증번호 비교 */
     $(document).ready(function() {
         $("#mail-checkNum-Btn").click(function() {
-            alert('a')
+          //console.log("code2:"+code);
 
-            var inputCode = $("#mail_check_input").val(); // 입력코드
+
+            var inputCode = $("#cf").val(); // 입력코드
+            //alert('a:'+ inputCode)
             if (inputCode == code) { // 일치할 경우
                 alert('인증번호가 일치합니다.');
+
             } else { // 일치하지 않을 경우
                 alert('인증번호를 다시 확인해주세요.');
             }
@@ -80,6 +84,7 @@
             mf.cf.focus(); // 포커스를 이동시켜 바로 비밀번호를 입력할 수 있게
             return false;
         }
+
 
         /* 비밀번호 및 비밀번호 확인 유효성 검사 */
         if (mf.password.value.length == 0) {
@@ -170,19 +175,19 @@
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="container">
-            <h1 class="text-center mb-3">회원 가입</h1>
+            <h1 class="text-center mb-3" style="margin-top-50px">회원 가입</h1>
             <form name="mf" action="/users/signup" method="post">
 
-                <table class='table'>
+                <table class='table' >
                     <tr>
                         <td width="20%" class="m1"><b>이메일</b></td>
                         <td width="80%" class="m2">
                             <div class="row">
-                                <div class="col-3">
-                                    <input type="text" name="email" id="email" oninput="checkEmail()" placeholder="이메일을 입력해주세요">
+                                <div class="col-6">
+                                    <input type="text" name="email" id="email" oninput="checkEmail()" class="form-control" placeholder="이메일을 입력해주세요" >
                                     <br>
                                     <!-- id ajax 중복체크 -->
-                                    <span class="email_ok">사용 가능한 이메일입니다.</span> <span class="email_already">이미 가입된 이메일입니다.</span>
+                                    <span class="email_ok">*사용 가능한 이메일입니다.</span> <span class="email_already">*이미 가입된 이메일입니다.</span>
                                 </div>
 
                                 <div class="col-3">
@@ -195,25 +200,33 @@
                     <tr>
                         <td width="20%" class="m1"><b>인증번호 확인</b></td>
                         <td width="80%" class="m2">
-                            <input type="password" name="cf" id="cf" class="user-control" placeholder="인증번호를 입력해주세요">
-                                 <br>
-                              <div class="col-3">
+                         <div class="row">
+                             <div class="col-6">
+                            <input type="password" name="cf" id="cf"  class="form-control" placeholder="인증번호를 입력해주세요">
+                            <br>
+                               </div>
+                                <div class="col-3">
                                  <button type="button" id="mail-checkNum-Btn" class="btn btn-success">인증번호 확인</button>
-                                </div>
-
+                                   </div>
+                        </div>
                     <tr>
                         <td width="20%" class="m1"><b>비밀번호</b></td>
                         <td width="80%" class="m2">
-                            <input type="password" name="password" id="password" class="user-control" placeholder="Password">
+                        <div class="row">
+                          <div class="col-6">
+                            <input type="password" name="password" id="password"  class="form-control" placeholder="Password">
                             <br>
                             <span class="ck">*비밀번호는 문자,숫자,!,.포함해서 4~8자 이내</span>
+                        </div>
                         </td>
                     </tr>
 
                     <tr>
                         <td width="20%" class="m1"><b>비밀번호 확인</b></td>
                         <td width="80%" class="m2">
-                            <input type="password" name="repassword" id="repassword" class="user-control" placeholder="Re Password">
+                        <div class="row">
+                          <div class="col-6">
+                            <input type="password" name="repassword" id="repassword"class="form-control" placeholder="Re Password">
                             <br>
                             <span class="ck">*비밀번호는 문자,숫자,!,.포함해서 4~8자 이내</span>
                             <br>
@@ -225,11 +238,11 @@
                         <td width="80%" class="m2">
                             <div class="row">
                                 <div class="col-6">
-                                    <input type="text" name="nickname" id="nickname" oninput="checkNick()" placeholder="닉네임을 입력하세요">
+                                    <input type="text" name="nickname" id="nickname"  class="form-control" oninput="checkNick()" placeholder="사용하실 닉네임을 입력하세요">
                                     <br>
                                     <!-- nickname ajax 중복체크 -->
-                                    <span class="nickname_ok">사용 가능한 닉네임입니다.</span>
-                                    <span class="nickname_already">이미 사용중인 닉네임 입니다.</span>
+                                    <span class="nickname_ok">*사용 가능한 닉네임입니다.</span>
+                                    <span class="nickname_already">*이미 사용중인 닉네임 입니다.</span>
                                 </div>
                             </div>
         </div>

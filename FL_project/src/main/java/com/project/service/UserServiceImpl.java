@@ -4,6 +4,7 @@ import com.project.domain.UserVo;
 import com.project.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,20 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 
 @Service
 @RequiredArgsConstructor
-
+@Slf4j
 public class UserServiceImpl implements UserService {
-    
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     private final UserMapper userMapper;
+
 
     @Override
     public int createUser(UserVo user) {
         //System.out.println(">>>"+userMapper);
         //비밀번호 암호화 처리----------
 
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+
          return userMapper.createUser(user);
     }
 
@@ -49,9 +49,9 @@ public class UserServiceImpl implements UserService {
     //로그인
     @Override
     public UserVo userlogin(UserVo user) throws Exception{
+           return  userMapper.userlogin(user);
+        }
 
-        return  userMapper.userlogin(user);
-    }
 
 
     //회원정보 삭제
@@ -67,6 +67,7 @@ public class UserServiceImpl implements UserService {
     }
 
     // 비밀번호 찾기
+
 
 }
 

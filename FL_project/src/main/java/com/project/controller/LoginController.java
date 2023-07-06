@@ -41,17 +41,16 @@ public class LoginController {
     @PostMapping("/users/login")
     public String loginPOST(HttpServletRequest request,  UserVo user, RedirectAttributes rttr) throws Exception{
 
-       // System.out.println("login 메서드 진입");
-       // System.out.println("전달된 데이터 : " + user);
+        System.out.println("login 메서드 진입");
+        System.out.println("전달된 데이터 : " + user);
 
         HttpSession session = request.getSession();
-        String rawPw="";
-        String encodePw;
         UserVo lvo = service.userlogin(user);
+
+        log.info("UserVO" + lvo);
 
 
         if(lvo == null) {                                // 일치하지 않는 아이디, 비밀번호 입력 경우
-
             int result = 0;
             rttr.addFlashAttribute("result", result);
             return "redirect:/users/login";
