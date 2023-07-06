@@ -137,7 +137,7 @@ p.click{
 				//str += "</li>";
 				//str += "<li>";
 				str += "<div class='etc'>";
-				if(userId == review.user_id_fk){
+				if(userId == review.user_id_fk || ${user.state} == 3){
 					str += "<c:if test='${user ne null and user.state ne 2}'>";
 					str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
 					str += "</p> | ";
