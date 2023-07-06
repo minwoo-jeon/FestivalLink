@@ -22,6 +22,9 @@
 }
 
 p.board {
+	font-size: 2em;
+}
+p.sort{
 	font-size: 1.5em;
 }
 p.board, p.board a, p.sort, p.sort a{
@@ -29,21 +32,25 @@ p.board, p.board a, p.sort, p.sort a{
     font-family: 'NanumSquareNeo-Variable';
 }
 
+#list h2{
+	margin:auto;
+}
+
 div.notices{
-	width:90%;
+	width:80%;
 	margin:auto;
 }
 div.notices div{
 	float:left;
 }
 div.notices div.image{
-	width:10%;
+	width:7%;
 }
 div.notices div.image img{
 	width:100%;
 }
 div.notices div.title{
-	width:80%;
+	width:83%;
 	padding-left:10px;
 }
 div.notices div.etc{
@@ -88,37 +95,42 @@ p.click{
 	
 	const showList = function(arr){
 		let str = "";
-		$.each(arr, (i, notice)=>{
-			str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 notices'>";
-			str += "<div class='image'>";
-			str += "<a href='/community/notice/"+notice.notice_id+"'>";
-			str += "<img src='"+notice.notice_image+"'>";
-			str += "</a>";
-			str += "</div>";
-			str += "<div class='title'>";
-			str += "<a href='/community/notice/"+notice.notice_id+"'>";
-			str += "<h4>";
-			str += "[공지] "+notice.notice_content;
-			str += "</h4>";
-			str += "<span class='nickname'>";
-			str += notice.notice_nickname;
-			str += "</span>";
-			str += "</a>";
-			str += "</div>";
-			str += "<div class='etc'>";
-			str += "<c:if test='${user ne null and user.state eq 3}'>";
-			str += "<p class='click' onclick='location.href=\"/community/notice/"+notice.notice_id+"/edit\"'>수정";
-			str += "</p> | ";
-			str += "<p class='click' onclick='delNotice(\""+notice.notice_id+"\")'>삭제";
-			str += "</p><br>";
-			str += "</c:if>";
-			str += notice.notice_date1+"<br>";
-			str += "<span class='readnum'>";
-			str += "조회수: "+notice.notice_readnum;
-			str += "</span>";
-			str += "</div>";
-			str += "</div>";
-		});
+		if(arr.length == 0){
+			str += "<h2>공지가 없습니다</h2>";
+		}
+		else{
+			$.each(arr, (i, notice)=>{
+				str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 notices'>";
+				str += "<div class='image'>";
+				str += "<a href='/community/notice/"+notice.notice_id+"'>";
+				str += "<img src='"+notice.notice_image+"'>";
+				str += "</a>";
+				str += "</div>";
+				str += "<div class='title'>";
+				str += "<a href='/community/notice/"+notice.notice_id+"'>";
+				str += "<h4>";
+				str += "[공지] "+notice.notice_content;
+				str += "</h4>";
+				str += "<span class='nickname'>";
+				str += notice.notice_nickname;
+				str += "</span>";
+				str += "</a>";
+				str += "</div>";
+				str += "<div class='etc'>";
+				str += "<c:if test='${user ne null and user.state eq 3}'>";
+				str += "<p class='click' onclick='location.href=\"/community/notice/"+notice.notice_id+"/edit\"'>수정";
+				str += "</p> | ";
+				str += "<p class='click' onclick='delNotice(\""+notice.notice_id+"\")'>삭제";
+				str += "</p><br>";
+				str += "</c:if>";
+				str += notice.notice_date1+"<br>";
+				str += "<span class='readnum'>";
+				str += "조회수: "+notice.notice_readnum;
+				str += "</span>";
+				str += "</div>";
+				str += "</div>";
+			});
+		}
 		$("#list").html(str);
 	};
 	
@@ -156,15 +168,15 @@ p.click{
 	<div id="noticeTop" class="col-12 text-center">
 		<h1>공지사항</h1>
 	</div>
-	<div class="col-11" id="noticeMenu">
+	<div class="col-10" id="noticeMenu">
 		<p class="board float-left">
 			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
 		</p>
 		<c:if test="${user ne null and user.state eq 3}">
-			<button class="btn btn-primary float-right" id="write" name="write"
-					onclick="location.href='/community/notice/write'">공지쓰기</button>
+			<button class="btn btn-primary float-right mr-3" id="write" name="write" 
+				onclick="location.href='/community/notice/write'">공지쓰기</button>
 		</c:if>
 	</div>
 </div>
-<div class="row mt-3" id="list"></div>
+<div class="row mb-3" id="list"></div>
 <div class="row text-center" id="pagination"></div>

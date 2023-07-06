@@ -17,11 +17,14 @@
     font-family: 'NanumSquareNeo-Variable';
 }
 
-#reviewMenu{
+#reviewMenu, #reviewMenu1{
 	margin: auto;
 }
 
 p.board {
+	font-size: 2em;
+}
+p.sort{
 	font-size: 1.5em;
 }
 p.board, p.board a, p.sort, p.sort a{
@@ -29,27 +32,37 @@ p.board, p.board a, p.sort, p.sort a{
     font-family: 'NanumSquareNeo-Variable';
 }
 
+#list h2{
+	margin:auto;
+}
+
 div.reviews{
-	width:90%;
+	width:80%;
 	margin:auto;
 }
 div.reviews div{
 	float:left;
 }
 div.reviews div.image{
-	width:10%;
+	width:5%;
 }
 div.reviews div.image img{
 	width:100%;
 }
 div.reviews div.title{
-	width:80%;
+	width:81%;
 	padding-left:10px;
 }
 div.reviews div.etc{
-	width:10%;
+	width:7%;
 }
 div.reviews div.etc *{
+	display:inline-block;
+}
+div.reviews div.etc2{
+	width:7%;
+}
+div.reviews div.etc2 *{
 	display:inline-block;
 }
 
@@ -97,54 +110,63 @@ p.click{
 	const showList = function(arr, userId){
 		//let str = "<ul class='reviewList'>";
 		let str = "";
-		$.each(arr, (i, review)=>{
-			str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews'>";
-			//str += "<li>";
-			str += "<div class='image'>";
-			str += "<a href='/community/"+review.review_id+"'>";
-			str += "<img src='"+review.review_image+"'>";
-			str += "</a>";
-			str += "</div>";
-			//str += "</li>";
-			//str += "<li>";
-			str += "<div class='title'>";
-			str += "<a href='/community/"+review.review_id+"'>";
-			str += "<h4>";
-			str += review.review_content;
-			str += "</h4>";
-			str += "<span class='nickname'>";
-			str += review.review_nickname;
-			str += "</span>";
-			str += "</a>";
-			str += "</div>";
-			//str += "</li>";
-			//str += "<li>";
-			str += "<div class='etc'>";
-			str += "<c:if test='${user ne null and user.state ne 2}'>";
-			str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
-			str += "</p> | ";
-			str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
-			str += "</p><br>";
-			str += "</c:if>";
-			str += review.review_date1+"<br>";
-			str += "<span class='readnum'>";
-			str += "조회수: "+review.review_readnum;
-			str += "</span><br>";
-			str += "<c:if test='${user ne null and user.state ne 2}'>";
-			str += "<button onclick='pushLikeRe(\""+review.review_id+"\", \""+review.user_id_fk+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 ";
-			str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
-			str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";	
-			str += "</button><br>";
-			str += "<button class='btn btn-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기</button>";
-			str += "</c:if>";
-			str += "</div>";
-			//str += "</li>";
-			str += "</div>";
-			
-			if(userId != '0') {
-				reviewLikeCheck(review.review_id);
-			}
-		});
+		if(arr.length == 0){
+			str += "<h2>리뷰가 없습니다</h2>";
+		}
+		else{
+			$.each(arr, (i, review)=>{
+				str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews'>";
+				//str += "<li>";
+				str += "<div class='image'>";
+				str += "<a href='/community/"+review.review_id+"'>";
+				str += "<img src='"+review.review_image+"'>";
+				str += "</a>";
+				str += "</div>";
+				//str += "</li>";
+				//str += "<li>";
+				str += "<div class='title'>";
+				str += "<a href='/community/"+review.review_id+"'>";
+				str += "<h4>";
+				str += review.review_content;
+				str += "</h4>";
+				str += "<span class='nickname'>";
+				str += review.review_nickname;
+				str += "</span>";
+				str += "</a>";
+				str += "</div>";
+				//str += "</li>";
+				//str += "<li>";
+				str += "<div class='etc'>";
+				if(userId == review.user_id_fk){
+					str += "<c:if test='${user ne null and user.state ne 2}'>";
+					str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
+					str += "</p> | ";
+					str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
+					str += "</p><br>";
+					str += "</c:if>";
+				}
+				str += review.review_date1+"<br>";
+				str += "<span class='readnum'>";
+				str += "조회수: "+review.review_readnum;
+				str += "</span>";
+				str += "</div>";
+				str += "<div class='etc2'>";
+				str += "<c:if test='${user ne null and user.state ne 2}'>";
+				str += "<button onclick='pushLikeRe(\""+review.review_id+"\", \""+review.user_id_fk+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 ";
+				str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
+				str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";	
+				str += "</button><br>";
+				str += "<button class='btn btn-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기</button>";
+				str += "</c:if>";
+				str += "</div>";
+				//str += "</li>";
+				str += "</div>";
+				
+				if(userId != '0') {
+					reviewLikeCheck(review.review_id);
+				}
+			});
+		}
 		//str += "</ul>";
 		$("#list").html(str);
 	};
@@ -275,18 +297,20 @@ p.click{
 	<div id="reviewTop" class="col-12 text-center">
 		<h1>리뷰 게시판</h1>
 	</div>
-	<div class="col-11" id="reviewMenu">
+	<div class="col-10" id="reviewMenu">
 		<p class="board">
 			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
 		</p>
-		<p class="sort">
+	</div>
+	<div class="col-10" id="reviewMenu1">
+		<p class="sort float-left">
 			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
-			<c:if test="${user ne null and user.state ne 2}">
-				<button class="btn btn-primary float-right" id="write" name="write"
-					onclick="location.href='/community/write'">리뷰쓰기</button>
-			</c:if>
 		</p>
+		<c:if test="${user ne null and user.state ne 2}">
+			<button class="btn btn-primary float-right mr-3" id="write" name="write"
+				onclick="location.href='/community/write'">리뷰쓰기</button>
+		</c:if>
 	</div>
 </div>
-<div class="row mt-3" id="list"></div>
+<div class="row mb-3" id="list"></div>
 <div class="row text-center" id="pagination"></div>
