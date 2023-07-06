@@ -78,8 +78,7 @@ public class NaverLoginController {
         NaverUserVO nUser = naverUserMapper.getNaverUserInfo(vo.getResponse().getId());
         session.setAttribute("user", nUser);
         session.setAttribute("userId", nUser.getUser_id());
-        ///////////////나중에 수정 요망 
-        // return "/festivals?pageId=1";
-        return "redirect:/test";
+
+        return "redirect:/festivals";
     } // naverLogin
 }
