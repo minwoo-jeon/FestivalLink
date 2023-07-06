@@ -1,5 +1,6 @@
 package com.project.mapper;
 
+import com.nimbusds.jose.crypto.opts.UserAuthenticationRequired;
 import com.project.domain.UserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +15,8 @@ public interface  UserMapper {
     int emailCheck(String email);
     //닉네임체크
     int nickCheck(String nickname);
+
+    //UserVo findById(String email);
 
     //로그인 처리
     public UserVo userlogin(UserVo user);
