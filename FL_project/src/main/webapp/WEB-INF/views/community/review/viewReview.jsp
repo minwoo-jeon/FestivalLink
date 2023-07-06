@@ -4,7 +4,7 @@
 
 <style>
 	table.table{
-		width:90%;
+		width:50%;
 		margin:auto;
 	}
 </style>
@@ -13,22 +13,22 @@
 
 <table class="rounded shadow-sm table border='1'">
 	<tr>
-		<td width="20%">작성일</td>
-		<td width="30%"><c:out value="${review.review_date1}" /></td>
+		<td width="5%"><b>글쓴이</b></td>
+		<td width="45%" colspan="3"><c:out value="${review.review_nickname}" /></td>
 	</tr>
 	<tr>
-		<td width="20%">글쓴이</td>
-		<td width="30%"><c:out value="${review.review_nickname}" /></td>
-		<td width="20%">조회수</td>
-		<td width="30%"><c:out value="${review.review_readnum}" /></td>
+		<td width="5%"><b>작성일</b></td>
+		<td width="20%"><c:out value="${review.review_date1}" /></td>
+		<td width="5%"><b>조회수</b></td>
+		<td width="20%"><c:out value="${review.review_readnum}" /></td>
 	</tr>
 	<tr>
-		<td width="20%">축제</td>
-		<td width="30%"><c:out value="${review.festival_name}" /></td>
+		<td width="5%"><b>축제</b></td>
+		<td width="45%" colspan="3"><c:out value="${review.festival_name}" /></td>
 	</tr>
 	<tr height="60">
-		<td width="20%">글내용</td>
-		<td class="bg-white" colspan="3" align="left">
+		<td width="5%"><b>글내용</b></td>
+		<td class="bg-white" align="left" colspan="3">
 			<textarea name="content" id="content" rows="10" cols="50" class="form-control" readonly><c:out value="${review.review_content}"/></textarea>
 		</td>
 	</tr>
