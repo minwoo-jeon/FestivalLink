@@ -29,15 +29,21 @@
 			dataType:"json",
 			cache:false
 		}).done((res)=>{
-			let str = "<ul class='festnames'>";
-			$.each(res, function(i, title){
-				str += "<li><a class='festname' onclick='setting(\""+title+"\")'>";
-				str += title;
-				str += "</li>"
-			});
-			str += "</ul>";
-			$("#lst2").html(str).show("slow");
-			$("#lst1").show("slow")
+			let str = "";
+			if(res.length == 0){
+				str += "검색된 축제가 없습니다";
+			}
+			else{
+				str += "<ul class='festnames'>";
+				$.each(res, function(i, title){
+					str += "<li><a class='festname' onclick='setting(\""+title+"\")'>";
+					str += title;
+					str += "</li>"
+				});
+				str += "</ul>";
+			}
+			$("#lst2").html(str).show();
+			$("#lst1").show();
 		}).fail((err)=>{
 			alert(err.status);
 		});
