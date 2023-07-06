@@ -150,7 +150,7 @@ p.click{
 	const delNotice = function(id){
 		$.ajax({
 			type:"delete",
-			url:"/community/notice/"+id+"/del",
+			url:"/community/notice/"+id,
 			dataType:"json",
 			cache:false,
 		}).done((res)=>{

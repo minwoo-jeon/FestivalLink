@@ -215,7 +215,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@DeleteMapping(value="{review_id}/del", produces="application/json")
+	@DeleteMapping(value="{review_id}", produces="application/json")
 	public Map<String, String> delReview(@PathVariable("review_id") String review_id) {
 		Map<String, String> map = new HashMap<>();
 		
@@ -462,7 +462,7 @@ public class CommunityController {
 		return mv;
 	}
 	
-	@DeleteMapping(value="notice/{notice_id}/del", produces="application/json")
+	@DeleteMapping(value="notice/{notice_id}", produces="application/json")
 	public Map<String, String> delNotice(@PathVariable("notice_id") String notice_id) {
 		Map<String, String> map = new HashMap<>();
 		
