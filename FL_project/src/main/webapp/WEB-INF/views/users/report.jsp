@@ -79,7 +79,7 @@
                                     <div class="card-body">
                                         <h6 class="card-title">신고 유저 id=${vo.user_id_fk}</h6>
                                         <p class="card-text">${vo.r_report_content}</p>
-                                        <a href="/community?reviewId=${vo.review_id_fk}" class="btn btn-primary">리뷰
+                                        <a href="/community/${vo.review_id_fk}" class="btn btn-primary">리뷰
                                             보러가기</a>
                                         <button onclick="delReviewReport('${vo.r_report_id}')" class="btn btn-danger">신고
                                             삭제</button>
