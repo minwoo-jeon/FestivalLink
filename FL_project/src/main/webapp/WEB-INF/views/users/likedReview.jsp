@@ -27,7 +27,7 @@
             <c:if test="${likedReviewArr ne null and not empty likedReviewArr}">
                 <c:forEach var="vo" items="${likedReviewArr}">
                     
-                    <div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">
+                    <div class="bg-white rounded shadow-sm p-4 mb-5 pb-5 h-50 reviews">
                         <input type="hidden" value="L" class="state">
                         <a href="#">수정</a>|<a href="#">삭제</a>
                         <button onclick="pushLike('${vo.review_id}','${vo.likeState}')" class="btn btn-outline-primary btn-sm float-right">좋아요
@@ -47,7 +47,7 @@
                         <div class="pt-4 pb-4">
                             <div class="media">
                                 <a href="#"><img alt="Generic placeholder image"
-                                        src="http://bootdey.com/img/Content/avatar/avatar1.png"
+                                        src="${vo.f_image}"
                                         class="mr-2 rounded-pill"></a>
                                 <div class="media-body">
                                     <div class="reviews-members-header">

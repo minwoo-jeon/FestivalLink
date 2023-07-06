@@ -39,7 +39,7 @@ public class YFestivalService {
         for (JsonElement jsonElement : arr) {
             JsonObject temp = jsonElement.getAsJsonObject();
             // 이미지 네이버에서 검색해서 가져오기
-            String searchUrl = "https://search.naver.com/search.naver?8&query="+temp.get("fstvlNm").getAsString();
+            String searchUrl = "https://search.naver.com/search.naver?query="+temp.get("fstvlNm").getAsString();
             
             con=Jsoup.connect(searchUrl);
             Document doc = con.get();

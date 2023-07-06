@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.mapper.YFestivalMapper;
 import com.project.service.YFestivalService;
+import com.project.domain.FestivalPagingVO;
 import com.project.domain.MyPagingVO;
 import com.project.domain.YFestivalVO;
 import com.project.domain.YReviewVO;
@@ -45,6 +48,24 @@ public class YFestivalController {
     @Value("${openapi.serviceKey}")
     private String serviceKey;
 
+    public void makePaging(int totalCount, FestivalPagingVO vo, int page){
+        int pageSize = 17;
+        int pageCount = (totalCount - 1) / pageSize + 1;
+        if (page < 0) {
+            page = 1;
+        }
+        if (page > pageCount) {
+            page = pageCount;
+        }
+        int end = page * pageSize;
+        int start = end - pageSize;
+        vo.setEnd(end);
+        vo.setStart(start);
+    } 
+    @Operation(summary = "축제 정보 업데이트") // 정의하려는 API 명시
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "축제 객체들 DB에 반환")
+    })
     @GetMapping("/festivals/api-req")
     public void getFestivalInfoFromAPI() throws IOException {
         StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/tn_pubr_public_cltur_fstvl_api");
@@ -92,9 +113,12 @@ public class YFestivalController {
         //log.info("festivalInfo = {}", festivalInfo);
         model.addAttribute("festivalInfo", festivalInfo);
         model.addAttribute("total", totalCountReview);
-        return "festival_yj/festival_detail";
+        return "festival_yj/festivalDetail";
     }
-
+    @Operation(summary = "축제 상세 페이지-리뷰불러오기") // 정의하려는 API 명시
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "축제와 관련된 리뷰 불러오기")
+    })
     @ResponseBody
     @GetMapping(value = "/festivals/review/{festivalId}/{page}", produces = "application/json")
     public List<YReviewVO> geReviewByFid(Model m, @PathVariable String festivalId, @PathVariable int page) {
@@ -120,4 +144,59 @@ public class YFestivalController {
         return vo;
     }
 
+    @Operation(summary = "홈페이지 메인 화면") // 정의하려는 API 명시
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "festivals/list?loc=&keyword=&page=1로 이동 ")
+    })
+    @GetMapping("/festivals")
+    public String FestivalPage(Model m){
+        int totalCount = yFestivalMapper.getTotalFestivalCount();
+        m.addAttribute("total", totalCount);
+        return "festival_yj/festivalList";
+    }
+
+
+    @Operation(summary = "축제 메인 검색 페이지") // 정의하려는 API 명시
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "지역 별, 키워드 별 인기순으로 반환")
+    })
+    @ResponseBody
+    @GetMapping(value = "/festivals/list", produces = "application/json")
+    public List<YFestivalVO> festivalMain(Model model,
+        @RequestParam String loc, @RequestParam String keyword, @RequestParam(defaultValue = "1")int page){
+        List<YFestivalVO>fList=new ArrayList<>();
+        FestivalPagingVO vo= new FestivalPagingVO();
+        int totalCount;
+        if(loc==""&&keyword==""){
+            totalCount = yFestivalMapper.getTotalFestivalCount();
+            makePaging(totalCount, vo, page);
+            fList=yFestivalMapper.getFestivalList(vo);
+            
+            model.addAttribute("total", totalCount);
+            System.out.println("hi1"+totalCount);
+        }else if(loc==""&&keyword!=""){
+            System.out.println("hi key");
+            totalCount = yFestivalMapper.getTotalFestivalCountWithKeyword(keyword);
+            makePaging(totalCount, vo, page);
+            vo.setKeyword(keyword);
+            fList=yFestivalMapper.getFestivalListWithKeyword(vo);
+         }
+         else if(loc!=""&&keyword==""){
+            System.out.println("hi loc");
+            totalCount = yFestivalMapper.getTotalFestivalCountWithLoc(loc);
+            makePaging(totalCount, vo, page);
+            vo.setLoc(loc);
+            fList=yFestivalMapper.getFestivalListWithLoc(vo);
+        }
+        else{
+            System.out.println("hi both");
+            totalCount = yFestivalMapper.getTotalFestivalCountWithKeywordNLoc(keyword, loc);
+            makePaging(totalCount, vo, page);
+            vo.setKeyword(keyword);
+            vo.setLoc(loc);
+            fList=yFestivalMapper.getFestivalListWithKeywordNLoc(vo);
+        }
+        
+        return fList;
+    }
 }
