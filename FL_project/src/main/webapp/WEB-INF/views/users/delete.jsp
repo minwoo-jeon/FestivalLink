@@ -33,6 +33,9 @@
   color: #212529;
   text-decoration: none;
 }
+
+
+
 </style>
 </head>
 <script>
@@ -65,13 +68,14 @@
                 	<label>비밀번호</label>
                 	<input class="w3-input" type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" required>
                 	</p>
+                	<c:if test="${msg == false}">
+                         	비밀번호가 맞지 않습니다.
+                       </c:if>
 				<p class="w3-center">
 					<button type="submit" id="submit" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">회원 탈퇴</button>
 				</p>
 				<div>
-                				<c:if test="${msg == false}">
-                				비밀번호가 맞지 않습니다.
-                				</c:if>
+
                </div>
                </form>
 			</div>

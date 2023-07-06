@@ -35,9 +35,15 @@
 
     <!--로그인 처리 -->
     <select id="userlogin" resultType="com.project.domain.UserVo" >
-        select user_id,email,password,nickname
+        select *
         from users
         where email = #{email} and password =#{password}
+    </select>
+
+    <select id="findById" parameterType="String">
+        select email,password
+        from users
+        where email = #{email}
     </select>
 
     <!--회원정보 수정 -->
