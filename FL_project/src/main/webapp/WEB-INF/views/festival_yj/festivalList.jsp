@@ -33,7 +33,7 @@
                                     <div class="row no-gutters">
                                         <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                             <select class="form-control" id="locationSelect"
-                                                onchange="changeLoc(this.value)" name="loc">
+                                                onchange="" name="loc">
                                                 <option value="">Location</option>
                                                 <option value="서울">서울</option>
                                                 <option value="인천">인천</option>
@@ -59,7 +59,7 @@
                                                 name="keyword">
                                         </div>
                                         <div class="col-lg-1 col-md-3 col-sm-12 p-0">
-                                            <button type="submit" class="btn btn-base" onclick="putKeyword()">
+                                            <button type="submit" class="btn btn-base" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -122,6 +122,7 @@
             showMain(loc, key,1);
         })
         const showMain = function (loc, key,page) {
+            
             //alert("showMain")
             let url = "/festivals/list?loc=" + loc + "&keyword=" + key+"&page="+page;
             //alert(url)
@@ -205,6 +206,7 @@
                 $('#likeSort').css('text-decoration', 'none');
                 $('#sort').val("2");
             }
+            $('#searchForm').submit();
 
         }
     </script>

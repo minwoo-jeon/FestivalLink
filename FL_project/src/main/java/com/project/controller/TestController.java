@@ -36,6 +36,11 @@ public class TestController {
 
         return new ModelAndView("test");
     }
+    @GetMapping("/test2")
+    public ModelAndView testMypage() {
+
+        return new ModelAndView("testmy");
+    }
     @GetMapping("/events")
     public ModelAndView testPage2() {
 
