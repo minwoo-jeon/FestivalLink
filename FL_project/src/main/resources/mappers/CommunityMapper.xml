@@ -96,24 +96,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	
 	<select id="getNoticeList" resultType="com.project.domain.NoticeVO">
-		select notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum
+		select notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_image, notice_readnum
 		from notices
 		order by notice_date desc
 	</select>
 	
 	<select id="getNoticeListPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.NoticeVO">
 		select * from
-		(select row_number() over(order by notice_date desc) rn, notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum
+		(select row_number() over(order by notice_date desc) rn, notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_image, notice_readnum
 		from notices)
 		<![CDATA[where rn > #{start} and rn < #{end}]]>
 	</select>
 	
 	<insert id="insertNotice" parameterType="string">
-		insert into notices(notice_id, user_id_fk, notice_nickname, notice_content) values(#{uuid}, '2', #{nickname}, #{content})
+		insert into notices(notice_id, user_id_fk, notice_nickname, notice_content, notice_image) values(#{uuid}, #{uid}, #{nickname}, #{content}, #{notice_image})
 	</insert>
 	
 	<select id="getNotice" parameterType="string" resultType="com.project.domain.NoticeVO">
-		select notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_readnum 
+		select notice_id, user_id_fk, notice_nickname, notice_content, to_char(notice_date, 'yy-mm-dd') notice_date1, notice_image, notice_readnum 
 		from notices
 		where notice_id = #{notice_id}
 	</select>
@@ -127,7 +127,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="updateNotice" parameterType="string">
-		update notices set notice_content = #{content} where notice_id = #{notice_id}
+		update notices set notice_content = #{content}, notice_image = #{notice_image} 
+		where notice_id = #{notice_id}
 	</update>
 	
 	<delete id="deleteNotice" parameterType="string">

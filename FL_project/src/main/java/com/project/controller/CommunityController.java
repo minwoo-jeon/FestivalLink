@@ -1,10 +1,13 @@
  package com.project.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.domain.NaverUserVO;
@@ -306,6 +310,14 @@ public class CommunityController {
 		String pageNavi = pagination.getNoticePageNavi(myctx, loc);
 		
 		List<NoticeVO> arr = cMapper.getNoticeListPaging(pagination);
+		for(NoticeVO vo:arr) {
+			if(vo.getNotice_image() != null) {
+				vo.setNotice_image("/resources/community_upload/notice/"+vo.getNotice_image());
+			}
+			else {
+				vo.setNotice_image("/resources/community_upload/noimage.png");
+			}
+		}
 		
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("items", arr);	
@@ -342,12 +354,45 @@ public class CommunityController {
 	}
 	
 	@PostMapping("notice/write")
-	public ModelAndView writeNotice(@RequestParam("nickname") String nickname, @RequestParam("content") String content) {
+	public ModelAndView writeNotice(HttpSession session, @RequestParam("nickname") String nickname, @RequestParam("content") String content, @RequestParam("filename") MultipartFile filename) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/community/notice");
 		
-		UUID uuid = UUID.randomUUID();
-		cMapper.insertNotice(uuid.toString(), nickname, content);
+		ServletContext ctx = session.getServletContext();
+		String upDir = ctx.getRealPath("/resources/community_upload/notice");
+		File dir = new File(upDir);
+		if(!dir.exists())
+			dir.mkdirs();
+		
+		String fname = "";
+		if(!filename.isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+			String origin = filename.getOriginalFilename();
+			fname = uuid.toString()+"_"+origin;
+			
+			try {
+				filename.transferTo(new File(upDir, fname));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		Object user = session.getAttribute("user");
+		if(user != null) {
+			String uid = null;
+			if(user instanceof UserVo && ((UserVo)user).getState() != 2) {
+				uid = ((UserVo)user).getUser_id();
+			}
+			else if(user instanceof NaverUserVO && ((NaverUserVO)user).getState() != 2){
+				uid = ((NaverUserVO)user).getUser_id();
+			}
+			
+			UUID uuid = UUID.randomUUID();
+			cMapper.insertNotice(uuid.toString(), uid, nickname, content, fname);
+		}
+		else {
+			mv.setViewName("redirect:/community");
+		}
 		
 		return mv;
 	}
@@ -389,11 +434,30 @@ public class CommunityController {
 	}
 	
 	@PostMapping(value="notice/{notice_id}/edit")
-	public ModelAndView editNotice(@PathVariable("notice_id") String notice_id, @RequestParam("content") String content) {
+	public ModelAndView editNotice(@PathVariable("notice_id") String notice_id, HttpSession session, @RequestParam("content") String content, @RequestParam("filename") MultipartFile filename) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/community/notice");
 		
-		cMapper.updateNotice(notice_id, content);
+		ServletContext ctx = session.getServletContext();
+		String upDir = ctx.getRealPath("/resources/community_upload/notice");
+		File dir = new File(upDir);
+		if(!dir.exists())
+			dir.mkdirs();
+		
+		String fname = "";
+		if(!filename.isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+			String origin = filename.getOriginalFilename();
+			fname = uuid.toString()+"_"+origin;
+			
+			try {
+				filename.transferTo(new File(upDir, fname));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		cMapper.updateNotice(notice_id, content, fname);
 		
 		return mv;
 	}

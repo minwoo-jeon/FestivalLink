@@ -34,10 +34,10 @@ public interface CommunityMapper {
 	
 	List<NoticeVO> getNoticeList();
 	List<NoticeVO> getNoticeListPaging(PaginationVO vo);
-	int insertNotice(String uuid, String nickname, String content);
+	int insertNotice(String uuid, String uid, String nickname, String content, String notice_image);
 	NoticeVO getNotice(String notice_id);
 	int getTotalNoticeCount();
 	int updateNoticeReadnum(String notice_id);
-	int updateNotice(String notice_id, String content);
+	int updateNotice(String notice_id, String content, String notice_image);
 	int deleteNotice(String notice_id);
 }
