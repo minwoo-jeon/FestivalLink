@@ -56,3 +56,8 @@
 
   </div>
 </section>
+<script>
+  $(()=>{
+    $('#mainHeader').css('display','none');
+  })
+</script>
