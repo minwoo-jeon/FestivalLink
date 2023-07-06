@@ -1,6 +1,7 @@
 package com.project.service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.UUID;
 
 import org.jsoup.Connection;
@@ -10,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.yaml.snakeyaml.util.UriEncoder;
 
 import com.fasterxml.jackson.databind.introspect.TypeResolutionContext.Empty;
 import com.google.gson.JsonArray;
@@ -39,7 +41,7 @@ public class YFestivalService {
         for (JsonElement jsonElement : arr) {
             JsonObject temp = jsonElement.getAsJsonObject();
             // 이미지 네이버에서 검색해서 가져오기
-            String searchUrl = "https://search.naver.com/search.naver?query="+temp.get("fstvlNm").getAsString();
+            String searchUrl = "https://search.naver.com/search.naver?query="+URLEncoder.encode(temp.get("fstvlNm").getAsString(),"UTF-8");
             
             con=Jsoup.connect(searchUrl);
             Document doc = con.get();

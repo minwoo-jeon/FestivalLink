@@ -190,7 +190,7 @@ public class MyPageController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "리뷰 신고 처리 후 삭제 ")
     })
-    @DeleteMapping("/users/report/{r-report-id}")
+    @DeleteMapping("/users/report/{r_report_id}")
     public int delReviewReport(@PathVariable String r_report_id) {
         myPageMapper.delReviewReport(r_report_id);
         return 1;

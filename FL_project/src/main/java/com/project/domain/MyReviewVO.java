@@ -18,6 +18,7 @@ public class MyReviewVO {
 	private String review_nickname;
 	private String review_content;
 	private String review_date;
+	private String review_date1;
 	private int review_readnum;
 	private String festival_name;
 	private int r_like;

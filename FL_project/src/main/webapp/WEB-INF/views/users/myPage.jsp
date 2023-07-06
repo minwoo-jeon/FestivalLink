@@ -19,6 +19,7 @@
     	<h1 class="text-center mb-3"  div style="padding:30px">${user.nickname} 님의 페이지</h1>
     	<table border="0" class="table table-striped mt-3">
     		<tr>
+
     			<td onclick="location.href='/users/modify'"><font size="10"><p style="color:white">내 정보 수정 ></td>
     		</tr>
     		<tr>
@@ -31,6 +32,9 @@
     		</tr>
     		<tr>
     			<td><font size="10"><p style="color:white">좋아요한 리뷰글 ></td>
+
+    		
+
     		</tr>
     		<tr>
     		</tr>

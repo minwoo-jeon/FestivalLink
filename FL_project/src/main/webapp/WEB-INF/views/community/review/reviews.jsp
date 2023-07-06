@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
@@ -14,44 +15,6 @@
 p.board {
 	font-size: 1.5em;
 }
-
-/* #list div {
-	width: 100%;
-	margin: auto;
-}
-#list div ul {
-	width: 85%;
-	margin: auto;
-}
-
-#list div ul.reviewList>li {
-	list-style: none;
-	float: left;
-	height: 100px;
-	margin-bottom: 10px;
-	background-color: white;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: flex-start;
-}
-#list div ul.reviewList>li a {
-	height: 100%;
-}
-#list div ul.reviewList>li a img {
-	height: 100%;
-}
-#list div ul.reviewList>li:nth-child(3n+1) {
-	width: 20%;
-}
-#list div ul.reviewList>li:nth-child(3n+2) {
-	width: 70%;
-	font-weight: bold;
-	font-size: 1.2em;
-}
-#list div ul.reviewList>li:nth-child(3n) {
-	width: 10%;
-} */
 
 div.reviews{
 	width:90%;
@@ -91,26 +54,34 @@ p.click{
 }
 </style>
 
+<c:if test="${user ne null}">
+	<input type="hidden" id="userId" value="${userId}">
+</c:if>
+<c:if test="${user eq null}">
+	<input type="hidden" id="userId" value="0">
+</c:if>
+
 <script>
 	$(function(){
-		getReviews("${sort}", ${pageId});
+		let userId = $("#userId").val();
+		getReviews("${sort}", ${pageId}, userId);
 	});
 	
-	const getReviews = function(sort, pageId){
+	const getReviews = function(sort, pageId, userId){
 		$.ajax({
 			type:"post",
 			url:"/community/getReviews?sort="+sort+"&pageId="+pageId,
 			dataType:"json",
 			cache:false,
 		}).done((res)=>{
-			showList(res.items);
+			showList(res.items, userId);
 			showPage(res.pageNavi, res.totalCount, res.pageId, res.pageCount);
 		}).fail((err)=>{
 			alert("error: "+err.status);
 		});
 	};
 	
-	const showList = function(arr){
+	const showList = function(arr, userId){
 		//let str = "<ul class='reviewList'>";
 		let str = "";
 		$.each(arr, (i, review)=>{
@@ -118,7 +89,7 @@ p.click{
 			//str += "<li>";
 			str += "<div class='image'>";
 			str += "<a href='/community/"+review.review_id+"'>";
-			str += "<img src='/community_upload/noimage.png'>";
+			str += "<img src='"+review.review_image+"'>";
 			str += "</a>";
 			str += "</div>";
 			//str += "</li>";
@@ -136,27 +107,30 @@ p.click{
 			//str += "</li>";
 			//str += "<li>";
 			str += "<div class='etc'>";
+			str += "<c:if test='${user ne null and user.state ne 2}'>";
 			str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
 			str += "</p> | ";
 			str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
 			str += "</p><br>";
+			str += "</c:if>";
 			str += review.review_date1+"<br>";
 			str += "<span class='readnum'>";
 			str += "조회수: "+review.review_readnum;
 			str += "</span><br>";
-			str += "<button onclick='pushLike(\""+review.review_id+"\", \""+1+"\", \""+1+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 ";
+			str += "<c:if test='${user ne null and user.state ne 2}'>";
+			str += "<button onclick='pushLikeRe(\""+review.review_id+"\", \""+review.user_id_fk+"\")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 ";
 			str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
-			if(review.likeState == 0){
-				str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";
-			}
-			else{
-				str += "<i class='bi bi-hand-thumbs-up-fill' id='thumbs-up-"+review.review_id+"'></i>";
-			}		
+			str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";	
 			str += "</button><br>";
 			str += "<button class='btn btn-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기</button>";
+			str += "</c:if>";
 			str += "</div>";
 			//str += "</li>";
 			str += "</div>";
+			
+			if(userId != '0') {
+				reviewLikeCheck(review.review_id);
+			}
 		});
 		//str += "</ul>";
 		$("#list").html(str);
@@ -220,7 +194,70 @@ p.click{
 		
 		getReviews("${sort}", ${pageId});
 	};
+	
+	
+	
+	const reviewLikeCheck = function(reviewId){
+	    $.ajax({
+	        type: 'get',
+	        url: '/users/like/review?reviewId=' + reviewId,
+	        dataType: 'json',
+	        success: function (res) {
+	            if (res == 1) {
+	                $("#thumbs-up-" + reviewId).removeClass("bi-hand-thumbs-up");
+	                $("#thumbs-up-" + reviewId).addClass("bi-hand-thumbs-up-fill");
+	            }
+	        },
+	        error: function (err) {
+	            console.log(err.status);
+	        }
+	    });
+	};
+	
+	const pushLikeRe = function(reviewId, userId){
+	    if (userId == '0') {
+	        alert('로그인하세요');
+	        return;
+	    }
+	    else {
+	        if (!$("#thumbs-up-" + reviewId).hasClass("bi-hand-thumbs-up-fill")) {
+	            $.ajax({
+	                type: 'post',
+	                url: '/users/like?reviewId=' + reviewId,
+	                dataType: 'json',
+	                success: function (res) {
+	                    $("#thumbs-up-" + reviewId).removeClass("bi-hand-thumbs-up");
+	                    $("#thumbs-up-" + reviewId).addClass("bi-hand-thumbs-up-fill");
+	
+	                    let likeCountStr = $(`#like_count-` + reviewId).text();
+	                    let likeCount = Number(likeCountStr) + 1;
+	                    $(`#like_count-` + reviewId).text(likeCount);
+	                },
+	                error: function (err) {
+	                    console.log(err.status);
+	                }
+	            });
+	        } else {
+	            $.ajax({
+	                type: 'delete',
+	                url: '/users/like?reviewId=' + reviewId,
+	                dataType: 'json',
+	                success: function (res) {
+	                    $("#thumbs-up-" + reviewId).removeClass("bi-hand-thumbs-up-fill");
+	                    $("#thumbs-up-" + reviewId).addClass("bi-hand-thumbs-up");
+	                    let likeCountStr = $(`#like_count-` + reviewId).text();
+	                    let likeCount = Number(likeCountStr) - 1;
+	                    $(`#like_count-` + reviewId).text(likeCount);
+	                },
+	                error: function (err) {
+	                    console.log(err.status);
+	                }
+	            });
+	        }
+	    }
+	};
 </script>
+
 <div class="row mt-3">
 	<div class="col-12 text-center">
 		<h2>리뷰 게시판</h2>
@@ -231,8 +268,10 @@ p.click{
 		</p>
 		<p class="sort">
 			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
-			<button class="btn btn-primary float-right" id="write" name="write"
-				onclick="location.href='/community/write'">리뷰쓰기</button>
+			<c:if test="${user ne null and user.state ne 2}">
+				<button class="btn btn-primary float-right" id="write" name="write"
+					onclick="location.href='/community/write'">리뷰쓰기</button>
+			</c:if>
 		</p>
 	</div>
 </div>

@@ -24,6 +24,13 @@
 	</tr>
 	<tr height="60">
 		<td width="20%">글내용</td>
-		<td class="bg-white" colspan="3" align="left">${notice.notice_content}</td>
+		<td class="bg-white" colspan="3" align="left">
+			<textarea name="content" id="content" rows="10" cols="50" class="form-control" readonly><c:out value="${notice.notice_content}"/></textarea>
+		</td>
+	</tr>
+	<tr>
+		<td class="text-center" colspan="4">
+			<button type="button" class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
+		</td>
 	</tr>
 </table>
