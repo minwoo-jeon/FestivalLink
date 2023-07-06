@@ -59,7 +59,7 @@ public class LoginController {
 
         session.setAttribute("user", lvo);             // 일치하는 아이디, 비밀번호 경우 (로그인 성공)
         session.setAttribute("userId", lvo.getUser_id());
-        return "redirect:/test";
+        return "redirect:/festivals";
 
     }
     @GetMapping("/logout")
@@ -68,7 +68,7 @@ public class LoginController {
 
         session.invalidate(); //세션제거
 
-        return "redirect:/test";
+        return "redirect:/festivals";
     }
 
 }

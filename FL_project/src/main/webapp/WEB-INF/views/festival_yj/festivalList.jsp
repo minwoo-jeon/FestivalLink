@@ -33,7 +33,7 @@
                                     <div class="row no-gutters">
                                         <div class="col-lg-3 col-md-3 col-sm-12 p-0">
                                             <select class="form-control" id="locationSelect"
-                                                onchange="" name="loc">
+                                                 name="loc">
                                                 <option value="">Location</option>
                                                 <option value="서울">서울</option>
                                                 <option value="인천">인천</option>
@@ -51,7 +51,7 @@
                                                 <option value="경상남도">경상남도</option>
                                                 <option value="전라북도">전라북도</option>
                                                 <option value="전라남도">전라남도</option>
-                                                <option value="제주도">제주도</option>
+                                                <option value="제주">제주도</option>
                                             </select>
                                         </div>
                                         <div class="col-lg-8 col-md-6 col-sm-12 p-0">
@@ -162,7 +162,7 @@
             } else {
                 str+=`<div class="row">`;
                 $.each(res, function (i, festival) {
-                    str+=`<div class="card m-2" style="width: 250px; height: 480px;">
+                    str+=`<div class="card m-2" style="width: 250px; height: 490px;">
                         <img src="`+festival.festival_image+`}" />
                         <div class="card-body">
                             <h5 class="card-title"><a href="/festivals/`+festival.festival_id+`">`+festival.festival_name+`</a>
