@@ -30,11 +30,11 @@
 
                         <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
 
-                        <div class="pt-4 pb-4">
+                        <div>
                             <div class="media" style="clear:both">
 
                                 <a href="#"><img alt="Generic placeholder image" src="${vo.f_image}"
-                                        class="mr-2 rounded-pill"></a>
+                                        class="mr-3 rounded-pill"></a>
                                 <div class="media-body">
                                     <div class="reviews-members-header">
                                         <h5 class="mb-1">${vo.festival_name}</h5>
@@ -62,8 +62,8 @@
 
                                             </c:choose>
                                         </button><br><br>
-                                        <button class='btn btn-warning btn-sm '
-                                            onclick='location.href="/community/${vo.review_id}/report"'>신고하기</button>
+                                        <button class='btn btn-outline-warning btn-sm '
+                                            onclick='location.href="/community/${vo.review_id}/report"'>신고하기<i class="bi bi-flag-fill"></i></button>
                                 </div>
                             </div>
                         </div>
