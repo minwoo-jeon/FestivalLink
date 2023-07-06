@@ -22,6 +22,9 @@
 }
 
 p.board {
+	font-size: 2em;
+}
+p.sort{
 	font-size: 1.5em;
 }
 p.board, p.board a, p.sort, p.sort a{
@@ -165,15 +168,15 @@ p.click{
 	<div id="noticeTop" class="col-12 text-center">
 		<h1>공지사항</h1>
 	</div>
-	<div class="col-11" id="noticeMenu">
+	<div class="col-10" id="noticeMenu">
 		<p class="board float-left">
 			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
 		</p>
 		<c:if test="${user ne null and user.state eq 3}">
-			<button class="btn btn-primary float-right" id="write" name="write"
-					onclick="location.href='/community/notice/write'">공지쓰기</button>
+			<button class="btn btn-primary float-right mr-3" id="write" name="write" 
+				onclick="location.href='/community/notice/write'">공지쓰기</button>
 		</c:if>
 	</div>
 </div>
-<div class="row my-3" id="list"></div>
+<div class="row mb-3" id="list"></div>
 <div class="row text-center" id="pagination"></div>

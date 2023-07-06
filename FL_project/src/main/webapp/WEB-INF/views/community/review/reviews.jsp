@@ -17,11 +17,14 @@
     font-family: 'NanumSquareNeo-Variable';
 }
 
-#reviewMenu{
+#reviewMenu, #reviewMenu1{
 	margin: auto;
 }
 
 p.board {
+	font-size: 2em;
+}
+p.sort{
 	font-size: 1.5em;
 }
 p.board, p.board a, p.sort, p.sort a{
@@ -294,18 +297,20 @@ p.click{
 	<div id="reviewTop" class="col-12 text-center">
 		<h1>리뷰 게시판</h1>
 	</div>
-	<div class="col-11" id="reviewMenu">
+	<div class="col-10" id="reviewMenu">
 		<p class="board">
 			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
 		</p>
-		<p class="sort">
+	</div>
+	<div class="col-10" id="reviewMenu1">
+		<p class="sort float-left">
 			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
-			<c:if test="${user ne null and user.state ne 2}">
-				<button class="btn btn-primary float-right" id="write" name="write"
-					onclick="location.href='/community/write'">리뷰쓰기</button>
-			</c:if>
 		</p>
+		<c:if test="${user ne null and user.state ne 2}">
+			<button class="btn btn-primary float-right mr-3" id="write" name="write"
+				onclick="location.href='/community/write'">리뷰쓰기</button>
+		</c:if>
 	</div>
 </div>
-<div class="row my-3" id="list"></div>
+<div class="row mb-3" id="list"></div>
 <div class="row text-center" id="pagination"></div>
