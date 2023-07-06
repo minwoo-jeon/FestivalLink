@@ -119,7 +119,7 @@ body{
 		<div class="container" >
 			<!-- logo -->
 			<div class="nav-logo">
-			<a class="site-logo" href="/test"> <%@include file="small_logo.jsp"%>festival link
+			<a class="site-logo" href="/festivals"> <%@include file="small_logo.jsp"%>festival link
 			</a></div>
 			<div class="user-panel">
 				 <!-- 로그인 하지 않을 시 코드 처리-->

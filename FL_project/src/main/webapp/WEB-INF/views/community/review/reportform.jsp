@@ -24,7 +24,7 @@
 
 <div class="row">
 	<div align="center" class="col-md-8 offset-md-2 my-4">
-		<h2>리뷰 신고하기</h2>
+		<h2 class="text-light">리뷰 신고하기</h2>
 		<!--파일 업로드시
  			method: POST
   			enctype: multipart/form-data 
@@ -33,7 +33,7 @@
 			<!-- 글쓰기: write, 답글쓰기: rewrite, 수정: edit -->
 			<input type="hidden" name="mode" value="write">
 			<input type="hidden" name="user_id" value="${review.user_id_fk}">
-			<table class="table">
+			<table class="table bg-light rounded">
 				<tr>
 					<td style="width: 20%"><b>신고자</b></td>
 					<td style="width: 80%; border:1">
