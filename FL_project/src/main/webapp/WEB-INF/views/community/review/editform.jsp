@@ -23,31 +23,29 @@
 
 <div class="row">
 	<div align="center" class="col-md-8 offset-md-2 my-4">
-		<h2>리뷰 수정</h2>
+		<h2 class="text-light">리뷰 수정</h2>
 		<!--파일 업로드시
  			method: POST
   			enctype: multipart/form-data 
    		-->
 		<form name="ef" id="ef" action="edit" method="post" enctype="multipart/form-data">
-			<!-- 글쓰기: write, 답글쓰기: rewrite, 수정: edit -->
-			<input type="hidden" name="mode" value="write">
 			<input type="hidden" name="review_id" id="review_id" value="${review.review_id}">
-			<table class="table">
+			<table class="table bg-light rounded">
 				<tr>
-					<td style="width: 20%"><b>글쓴이</b></td>
-					<td style="width: 80%; border:1">
+					<td style="width: 10%"><b>글쓴이</b></td>
+					<td style="width: 90%; border:1">
 						<input type="text" name="nickname" id="nickname" class="form-control" value="${review.review_nickname}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<td width="20%">축제</td>
-					<td style="width: 80%; border:1">
+					<td width="10%"><b>축제</b></td>
+					<td style="width: 90%; border:1">
 						<input type="text" name="nickname" id="nickname" class="form-control" value="${review.festival_name}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>글내용</b></td>
-					<td style="width: 80%">
+					<td style="width: 10%"><b>글내용</b></td>
+					<td style="width: 90%; border:1">
 						<textarea name="content" id="content" rows="10" cols="50" class="form-control"><c:out value="${review.review_content}"/></textarea>
 					</td>
 				</tr>

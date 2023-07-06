@@ -13,6 +13,11 @@
 	a.festname{
 		cursor:pointer;
 	}
+	
+	#lst2{
+		max-height:250px;
+		overflow-y:auto;
+	}
 </style>
 
 <script>
@@ -24,15 +29,21 @@
 			dataType:"json",
 			cache:false
 		}).done((res)=>{
-			let str = "<ul class='festnames'>";
-			$.each(res, function(i, title){
-				str += "<li><a class='festname' onclick='setting(\""+title+"\")'>";
-				str += title;
-				str += "</li>"
-			});
-			str += "</ul>";
-			$("#lst2").html(str).show("slow");
-			$("#lst1").show("slow")
+			let str = "";
+			if(res.length == 0){
+				str += "검색된 축제가 없습니다";
+			}
+			else{
+				str += "<ul class='festnames'>";
+				$.each(res, function(i, title){
+					str += "<li><a class='festname' onclick='setting(\""+title+"\")'>";
+					str += title;
+					str += "</li>"
+				});
+				str += "</ul>";
+			}
+			$("#lst2").html(str).show();
+			$("#lst1").show();
 		}).fail((err)=>{
 			alert(err.status);
 		});
@@ -53,12 +64,12 @@
 
 <div class="container m2" style="margin-top: 2em">
 	<div>
-		<label for="festname" class="control-label col-sm-6">축제 이름</label>
+		<label for="festname" class="control-label col-sm-6 text-light"><b>축제 이름</b></label>
 		<div class="col-sm-6">
 			<input type="text" name="festname" id="festname"
 				onkeyup="autoComp(this.value)" placeholder="축제 검색" class="form-control">
-			<div id="lst1" class="listbox bg-light mt-3" style="display: none">
-				<div id="lst2" class="flist" style="display: none"></div>
+			<div id="lst1" class="listbox mt-3" style="display: none">
+				<div id="lst2" class="flist bg-light rounded" style="display: none"></div>
 			</div>
 			<button id="confirm" class="btn btn-secondary mt-3" onclick="setName()" style="display: none">확인</button>
 		</div>

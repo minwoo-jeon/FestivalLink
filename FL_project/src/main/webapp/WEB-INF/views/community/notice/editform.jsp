@@ -37,31 +37,29 @@
 
 <div class="row">
 	<div align="center" class="col-md-8 offset-md-2 my-4">
-		<h2>공지사항 수정</h2>
+		<h2 class="text-light">공지사항 수정</h2>
 		<!--파일 업로드시
  			method: POST
   			enctype: multipart/form-data 
    		-->
 		<form name="ef" id="ef" action="edit" method="post" enctype="multipart/form-data">
-			<!-- 글쓰기: write, 답글쓰기: rewrite, 수정: edit -->
-			<input type="hidden" name="mode" value="write">
 			<input type="hidden" name="notice_id" id="notice_id" value="${notice.notice_id}">
-			<table class="table">
+			<table class="table bg-light rounded">
 				<tr>
-					<td style="width: 20%"><b>글쓴이</b></td>
-					<td style="width: 80%; border:1">
+					<td style="width: 10%"><b>글쓴이</b></td>
+					<td style="width: 90%; border:1">
 						<input type="text" name="nickname" id="nickname" class="form-control" value="${notice.notice_nickname}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>글내용</b></td>
-					<td style="width: 80%">
+					<td style="width: 10%"><b>글내용</b></td>
+					<td style="width: 90%; border:1">
 						<textarea name="content" id="content" rows="10" cols="50" class="form-control"><c:out value="${notice.notice_content}"/></textarea>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>이미지 파일 첨부</b></td>
-					<td style="width: 80%">
+					<td style="width: 10%"><b>이미지 파일</b></td>
+					<td style="width: 90%; border:1">
 						<input type="file" accept="image/*" name="filename" id="filename" class="form-control">
 					</td>
 				</tr>

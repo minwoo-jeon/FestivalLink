@@ -9,9 +9,9 @@
 	}
 </style>
 
-<h2 class="text-center my-3">공지사항 내용</h2>
+<h2 class="text-center my-3 text-light">공지사항 내용</h2>
 
-<table class="rounded shadow-sm table border='1'">
+<table class="rounded bg-light shadow-sm table border='1'">
 	<tr>
 		<td width="5%"><b>글쓴이</b></td>
 		<td width="45%" colspan="3"><c:out value="${notice.notice_nickname}" /></td>
