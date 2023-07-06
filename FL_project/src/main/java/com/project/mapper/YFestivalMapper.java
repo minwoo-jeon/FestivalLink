@@ -22,15 +22,19 @@ public interface YFestivalMapper {
 
     //축제 리스트 1
     public List<YFestivalVO> getFestivalList(FestivalPagingVO vo);
+    public List<YFestivalVO> getFestivalListLatest(FestivalPagingVO vo);
     public int getTotalFestivalCount();
     //축제리스트2
     public List<YFestivalVO> getFestivalListWithKeyword(FestivalPagingVO vo);
     public int getTotalFestivalCountWithKeyword(String keyword);
+    public List<YFestivalVO> getFestivalListWithKeywordLatest(FestivalPagingVO vo);
     // //축제리스트3
     public List<YFestivalVO> getFestivalListWithLoc(FestivalPagingVO vo);
     public int getTotalFestivalCountWithLoc(String loc);
+    public List<YFestivalVO> getFestivalListWithLocLatest(FestivalPagingVO vo);
     // //축제리스트4
     public List<YFestivalVO> getFestivalListWithKeywordNLoc(FestivalPagingVO vo);
     public int getTotalFestivalCountWithKeywordNLoc(@Param("keyword")String keyword, @Param("loc")String loc);
+    public List<YFestivalVO> getFestivalListWithKeywordNLocLatest(FestivalPagingVO vo);
 
 }

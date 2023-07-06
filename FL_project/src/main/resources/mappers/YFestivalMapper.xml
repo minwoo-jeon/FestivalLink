@@ -38,7 +38,13 @@
 		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
 		on a.festival_id = b.festival_id_fk
 		order by likes desc)
-        <![CDATA[where rn > #{start} and rn < #{end}]]>
+        <![CDATA[where rn > #{start} and rn <= #{end}]]>
+    </select>
+    <select id="getFestivalListLatest" parameterType="com.project.domain.FestivalPagingVO" resultType="com.project.domain.YFestivalVO">
+        select c.* from(select rownum rn, b.* from (select a.* from festivals a
+		
+		order by a.festival_start desc) b)c 
+        <![CDATA[where rn > #{start} and rn <= #{end}]]>
     </select>
     <!-- keyword -->
     <select id="getTotalFestivalCountWithKeyword" resultType="int" parameterType="String">
@@ -50,9 +56,17 @@
 		from festivals a 
 		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
 		on a.festival_id = b.festival_id_fk
+        where (a.FESTIVAL_NAME like '%'||#{keyword}||'%' or a.festival_contents like '%'||#{keyword}||'%')
 		order by likes desc)
-        <![CDATA[where rn > #{start} and rn < #{end}]]> 
-        and(FESTIVAL_NAME like '%'||#{keyword}||'%' or festival_contents like '%'||#{keyword}||'%')
+        <![CDATA[where rn > #{start} and rn <= #{end}]]> 
+        
+    </select>
+    <select id="getFestivalListWithKeywordLatest" resultType="com.project.domain.YFestivalVO" parameterType="com.project.domain.FestivalPagingVO">
+        select c.* from(select rownum rn, b.* from (select a.* from festivals a
+        where (a.FESTIVAL_NAME like '%'||#{keyword}||'%' or a.festival_contents like '%'||#{keyword}||'%')
+		order by a.festival_start desc) b)c 
+        <![CDATA[where rn > #{start} and rn <= #{end}]]> 
+       
     </select>
     <!-- location -->
     <select id="getTotalFestivalCountWithLoc" resultType="int" parameterType="String">
@@ -64,10 +78,18 @@
 		from festivals a 
 		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
 		on a.festival_id = b.festival_id_fk
+        where a.FESTIVAL_addr like '%'||#{loc}||'%'
 		order by likes desc)
-        <![CDATA[where rn > #{start} and rn < #{end}]]> 
-        and FESTIVAL_addr like '%'||#{loc}||'%'
+        <![CDATA[where rn > #{start} and rn <= #{end}]]> 
+        
     </select>
+    <select id="getFestivalListWithLocLatest" resultType="com.project.domain.YFestivalVO" parameterType="com.project.domain.FestivalPagingVO">
+        select c.* from(select rownum rn, b.* from (select a.* from festivals a 
+        where a.FESTIVAL_addr like '%'||#{loc}||'%'
+		order by a.festival_start desc) b)c 
+        <![CDATA[where rn > #{start} and rn <= #{end}]]> 
+    </select>
+    <!-- keyword & loc -->
     <select id="getTotalFestivalCountWithKeywordNLoc" resultType="int" parameterType="map">
         select count(festival_id) from festivals WHERE FESTIVAL_addr like '%'||#{loc}||'%' and (FESTIVAL_NAME like '%'||#{keyword}||'%' or festival_contents like '%'||#{keyword}||'%')
     </select>
@@ -77,8 +99,15 @@
 		from festivals a 
 		left join (select festival_id_fk, count(f_like_id) likes from f_likes group by festival_id_fk) b
 		on a.festival_id = b.festival_id_fk
-		order by likes desc)
-        <![CDATA[where rn > #{start} and rn < #{end}]]> 
-        and FESTIVAL_addr like '%'||#{loc}||'%' and (FESTIVAL_NAME like '%'||#{keyword}||'%' or festival_contents like '%'||#{keyword}||'%')
+        where a.FESTIVAL_addr like '%'||#{loc}||'%' and (a.FESTIVAL_NAME like '%'||#{keyword}||'%' or a.festival_contents like '%'||#{keyword}||'%')
+		order by likes desc )
+        <![CDATA[where rn > #{start} and rn <= #{end}]]> 
     </select>
+    <select id="getFestivalListWithKeywordNLocLatest" resultType="com.project.domain.YFestivalVO" parameterType="com.project.domain.FestivalPagingVO">
+        select c.* from(select rownum rn, b.* from (select a.* from festivals a
+		where a.FESTIVAL_addr like '%'||#{loc}||'%' and (a.FESTIVAL_NAME like '%'||#{keyword}||'%' or a.festival_contents like '%'||#{keyword}||'%')
+		order by a.festival_start desc) b)c 
+        <![CDATA[where rn > #{start} and rn <= #{end}]]> 
+    </select>
+    
 </mapper>

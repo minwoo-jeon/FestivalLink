@@ -122,9 +122,10 @@
             showMain(loc, key,1);
         })
         const showMain = function (loc, key,page) {
-            
+            let sort = Number($('#sort').val());
+            page=Number(page);
             //alert("showMain")
-            let url = "/festivals/list?loc=" + loc + "&keyword=" + key+"&page="+page;
+            let url = "/festivals/list?loc=" + loc + "&keyword=" + key+"&page="+page+"&sort="+sort;
             //alert(url)
             $.ajax({
                 type: 'get',
@@ -162,7 +163,7 @@
             } else {
                 str+=`<div class="row">`;
                 $.each(res, function (i, festival) {
-                    str+=`<div class="card m-2" style="width: 250px; height: 490px;">
+                    str+=`<div class="card m-2" style="width: 255px; height: 515px;">
                         <img src="`+festival.festival_image+`}" />
                         <div class="card-body">
                             <h5 class="card-title"><a href="/festivals/`+festival.festival_id+`">`+festival.festival_name+`</a>
@@ -182,11 +183,11 @@
                     if(loc==""&&key==""){
                         str1 += `<a class="page-link" href="javascript:showMain( '' ,'',` + (j + 1) + `)">`;
                     }else if(loc==""&&key!=""){
-                        str1 += `<a class="page-link" href="javascript:showMain('',` + key + `,` + (j + 1) + `)">`;
+                        str1 += `<a class="page-link" href="javascript:showMain('','` + key + `',` + (j + 1) + `)">`;
                     }else if(loc!=""&&key==""){
-                        str1 += `<a class="page-link" href="javascript:showMain(` + loc + `,'',` + (j + 1) + `)">`;
+                        str1 += `<a class="page-link" href="javascript:showMain('` + loc + `','',` + (j + 1) + `)">`;
                     }else{
-                        str1 += '<a class="page-link" href="javascript:showMain(' + loc + ',' + key + ',' + (j + 1) + ')">';
+                        str1 += `<a class="page-link" href="javascript:showMain('` + loc + `','` + key + `','` + (j + 1) + `')">`;
                     }
                     str1 += j + 1;
                     str1 += '</a>';
