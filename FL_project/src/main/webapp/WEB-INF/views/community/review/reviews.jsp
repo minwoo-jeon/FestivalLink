@@ -5,15 +5,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <style>
-#reviewTop{
-	margin: auto;
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
-#reviewTop a{
-	color:black;
+
+#reviewTop h1{
+	color: aliceblue;
+    font-family: 'NanumSquareNeo-Variable';
+}
+
+#reviewMenu{
+	margin: auto;
 }
 
 p.board {
 	font-size: 1.5em;
+}
+p.board, p.board a, p.sort, p.sort a{
+    color: aliceblue;
+    font-family: 'NanumSquareNeo-Variable';
 }
 
 div.reviews{
@@ -259,12 +272,12 @@ p.click{
 </script>
 
 <div class="row mt-3">
-	<div class="col-12 text-center">
-		<h2>리뷰 게시판</h2>
+	<div id="reviewTop" class="col-12 text-center">
+		<h1>리뷰 게시판</h1>
 	</div>
-	<div class="col-11" id="reviewTop">
+	<div class="col-11" id="reviewMenu">
 		<p class="board">
-			<a href="/community">리뷰 게시판</a> | <a href="/community/notice">공지사항</a>
+			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
 		</p>
 		<p class="sort">
 			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>

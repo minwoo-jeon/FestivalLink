@@ -5,15 +5,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 <style>
-#noticeTop{
-	margin: auto;
+@font-face {
+    font-family: 'NanumSquareNeo-Variable';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
-#noticeTop a{
-	color:black;
+
+#noticeTop h1{
+	color: aliceblue;
+    font-family: 'NanumSquareNeo-Variable';
+}
+
+#noticeMenu{
+	margin: auto;
 }
 
 p.board {
 	font-size: 1.5em;
+}
+p.board, p.board a, p.sort, p.sort a{
+    color: aliceblue;
+    font-family: 'NanumSquareNeo-Variable';
 }
 
 div.notices{
@@ -140,12 +153,12 @@ p.click{
 	};
 </script>
 <div class="row mt-3">
-	<div class="col-12 text-center">
-		<h2>공지사항</h2>
+	<div id="noticeTop" class="col-12 text-center">
+		<h1>공지사항</h1>
 	</div>
-	<div class="col-11" id="noticeTop">
+	<div class="col-11" id="noticeMenu">
 		<p class="board float-left">
-			<a href="/community">리뷰 게시판</a> | <a href="/community/notice">공지사항</a>
+			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
 		</p>
 		<c:if test="${user ne null and user.state eq 3}">
 			<button class="btn btn-primary float-right" id="write" name="write"
