@@ -148,8 +148,8 @@
             let sort = $('#sort').val();
             if(sort=='2'){
                 res.sort((a,b)=>{
-                    if(a.festival_start<b.festival_start) return -1;
-                    if(a.festival_start>b.festival_start) return 1;
+                    if(new Date(a.festival_start)<new Date(b.festival_start)) return 1;
+                    if(new Date(a.festival_start)>new Date(b.festival_start)) return -1;
                 })
             }
             if (total == "0") {
