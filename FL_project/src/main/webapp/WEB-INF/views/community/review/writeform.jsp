@@ -43,21 +43,21 @@
 		<form name="rf" id="rf" action="write" method="post" enctype="multipart/form-data">
 			<table class="table bg-light rounded">
 				<tr>
-					<td style="width: 20%"><b>글쓴이</b></td>
-					<td style="width: 80%; border:1">
+					<td style="width: 10%"><b>글쓴이</b></td>
+					<td style="width: 90%; border:1">
 						<input type="text" name="nickname" id="nickname" class="form-control" value="${nickname}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>축제</b></td>
-					<td style="width: 80%; border:1">
+					<td style="width: 10%"><b>축제</b></td>
+					<td style="width: 90%; border:1">
 						<input type="text" name="festName" id="festName" class="form-control" placeholder="축제 이름" readonly>
 						<button type="button" class="btn btn-primary" onclick="openFestivalSearch()">검색</button>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>글내용</b></td>
-					<td style="width: 80%">
+					<td style="width: 10%"><b>글내용</b></td>
+					<td style="width: 90% border:1">
 						<textarea name="content" id="content" rows="10" cols="50" class="form-control"></textarea>
 					</td>
 				</tr>

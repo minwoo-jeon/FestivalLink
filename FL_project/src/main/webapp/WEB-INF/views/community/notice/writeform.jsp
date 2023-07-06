@@ -43,20 +43,20 @@
 		<form name="nf" id="nf" action="write" method="post" enctype="multipart/form-data">
 			<table class="table bg-light rounded">
 				<tr>
-					<td style="width: 20%"><b>글쓴이</b></td>
-					<td style="width: 80%; border:1">
+					<td style="width: 10%"><b>글쓴이</b></td>
+					<td style="width: 90%; border:1">
 						<input type="text" name="nickname" id="nickname" class="form-control" value="${nickname}" readonly>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>글내용</b></td>
-					<td style="width: 80%">
+					<td style="width: 10%"><b>글내용</b></td>
+					<td style="width: 90%; border:1">
 						<textarea name="content" id="content" rows="10" cols="50" class="form-control"></textarea>
 					</td>
 				</tr>
 				<tr>
-					<td style="width: 20%"><b>이미지 파일 첨부</b></td>
-					<td style="width: 80%">
+					<td style="width: 10%"><b>이미지 파일</b></td>
+					<td style="width: 90%; border:1">
 						<input type="file" accept="image/*" name="filename" id="filename" class="form-control">
 					</td>
 				</tr>
