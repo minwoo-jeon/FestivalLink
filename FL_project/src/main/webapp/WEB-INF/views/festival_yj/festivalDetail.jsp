@@ -213,7 +213,7 @@
                 }
             };
             function getReviewByFId(festivalId, page, userId) {
-                alert('getReviewByFId page : '+page);
+                //alert('getReviewByFId page : '+page);
                 let url = '/festivals/review/' + festivalId + "/" + page;
                 $.ajax({
                     type: 'get',
