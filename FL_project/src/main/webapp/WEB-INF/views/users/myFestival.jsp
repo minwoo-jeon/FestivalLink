@@ -34,7 +34,7 @@
         <div class="row">
         <c:forEach var="vo" items="${myFestivalArr}">
           
-            <div class="card m-2" style="width: 250px; height: 480px;">
+            <div class="card m-2" style="width: 255px; height: 515px;">
               <img src="${vo.festival_image}" />
               <div class="card-body">
                 <h5 class="card-title"><a href="/festivals/${vo.festival_id_fk}">${vo.festival_name}</a></h5>

@@ -88,8 +88,8 @@ public class MyPageController {
             model.addAttribute("totalCount", totalCount);
             return new ModelAndView("users/myFestival");
         } else {
-            // 한페이지에 축제 20개보여주기(4*5)
-            int pageSize = 20;
+            // 한페이지에 축제 16개보여주기(4*4)
+            int pageSize = 16;
             int pageCount = (totalCount - 1) / pageSize + 1;
             if (page < 0) {
                 page = 1;
@@ -144,7 +144,7 @@ public class MyPageController {
         myP.setStart(start);
         myP.setUserId(userId);
         List<MyReviewVO> likedReviewArr = myPageMapper.listLikedReview(myP);
-        log.info(myP.toString());
+        //log.info(myP.toString());
         log.info("likeReviewArr = {}", likedReviewArr);
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("likedReviewArr", likedReviewArr);
