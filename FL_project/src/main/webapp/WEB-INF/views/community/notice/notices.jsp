@@ -17,10 +17,6 @@
     font-family: 'NanumSquareNeo-Variable';
 }
 
-#noticeMenu{
-	margin: auto;
-}
-
 p.board {
 	font-size: 2em;
 }
@@ -32,25 +28,17 @@ p.board, p.board a, p.sort, p.sort a{
     font-family: 'NanumSquareNeo-Variable';
 }
 
-#list h2{
-	margin:auto;
-}
-
-div.notices{
-	width:80%;
-	margin:auto;
-}
 div.notices div{
 	float:left;
 }
 div.notices div.image{
-	width:7%;
+	width:10%;
 }
 div.notices div.image img{
 	width:100%;
 }
 div.notices div.title{
-	width:83%;
+	width:80%;
 	padding-left:10px;
 }
 div.notices div.etc{
@@ -67,10 +55,6 @@ span.nickname, span.readnum{
 p.click{
 	color:gray;
 	cursor:pointer;
-}
-
-#pagination ul{
-	margin:auto;
 }
 </style>
 
@@ -96,11 +80,13 @@ p.click{
 	const showList = function(arr){
 		let str = "";
 		if(arr.length == 0){
+			str += "<div class='col-12 text-center'>";
 			str += "<h2>공지가 없습니다</h2>";
+			str += "</div>";
 		}
 		else{
 			$.each(arr, (i, notice)=>{
-				str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 notices'>";
+				str += "<div class='col-12 bg-white rounded shadow-sm p-3 mb-3 pb-3 notices'>";
 				str += "<div class='image'>";
 				str += "<a href='/community/notice/"+notice.notice_id+"'>";
 				str += "<img src='"+notice.notice_image+"'>";
@@ -164,19 +150,23 @@ p.click{
 		});
 	};
 </script>
-<div class="row mt-3">
-	<div id="noticeTop" class="col-12 text-center">
-		<h1>공지사항</h1>
+<div class="container">
+	<div class="row mt-3">
+		<div id="noticeTop" class="col-12 text-center">
+			<h1>공지사항</h1>
+		</div>
+		<div class="col-12" id="noticeMenu">
+			<p class="board float-left">
+				<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
+			</p>
+			<c:if test="${user ne null and user.state eq 3}">
+				<button class="btn btn-primary float-right" id="write" name="write" 
+					onclick="location.href='/community/notice/write'">공지쓰기</button>
+			</c:if>
+		</div>
 	</div>
-	<div class="col-10" id="noticeMenu">
-		<p class="board float-left">
-			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
-		</p>
-		<c:if test="${user ne null and user.state eq 3}">
-			<button class="btn btn-primary float-right mr-3" id="write" name="write" 
-				onclick="location.href='/community/notice/write'">공지쓰기</button>
-		</c:if>
+	<div class="row mb-3" id="list"></div>
+	<div class="row">
+		<div class="col-12 text-center" id="pagination"></div>
 	</div>
 </div>
-<div class="row mb-3" id="list"></div>
-<div class="row text-center" id="pagination"></div>

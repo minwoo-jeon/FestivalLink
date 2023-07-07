@@ -17,10 +17,6 @@
     font-family: 'NanumSquareNeo-Variable';
 }
 
-#reviewMenu, #reviewMenu1{
-	margin: auto;
-}
-
 p.board {
 	font-size: 2em;
 }
@@ -32,35 +28,27 @@ p.board, p.board a, p.sort, p.sort a{
     font-family: 'NanumSquareNeo-Variable';
 }
 
-#list h2{
-	margin:auto;
-}
-
-div.reviews{
-	width:80%;
-	margin:auto;
-}
 div.reviews div{
 	float:left;
 }
 div.reviews div.image{
-	width:5%;
+	width:10%;
 }
 div.reviews div.image img{
 	width:100%;
 }
 div.reviews div.title{
-	width:81%;
+	width:70%;
 	padding-left:10px;
 }
 div.reviews div.etc{
-	width:7%;
+	width:10%;
 }
 div.reviews div.etc *{
 	display:inline-block;
 }
 div.reviews div.etc2{
-	width:7%;
+	width:10%;
 }
 div.reviews div.etc2 *{
 	display:inline-block;
@@ -73,10 +61,6 @@ span.nickname, span.readnum{
 p.click{
 	color:gray;
 	cursor:pointer;
-}
-
-#pagination ul{
-	margin:auto;
 }
 </style>
 
@@ -111,11 +95,13 @@ p.click{
 		//let str = "<ul class='reviewList'>";
 		let str = "";
 		if(arr.length == 0){
+			str += "<div class='col-12 text-center'>";
 			str += "<h2>리뷰가 없습니다</h2>";
+			str += "</div>";
 		}
 		else{
 			$.each(arr, (i, review)=>{
-				str += "<div class='bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews'>";
+				str += "<div class='col-12 bg-white rounded shadow-sm p-3 mb-3 pb-3 reviews'>";
 				//str += "<li>";
 				str += "<div class='image'>";
 				str += "<a href='/community/"+review.review_id+"'>";
@@ -303,24 +289,28 @@ p.click{
 	};
 </script>
 
-<div class="row mt-3">
-	<div id="reviewTop" class="col-12 text-center">
-		<h1>리뷰 게시판</h1>
+<div class="container">
+	<div class="row mt-3">
+		<div id="reviewTop" class="col-12 text-center">
+			<h1>리뷰 게시판</h1>
+		</div>
+		<div class="col-12" id="reviewMenu">
+			<p class="board">
+				<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
+			</p>
+		</div>
+		<div class="col-12" id="reviewMenu1">
+			<p class="sort float-left">
+				<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
+			</p>
+			<c:if test="${user ne null and user.state ne 2}">
+				<button class="btn btn-primary float-right" id="write" name="write"
+					onclick="location.href='/community/write'">리뷰쓰기</button>
+			</c:if>
+		</div>
 	</div>
-	<div class="col-10" id="reviewMenu">
-		<p class="board">
-			<a href="/community">리뷰</a> | <a href="/community/notice">공지사항</a>
-		</p>
-	</div>
-	<div class="col-10" id="reviewMenu1">
-		<p class="sort float-left">
-			<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
-		</p>
-		<c:if test="${user ne null and user.state ne 2}">
-			<button class="btn btn-primary float-right mr-3" id="write" name="write"
-				onclick="location.href='/community/write'">리뷰쓰기</button>
-		</c:if>
+	<div class="row" id="list"></div>
+	<div class="row">
+		<div class="col-12 text-center" id="pagination"></div>
 	</div>
 </div>
-<div class="row mb-3" id="list"></div>
-<div class="row text-center" id="pagination"></div>
