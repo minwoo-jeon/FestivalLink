@@ -137,14 +137,24 @@ p.click{
 				//str += "</li>";
 				//str += "<li>";
 				str += "<div class='etc'>";
-				if(userId == review.user_id_fk || ${user.state} == 3){
-					str += "<c:if test='${user ne null and user.state ne 2}'>";
+				str += "<c:if test='${user ne null}'>";
+				if(userId == review.user_id_fk){
+					str += "<c:if test='${user.state ne 2}'>";
 					str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
 					str += "</p> | ";
 					str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
 					str += "</p><br>";
 					str += "</c:if>";
 				}
+				else{
+					str += "<c:if test='${user.state eq 3 and user.state ne 2}'>";
+					str += "<p class='click' onclick='location.href=\"/community/"+review.review_id+"/edit\"'>수정";
+					str += "</p> | ";
+					str += "<p class='click' onclick='delReview(\""+review.review_id+"\")'>삭제";
+					str += "</p><br>";
+					str += "</c:if>";
+				}
+				str += "</c:if>";
 				str += review.review_date1+"<br>";
 				str += "<span class='readnum'>";
 				str += "조회수: "+review.review_readnum;
