@@ -213,7 +213,7 @@
                 }
             };
             function getReviewByFId(festivalId, page, userId) {
-                //alert('getReviewByFId');
+                alert('getReviewByFId page : '+page);
                 let url = '/festivals/review/' + festivalId + "/" + page;
                 $.ajax({
                     type: 'get',
@@ -274,7 +274,7 @@
 
                 for (var j = 0; j < totalP; j++) {
                     str1 += '<li class="page-item">';
-                    str1 += '<a class="page-link" href="javascript:getReviewByFId(' + festivalId + ',' + (j + 1) + ',' + userId + ')">';
+                    str1 += `<a class='page-link' href='javascript:getReviewByFId("`+ festivalId + `",` + (j + 1) + `,"` + userId + `")'>`;
                     str1 += j + 1;
                     str1 += '</a>';
                     str1 += '</li>';
