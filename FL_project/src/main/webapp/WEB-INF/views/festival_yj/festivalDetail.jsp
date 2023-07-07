@@ -33,7 +33,7 @@
                                                 <b id="like_count-f">${festivalInfo.f_like}</b>
                                                 <i class="bi bi-hand-thumbs-up" id="thumbs-up-f"></i>
                                             </button>
-                                            <button class="btn btn-outline-primary btn-lg float-right mr-1" onclick="location.href='/community/write'">
+                                            <button class="btn btn-outline-primary btn-lg float-right mr-1" onclick="location.href='/community/write?festName=${festivalInfo.festival_name}'">
                                                 리뷰쓰러가기
                                             </button>
                                         </c:if>

@@ -103,7 +103,7 @@ public class CommunityController {
 	}
 	
 	@GetMapping("write")
-	public ModelAndView reviewWriteform(HttpSession session) {
+	public ModelAndView reviewWriteform(HttpSession session, @RequestParam(value="festName", defaultValue="") String festName) {
 		ModelAndView mv = new ModelAndView();
 		
 		Object user = session.getAttribute("user");
@@ -117,6 +117,7 @@ public class CommunityController {
 			}
 			
 			mv.addObject("nickname", nickname);
+			mv.addObject("festName", festName);
 			mv.setViewName("community/review/writeform");
 		}
 		else {

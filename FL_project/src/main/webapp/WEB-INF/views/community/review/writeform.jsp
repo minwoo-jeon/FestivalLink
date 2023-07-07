@@ -51,7 +51,7 @@
 				<tr>
 					<td style="width: 10%"><b>축제</b></td>
 					<td style="width: 90%; border:1">
-						<input type="text" name="festName" id="festName" class="form-control" placeholder="축제 이름" readonly>
+						<input type="text" name="festName" id="festName" class="form-control" value="${festName}" placeholder="축제 이름" readonly>
 						<button type="button" class="btn btn-primary" onclick="openFestivalSearch()">검색</button>
 					</td>
 				</tr>
