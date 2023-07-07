@@ -9,7 +9,7 @@
     </style>
     <section class="h-100 gradient-custom">
         <div class="container py-5 h-100">
-            <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 쓴 리뷰 </h1>
+            <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';" class="mb-3">내가 쓴 리뷰 </h1>
             <c:if test="${myReviewArr eq null or empty myReviewArr}">
                 <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
 
@@ -26,14 +26,14 @@
             </c:if>
             <c:if test="${myReviewArr ne null and not empty myReviewArr}">
                 <c:forEach var="vo" items="${myReviewArr}">
-                    <div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">
+                    <div class="bg-white rounded shadow-sm p-3 mb-3 pb-3 reviews">
 
                         <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
 
                         <div>
                             <div class="media" style="clear:both">
 
-                                <a href="/festivals/${vo.festival_id_fk}"><img alt="Generic placeholder image" src="${vo.f_image}"
+                                <a href="/festivals/${vo.festival_id_fk}"><img style="width: 110px;height: 160px;" alt="Generic placeholder image" src="${vo.f_image}"
                                         class="mr-3 rounded-pill"></a>
                                 <div class="media-body">
                                     <div class="reviews-members-header">

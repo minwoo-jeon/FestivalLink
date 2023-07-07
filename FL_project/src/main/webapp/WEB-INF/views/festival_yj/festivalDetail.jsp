@@ -235,20 +235,20 @@
                 let str = '';
                 $.each(items, function (i, review) {
 
-                    str += `<div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">`;
+                    str += `<div class="bg-white rounded shadow-sm p-3 mb-3 pb-3 reviews">`;
 
                     
                     str+=`<div>`;
                     str+=`<div class="media" style="clear:both">`;
-                    str+=`<a href="/festival/`+review.festival_id_fk+`"><img alt="Generic placeholder image" src="`+review.review_image+`"class="mr-3 rounded-pill"></a>`;
+                    str+=`<a href="/festival/`+review.festival_id_fk+`"><img style="width: 110px;height: 160px;" alt="Generic placeholder image" src="`+review.review_image+`"class="mr-3 rounded-pill"></a>`;
                     str+= `<div class="media-body"><div class="reviews-members-header">`;
                     str+=`<h5 class="mb-1">`+review.festival_name+`</h5>`;
                     str+=`<h6 class="mb-1">`+review.review_nickname+` | `+review.review_date1+`</h6></div><br>`;
                     str+=`<div class="reviews-members-body"><p>`+review.review_content+`</p></div></div>`;
                     str+=`<div style=" text-align : center;" class="mx-auto">`;
-                    if (userId != '0' && (userId == review.user_id_fk || user.state==3)) {
-                        str += `<a href="/community/`+review.review_id+`/edit">수정</a>|<a href="#" onclick="delReview('`+review.review_id+`')">삭제</a><br><br>`;
-                    }
+                    str+='<c:if test="${userId eq'+ review.user_id_fk + 'or user.state eq 3}">';
+                    str += `<a href="/community/`+review.review_id+`/edit">수정</a>|<a href="#" onclick="delReview('`+review.review_id+`')">삭제</a><br><br>`;
+                    str+='</c:if>';
                     str += `<button onclick="pushLikeRe('` + review.review_id + `','` + userId + `');" class="btn btn-outline-primary btn-sm float-right">좋아요`;
                     str += `<b id="like_count-` + review.review_id + `">` + review.likes + `</b>`;
                     str += `<i class="bi bi-hand-thumbs-up" id="thumbs-up-r-` + review.review_id + `"></i>`;
@@ -262,7 +262,6 @@
                     }
                    
                     str+=`</div></div></div></div>`;
-                    ////
 
                 });
                 $('#Review').html(str);

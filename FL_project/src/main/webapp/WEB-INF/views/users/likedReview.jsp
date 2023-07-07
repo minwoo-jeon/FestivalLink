@@ -11,7 +11,7 @@
         <div class="container py-5 h-100">
             <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 좋아요 한 리뷰</h1>
             <c:if test="${likedReviewArr eq null or empty likedReviewArr}">
-                <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
+                <div class="bg-white rounded shadow-sm p-3 mb-3 pb-3 reviews">
 
                     <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
 
@@ -33,7 +33,7 @@
                     <div>
                         <div class="media" style="clear:both">
 
-                            <a href="#"><img alt="Generic placeholder image" src="${vo.f_image}"
+                            <a href="#"><img style="width: 110px;height: 160px;" alt="Generic placeholder image" src="${vo.f_image}"
                                     class="mr-3 rounded-pill"></a>
                             <div class="media-body">
                                 <div class="reviews-members-header">
