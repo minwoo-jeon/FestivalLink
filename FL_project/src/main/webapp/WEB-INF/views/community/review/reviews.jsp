@@ -154,6 +154,13 @@ p.click{
 				str += "</button><br>";
 				str += "<button class='btn btn-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기</button>";
 				str += "</c:if>";
+				if(userId=='0'){
+					str += `<button onclick='alert("로그인해주세요")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 `;
+					str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
+					str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";	
+					str += "</button><br>";
+					str += `<button class='btn btn-warning btn-sm' onclick='alert("로그인해주세요")'>신고하기</button>`;
+				}
 				str += "</div>";
 				//str += "</li>";
 				str += "</div>";
