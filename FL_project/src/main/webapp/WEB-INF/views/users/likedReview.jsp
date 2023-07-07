@@ -26,7 +26,6 @@
             </c:if>
             <c:if test="${likedReviewArr ne null and not empty likedReviewArr}">
                 <c:forEach var="vo" items="${likedReviewArr}">
-                    
                 <div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">
 
                     <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
@@ -48,7 +47,10 @@
                             </div>
                             <input type="hidden" value="L" class="state">
                             <div style=" text-align : center;" class="mx-auto">
-                                <a href="/community/${vo.review_id}/edit">수정</a>|<a href="#" onclick="delReview('${vo.review_id}')">삭제</a><br><br>
+                                <c:if test="${userId eq vo.user_id_fk or user.state eq 3}">
+                                    <a href="/community/${vo.review_id}/edit">수정</a>|<a href="#" onclick="delReview('${vo.review_id}')">삭제</a><br><br>
+                                </c:if>
+                                
                                     <button onclick="pushLike('${vo.review_id}','${vo.likeState}')"
                                         class="btn btn-outline-primary btn-sm float-right">좋아요
                                         <b id="like_count-${vo.review_id}">${vo.r_like}</b>

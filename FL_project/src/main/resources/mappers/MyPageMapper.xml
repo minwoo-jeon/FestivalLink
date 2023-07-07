@@ -25,11 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select count(r_likes_id) from r_likes where user_id_fk=#{value}
     </select>
     <select id="listLikedReview" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.MyReviewVO">
-        select a.*, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like,b.festival_image f_image,
-         (SELECT COUNT(*) FROM R_likes d WHERE d.user_id_fk=#{userId} and a.review_id=d.review_id_fk) likeState
+        select a.*, to_char(a.review_date, 'yy-mm-dd') review_date1, b.festival_name, (select count(r_likes_id) from r_likes where review_id_fk=a.review_id) r_like,b.festival_image f_image,
+         (SELECT COUNT(r_likes_id) FROM R_likes d WHERE d.user_id_fk=#{userId} and a.review_id=d.review_id_fk) likeState
         from(
 		select row_number() over(order by r_likes_id desc) rn, r_likes.*
-		from r_likes order by r_likes_id desc) c, Festivals b, reviews a
+		from r_likes where user_id_fk=#{userId} order by r_likes_id desc) c, Festivals b, reviews a
 		<![CDATA[
 		where c.rn > #{start} and c.rn <= #{end}
 		]]>and c.user_id_fk= #{userId}

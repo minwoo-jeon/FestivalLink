@@ -246,7 +246,7 @@
                     str+=`<h6 class="mb-1">`+review.review_nickname+` | `+review.review_date1+`</h6></div><br>`;
                     str+=`<div class="reviews-members-body"><p>`+review.review_content+`</p></div></div>`;
                     str+=`<div style=" text-align : center;" class="mx-auto">`;
-                    if (userId != '0' && userId == review.user_id_fk) {
+                    if (userId != '0' && (userId == review.user_id_fk || user.state==3)) {
                         str += `<a href="/community/`+review.review_id+`/edit">수정</a>|<a href="#" onclick="delReview('`+review.review_id+`')">삭제</a><br><br>`;
                     }
                     str += `<button onclick="pushLikeRe('` + review.review_id + `','` + userId + `');" class="btn btn-outline-primary btn-sm float-right">좋아요`;

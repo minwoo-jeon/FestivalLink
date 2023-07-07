@@ -145,6 +145,7 @@ public class MyPageController {
         myP.setUserId(userId);
         List<MyReviewVO> likedReviewArr = myPageMapper.listLikedReview(myP);
         log.info(myP.toString());
+        log.info("likeReviewArr = {}", likedReviewArr);
         model.addAttribute("totalCount", totalCount);
         model.addAttribute("likedReviewArr", likedReviewArr);
         model.addAttribute("pageCount", pageCount);
