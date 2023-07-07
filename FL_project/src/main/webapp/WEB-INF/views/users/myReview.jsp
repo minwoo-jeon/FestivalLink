@@ -33,7 +33,7 @@
                         <div>
                             <div class="media" style="clear:both">
 
-                                <a href="#"><img alt="Generic placeholder image" src="${vo.f_image}"
+                                <a href="/festivals/${vo.festival_id_fk}"><img alt="Generic placeholder image" src="${vo.f_image}"
                                         class="mr-3 rounded-pill"></a>
                                 <div class="media-body">
                                     <div class="reviews-members-header">

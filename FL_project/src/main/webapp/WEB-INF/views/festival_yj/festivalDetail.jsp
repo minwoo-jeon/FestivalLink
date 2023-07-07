@@ -237,31 +237,26 @@
 
                     str += `<div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">`;
 
-                    if (userId != '0' && userId == review.user_id_fk) {
-                        str += `<a href="#">수정</a>|<a href="#">삭제</a>`;
+                    
+                    str+=`<div>`;
+                    str+=`<div class="media" style="clear:both">`;
+                    str+=`<a href="/festival/`+review.festival_id_fk+`"><img alt="Generic placeholder image" src="`+review.review_image+`"class="mr-3 rounded-pill"></a>`;
+                    str+= `<div class="media-body"><div class="reviews-members-header">`;
+                    str+=`<h5 class="mb-1">`+review.festival_name+`</h5>`;
+                    str+=`<h6 class="mb-1">`+review.review_nickname+` | `+review.review_date1+`</h6></div><br>`;
+                    str+=`<div class="reviews-members-body"><p>`+review.review_content+`</p></div></div>`;
+                    str+=`<div style=" text-align : center;" class="mx-auto">`;
+                        if (userId != '0' && userId == review.user_id_fk) {
+                        str += `<a href="/community/`+review.review_id+`/edit">수정</a>|<a href="#" onclick="delReview('`+review.review_id+`')">삭제</a><br><br>`;
                     }
                     str += `<button onclick="pushLikeRe('` + review.review_id + `','` + userId + `');" class="btn btn-outline-primary btn-sm float-right">좋아요`;
-                    str += `<b id="like_count-` + review.review_id + `">` + review.r_like + `</b>`;
+                    str += `<b id="like_count-` + review.review_id + `">` + review.likes + `</b>`;
                     str += `<i class="bi bi-hand-thumbs-up" id="thumbs-up-r-` + review.review_id + `"></i>`;
-                    str += `</button>`;
-                    str += `<h5 class="mb-1">` + review.festival_name + `</h5>`;
-                    str += `<div class="pt-4 pb-4">`;
-                    str += `<div class="media">`;
-                    str += `<a href="#"><img alt="Generic placeholder image"`;
-                    str += `src="http://bootdey.com/img/Content/avatar/avatar1.png"';'`;
-                    str += `class="mr-2 rounded-pill"></a>`;
-                    str += `<div class="media-body">`;
-                    str += `<div class="reviews-members-header">`;
-                    str += `<h6 class="mb-1"><a class="text-black" href="#">` + review.review_nickname + `</a></h6>`;
-                    str += `<p class="text-gray">` + review.review_date + ` </p>`;
-                    str += `</div>`;
-                    str += `<div class="reviews-members-body">`;
-                    str += `<p>` + review.review_content + `</p>`;
-                    str += `</div>`;
-                    str += `</div>`;
-                    str += `</div>`;
-                    str += `</div>`;
-                    str += `</div>`;
+                    str += `</button><br><br>`;
+                    str+=`<button class='btn btn-outline-warning btn-sm '
+                                            onclick='location.href="/community/`+review.review_id+`/report"'>신고하기<i class="bi bi-flag-fill"></i></button>`;
+                    str+=`</div></div></div></div>`;
+                    ////
 
                 });
                 $('#Review').html(str);

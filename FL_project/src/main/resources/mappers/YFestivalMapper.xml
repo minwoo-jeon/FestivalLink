@@ -7,9 +7,9 @@
         from festivals a where a.festival_id = #{value}
     </select>
     <!-- userId라고했지만 사실 festivalId값임 페이징객체 재활용하려고 그런것 -->
-    <select id="getReviewByFid" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.YReviewVO">
+    <select id="getReviewByFid" parameterType="com.project.domain.MyPagingVO" resultType="com.project.domain.ReviewVO">
         
-        select a.*, b.festival_name, (select count(r_likes_id) from r_likes c where c.review_id_fk=a.review_id) r_like from(
+        select a.review_id, a.user_id_fk, a.festival_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, a.review_image, a.review_readnum , b.festival_name, (select count(r_likes_id) from r_likes c where c.review_id_fk=a.review_id) likes from(
 		select row_number() over(order by review_date desc) rn, reviews.*
 		from reviews where festival_id_fk=#{userId} order by review_date desc) a, festivals b
 		<![CDATA[

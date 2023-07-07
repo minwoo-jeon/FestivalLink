@@ -23,6 +23,7 @@ import com.project.mapper.YFestivalMapper;
 import com.project.service.YFestivalService;
 import com.project.domain.FestivalPagingVO;
 import com.project.domain.MyPagingVO;
+import com.project.domain.ReviewVO;
 import com.project.domain.YFestivalVO;
 import com.project.domain.YReviewVO;
 
@@ -123,7 +124,7 @@ public class YFestivalController {
     })
     @ResponseBody
     @GetMapping(value = "/festivals/review/{festivalId}/{page}", produces = "application/json")
-    public List<YReviewVO> geReviewByFid(Model m, @PathVariable String festivalId, @PathVariable int page) {
+    public List<ReviewVO> geReviewByFid(Model m, @PathVariable String festivalId, @PathVariable int page) {
         int totalCount = this.yFestivalMapper.totalReviewCountByFest(festivalId);
         log.info("total ={}", totalCount);
         int pageSize = 3;
@@ -141,7 +142,7 @@ public class YFestivalController {
         myP.setStart(start);
         // myP의 userId에 festivalId넣음
         myP.setUserId(festivalId);
-        List<YReviewVO> vo = yFestivalMapper.getReviewByFid(myP);
+        List<ReviewVO> vo = yFestivalMapper.getReviewByFid(myP);
         log.info("festivalInfo = {}", vo);
         return vo;
     }
