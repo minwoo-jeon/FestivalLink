@@ -189,7 +189,7 @@ public class UserController {
         }
         userService.userDelete(user);
         session.invalidate();
-        return "redirect:/test";
+        return "redirect:/festivals";
     }
 
 
