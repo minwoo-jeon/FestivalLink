@@ -27,7 +27,7 @@
             <div class="col-lg-12 card-margin mt-3">
                 <div class="card search-form" style="background-color: transparent; border:0;">
                     <div class="card-body p-0">
-                        <h1 style="color:aliceblue; font-family:'NanumSquareNeo-Variable';">축제</h1>
+                        <h1 style="color:aliceblue; font-family:'NanumSquareNeo-Variable'; text-align: center; margin-bottom: 50px;">축제</h1>
                         <form id="searchForm" style="background-color: transparent">
                             <div class="row">
                                 <div class="col-12">
