@@ -769,14 +769,15 @@
         }
     </style>
     <main class="site-wrapper mt20" style="font-family: 'NanumSquareNeo-Variable';">
-        <div class="row mx-auto">
-
+        <div style="height: 70px;"></div>
+        <div class="row mx-auto mt-5">
+            
             <div class="col-xs-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-10 mt-3 mb-5 mx-auto" style="">
                 <div class="page-title  home text-center" style="text-align: center;">
                     <span class="heading-page"> ${user.nickname}님의 My Page
                     </span>
                 </div>
-
+                <div style="height: 30px;"></div>
                 <div class="hexagon-menu clear mx-auto" style="display: flex; justify-content: center; align-items: center;">
                     <div class="hexagon-item mx-auto">
                         <div class="hex-item">
