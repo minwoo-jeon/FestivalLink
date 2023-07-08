@@ -154,11 +154,11 @@ body{
 		</div>
 	</header>
 	<!-- Header section end -->
-	<div class="container-fluid">
+	<!-- <div class="container-fluid">
 		<div  id="mainHeader" class="jumbotron text-center" style="margin-bottom: 0; background-color:#dadde3;">
 			<h1><%@include file="Logo.jsp"%></h1>
 			<p>Festival Link</p>
-		</div>
+		</div> -->
 
 	</div>
 </body>

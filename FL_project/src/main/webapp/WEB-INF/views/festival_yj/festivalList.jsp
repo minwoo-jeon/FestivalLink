@@ -22,16 +22,17 @@
             text-decoration: dashed;
         }
     </style>
-    <div class="container mt-4 pt-10">
+    <div class="container mt-5 pt-10">
         <div class="row">
-            <div class="col-lg-12 card-margin">
+            <div class="col-lg-12 card-margin mt-3">
                 <div class="card search-form" style="background-color: transparent; border:0;">
                     <div class="card-body p-0">
+                        <h1 style="color:aliceblue; font-family:'NanumSquareNeo-Variable';">축제</h1>
                         <form id="searchForm" style="background-color: transparent">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="row no-gutters">
-                                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                                        <div class="col-lg-3 col-md-3 col-sm-12 pr-2 mb-5">
                                             <select class="form-control" id="locationSelect"
                                                  name="loc">
                                                 <option value="">Location</option>
@@ -54,7 +55,7 @@
                                                 <option value="제주">제주도</option>
                                             </select>
                                         </div>
-                                        <div class="col-lg-8 col-md-6 col-sm-12 p-0">
+                                        <div class="col-lg-8 col-md-6 col-sm-12 pr-2">
                                             <input type="text" placeholder="Search..." class="form-control" id="keyword"
                                                 name="keyword">
                                         </div>
@@ -77,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <h1 style="color:aliceblue; font-family:'NanumSquareNeo-Variable';">축제</h1>
+       
         <div id="string" style="text-align: left;">
             <article style="text-align: left;">
                 <h2><a href="#" id="likeSort" onclick="changeSort('1')">인기순|</a>
@@ -176,7 +177,7 @@
             }
             $('#festivalList').html(str);
             //alert(total);
-            let totalP = Number(Math.floor((total - 1) / 17) + 1);
+            let totalP = Number(Math.floor((total - 1) / 16) + 1);
             let str1 = '<nav aria-label="Page navigation example"><ul class="pagination">';
             for (var j = 0; j < totalP; j++) {
                     str1 += '<li class="page-item">';
