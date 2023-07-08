@@ -53,4 +53,6 @@ application.properties
 
 festival_detail_kakaoMap.jsp
 
+Wallet/
+
 # End of https://www.toptal.com/developers/gitignore/api/java,maven
