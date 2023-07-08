@@ -155,6 +155,7 @@ public class YFestivalController {
     public String FestivalPage(Model m) {
         int totalCount = yFestivalMapper.getTotalFestivalCount();
         m.addAttribute("total", totalCount);
+        //log.info("totalF = {}",totalCount);
         return "festival_yj/festivalList";
     }
 
@@ -174,9 +175,9 @@ public class YFestivalController {
         if (sort == 1) {
             if (loc == "" && keyword == "") {
                 totalCount = yFestivalMapper.getTotalFestivalCount();
+
                 makePaging(totalCount, vo, page);
                 fList = yFestivalMapper.getFestivalList(vo);
-                model.addAttribute("total", totalCount);
 
             } else if (loc == "" && keyword != "") {
                 totalCount = yFestivalMapper.getTotalFestivalCountWithKeyword(keyword);
