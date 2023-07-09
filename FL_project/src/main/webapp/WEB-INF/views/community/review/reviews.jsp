@@ -18,10 +18,10 @@
 }
 
 p.board {
-	font-size: 2em;
+	font-size: 2rem;
 }
 p.sort{
-	font-size: 1.5em;
+	font-size: 2rem;
 }
 p.board, p.board a, p.sort, p.sort a{
     color: aliceblue;
@@ -62,6 +62,10 @@ p.click{
 	color:gray;
 	cursor:pointer;
 }
+
+p.sort a:active {
+	text-decoration: dashed;
+}
 </style>
 
 <c:if test="${user ne null}">
@@ -72,7 +76,7 @@ p.click{
 </c:if>
 
 <script>
-	$(function(){
+	$(function(){	
 		let userId = $("#userId").val();
 		getReviews("${sort}", ${pageId}, userId);
 	});
@@ -152,14 +156,16 @@ p.click{
 				str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
 				str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";	
 				str += "</button><br>";
-				str += "<button class='btn btn-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기</button>";
+				str += "<button class='btn btn-outline-warning btn-sm' onclick='location.href=\"/community/"+review.review_id+"/report\"'>신고하기";
+				str += "<i class='bi bi-flag-fill'></i>";
+				str += "</button>";
 				str += "</c:if>";
 				if(userId=='0'){
 					str += `<button onclick='alert("로그인해주세요")' class='btn btn-outline-primary btn-sm mb-3' style='margin-top:10px;'>좋아요 `;
 					str += "<b id='like_count-"+review.review_id+"'>"+review.likes+"</b>";
 					str += "<i class='bi bi-hand-thumbs-up' id='thumbs-up-"+review.review_id+"'></i>";	
 					str += "</button><br>";
-					str += `<button class='btn btn-warning btn-sm' onclick='alert("로그인해주세요")'>신고하기</button>`;
+					str += `<button class='btn btn-outline-warning btn-sm' onclick='alert("로그인해주세요")'>신고하기<i class='bi bi-flag-fill'></i></button>`;
 				}
 				str += "</div>";
 				//str += "</li>";
@@ -294,12 +300,25 @@ p.click{
 	        }
 	    }
 	};
+	
+	const changeSort = function(sort){
+		if(sort == "latest"){
+			$("#latest1").css("text-decoration", "underline");
+			$("#sort1").val("latest");
+			alert($("#sort1").val());
+		}
+		else if(sort == "popular"){
+			$("#popular").css("text-decoration", "underline");
+			$("#sort1").val("popular");
+			alert($('#sort1').val());
+		}
+	};
 </script>
 
 <div class="container">
 	<div class="row mt-3">
 		<div id="reviewTop" class="col-12 text-center">
-			<h1>리뷰 게시판</h1>
+			<h1>리뷰</h1>
 		</div>
 		<div class="col-12" id="reviewMenu">
 			<p class="board">
@@ -307,8 +326,9 @@ p.click{
 			</p>
 		</div>
 		<div class="col-12" id="reviewMenu1">
+			<input id="sort1" type="hidden" value="">
 			<p class="sort float-left">
-				<a href="/community?sort=latest">최신순</a> | <a href="/community?sort=popular">인기순</a>
+				<a id="latest1" onclick="changeSort('latest')" href="/community?sort=latest">최신순</a> | <a id="popular" onclick="changeSort('popular')" href="/community?sort=popular">인기순</a>
 			</p>
 			<c:if test="${user ne null and user.state ne 2}">
 				<button class="btn btn-primary float-right" id="write" name="write"

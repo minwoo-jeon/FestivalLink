@@ -25,7 +25,7 @@
 <div class="container">
 	<div class="row">
 		<div align="center" class="col-md-12 my-4">
-			<h2 class="text-light">리뷰 신고하기</h2>
+			<h2 class="text-light">리뷰 신고</h2>
 			<!--파일 업로드시
 	 			method: POST
 	  			enctype: multipart/form-data 
