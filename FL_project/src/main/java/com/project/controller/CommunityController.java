@@ -223,10 +223,10 @@ public class CommunityController {
 		cMapper.deleteLikes(review_id);
 		cMapper.deleteReports(review_id);
 		int n = cMapper.deleteReview(review_id);
-		
+		//System.out.println("n = "+n);
 		String result = (n > 0)? "OK":"fail";
 		map.put("result", result);
-		
+		//System.out.println(map);
 		return map;
 	}
 	

@@ -26,7 +26,7 @@
             </c:if>
             <c:if test="${likedReviewArr ne null and not empty likedReviewArr}">
                 <c:forEach var="vo" items="${likedReviewArr}">
-                <div class="bg-white rounded shadow-sm p-4 mb-3 pb-3 reviews">
+                <div class="bg-white rounded shadow-sm p-4 mb-3 pb-3 reviews" id="review-${vo.review_id}">
 
                     <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
 
@@ -132,4 +132,20 @@
 		    })
         }
     }
+    const delReview = function(id){
+		$.ajax({
+			type:"delete",
+			url:"/community/"+id,
+			dataType:"json",
+			cache:false,
+		}).done((res)=>{
+			if(res.result == "fail"){
+				alert("리뷰 삭제 실패");
+			}
+			
+			$('review-'+id).hide();
+		}).fail((err)=>{
+			alert("error: "+err.status);
+		});
+	};
 </script>

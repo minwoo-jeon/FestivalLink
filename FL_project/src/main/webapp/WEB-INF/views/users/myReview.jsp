@@ -84,7 +84,7 @@
         const delReview = function (id) {
             $.ajax({
                 type: "delete",
-                url: "/community/" + id + "/del",
+                url: "/community/" + id ,
                 dataType: "json",
                 cache: false,
             }).done((res) => {
