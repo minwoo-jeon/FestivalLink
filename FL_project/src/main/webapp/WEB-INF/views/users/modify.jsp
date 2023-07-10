@@ -159,10 +159,7 @@
                 </td>
             </tr>
 
-             <tr>
-                <td colspan="2" class="m2" style="text-align:left">
-                <button type="button"  class="btn btn-warning"><a href="/users/mypage/delete">회원탈퇴</span>
-             </tr>
+
             <tr>
                 <td colspan="2" class="m2" style="text-align:center">
                     <input type="submit" value="회원수정완료" class="btn btn-primary" onClick="return check()">

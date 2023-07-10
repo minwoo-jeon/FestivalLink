@@ -12,9 +12,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script>
 
-</script>
 <style type="text/css">
 .mybtn{
   width:150px;
@@ -40,15 +38,20 @@
 </head>
 <script>
 
-	$(document).ready(function(){
-			$("#submit").on("click", function(){
-				alert(" 회원 탈퇴를 하시겠습니까?");
-				})
+        function removeCheck() {
 
+         if (confirm("정말 삭제하시겠습니까??") == true){    //확인
 
+             document.removefrm.submit();
 
+         }else{   //취소
 
-			});
+             return false;
+
+         }
+
+        };
+
 
 	</script>
 <body>
@@ -56,7 +59,7 @@
 	<div class="w3-content w3-container w3-margin-top">
 		<div class="w3-container w3-card-4 w3-auto" style="width: 382px;height: 456.3px;">
 			<div class="w3-center w3-large w3-margin-top">
-			<form action="/userDelete" method="post">
+			<form action="/userDelete" method="post" name="removefrm">
 				<h3>회원 탈퇴</h3>
 			</div>
 			<div>
@@ -72,7 +75,7 @@
                          	비밀번호가 맞지 않습니다.
                        </c:if>
 				<p class="w3-center">
-					<button type="submit" id="submit" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">회원 탈퇴</button>
+					<input type="button" value="회원탈퇴"  onclick="removeCheck()" class="w3-button w3-hover-white w3-ripple w3-margin-top w3-round mybtn">
 				</p>
 				<div>
 
