@@ -26,6 +26,7 @@
 				<tr>
 					<td width="5%"><b>글쓴이</b></td>
 					<td width="45%" colspan="3"><c:out value="${review.review_nickname}" /></td>
+					
 				</tr>
 				<tr>
 					<td width="5%"><b>작성일</b></td>
@@ -52,6 +53,9 @@
 					<td class="text-center" colspan="4">
 						<button class="btn btn-secondary" onclick="location.href='javascript:history.back()'">닫기</button>
 					</td>
+					<c:if test="${user.state eq 3 or userId eq review.user_id_fk}">
+						<button class="btn btn-danger" onclick='delReview("${review.review_id}")'>삭제</button>
+					</c:if>
 				</tr>
 			</table>
 			<div class="mb-5">
@@ -60,3 +64,21 @@
 		</div>
 	</div>
 </div>
+<script>
+	const delReview = function(id){
+		$.ajax({
+			type:"delete",
+			url:"/community/"+id,
+			dataType:"json",
+			cache:false,
+		}).done((res)=>{
+			if(res.result == "fail"){
+				alert("리뷰 삭제 실패");
+			}
+			
+			window.location.href = '/community?sort=&pageId=1';
+		}).fail((err)=>{
+			alert("error: "+err.status);
+		});
+	};
+</script>
