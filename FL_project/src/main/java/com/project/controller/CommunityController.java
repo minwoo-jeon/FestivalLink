@@ -464,8 +464,16 @@ public class CommunityController {
 	}
 	
 	@DeleteMapping(value="notice/{notice_id}", produces="application/json")
-	public Map<String, String> delNotice(@PathVariable("notice_id") String notice_id) {
+	public Map<String, String> delNotice(@PathVariable("notice_id") String notice_id, HttpSession session) {
 		Map<String, String> map = new HashMap<>();
+		
+		ServletContext ctx = session.getServletContext();
+		String upDir = ctx.getRealPath("/resources/community_upload/notice");
+		NoticeVO vo = cMapper.getNotice(notice_id);
+		File file = new File(upDir, vo.getNotice_image());
+		if(file.exists()) {
+			file.delete();
+		}
 		
 		int n = cMapper.deleteNotice(notice_id);
 		
