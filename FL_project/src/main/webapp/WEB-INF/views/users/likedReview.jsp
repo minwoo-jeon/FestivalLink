@@ -143,7 +143,7 @@
 				alert("리뷰 삭제 실패");
 			}
 			
-			$('review-'+id).hide();
+			window.location.href = 'http://localhost:9990/users/likedReview/1';
 		}).fail((err)=>{
 			alert("error: "+err.status);
 		});
