@@ -17,6 +17,7 @@ public class ReviewVO {
 	private String review_nickname;
 	private String review_content;
 	private String review_date1;
+	private String review_time;
 	private String review_image;
 	private int review_readnum = 0;
 	private int likes = 0;

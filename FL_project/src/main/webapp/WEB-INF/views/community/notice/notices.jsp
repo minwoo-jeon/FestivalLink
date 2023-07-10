@@ -109,7 +109,10 @@ p.click{
 				str += "<p class='click' onclick='delNotice(\""+notice.notice_id+"\")'>삭제";
 				str += "</p><br>";
 				str += "</c:if>";
+				str += "<p>";
 				str += notice.notice_date1+"<br>";
+				str += notice.notice_time+"<br>";
+				str += "</p>";
 				str += "<span class='readnum'>";
 				str += "조회수: "+notice.notice_readnum;
 				str += "</span>";
@@ -152,7 +155,7 @@ p.click{
 </script>
 <div class="container">
 	<div class="row mt-3">
-		<div id="noticeTop" class="col-12 text-center">
+		<div id="noticeTop" class="col-12 text-center my-5">
 			<h1>공지사항</h1>
 		</div>
 		<div class="col-12" id="noticeMenu">

@@ -88,11 +88,23 @@ p.sort a:active {
 			dataType:"json",
 			cache:false,
 		}).done((res)=>{
+			changeSort(sort);
 			showList(res.items, userId);
 			showPage(res.pageNavi, res.totalCount, res.pageId, res.pageCount);
 		}).fail((err)=>{
 			alert("error: "+err.status);
 		});
+	};
+	
+	const changeSort = function(sort){
+		if(sort == "latest"){
+			$("#latest").css("text-decoration", "underline");
+			$("#popular").css("text-decoration", "none");
+		}
+		else if(sort == "popular"){
+			$("#popular").css("text-decoration", "underline");
+			$("#latest").css("text-decoration", "none");
+		}
 	};
 	
 	const showList = function(arr, userId){
@@ -145,7 +157,10 @@ p.sort a:active {
 					str += "</c:if>";
 				}
 				str += "</c:if>";
+				str += "<p>";
 				str += review.review_date1+"<br>";
+				str += review.review_time+"<br>";
+				str += "</p>";
 				str += "<span class='readnum'>";
 				str += "조회수: "+review.review_readnum;
 				str += "</span>";
@@ -300,24 +315,11 @@ p.sort a:active {
 	        }
 	    }
 	};
-	
-	const changeSort = function(sort){
-		if(sort == "latest"){
-			$("#latest1").css("text-decoration", "underline");
-			$("#sort1").val("latest");
-			alert($("#sort1").val());
-		}
-		else if(sort == "popular"){
-			$("#popular").css("text-decoration", "underline");
-			$("#sort1").val("popular");
-			alert($('#sort1').val());
-		}
-	};
 </script>
 
 <div class="container">
 	<div class="row mt-3">
-		<div id="reviewTop" class="col-12 text-center">
+		<div id="reviewTop" class="col-12 text-center my-5">
 			<h1>리뷰</h1>
 		</div>
 		<div class="col-12" id="reviewMenu">
@@ -326,9 +328,8 @@ p.sort a:active {
 			</p>
 		</div>
 		<div class="col-12" id="reviewMenu1">
-			<input id="sort1" type="hidden" value="">
 			<p class="sort float-left">
-				<a id="latest1" onclick="changeSort('latest')" href="/community?sort=latest">최신순</a> | <a id="popular" onclick="changeSort('popular')" href="/community?sort=popular">인기순</a>
+				<a id="latest" onclick="changeSort('latest')" href="/community?sort=latest">최신순</a> | <a id="popular" onclick="changeSort('popular')" href="/community?sort=popular">인기순</a>
 			</p>
 			<c:if test="${user ne null and user.state ne 2}">
 				<button class="btn btn-primary float-right" id="write" name="write"

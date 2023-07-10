@@ -51,7 +51,7 @@ public class CommunityController {
 			@ApiResponse(responseCode = "400", description = "존재하지 않는 이름 조회") })
 
 	@GetMapping("")
-	public ModelAndView reviewPage(@RequestParam(value="sort", defaultValue="latest") String sort, @RequestParam(value="pageId", defaultValue="1") String pageId) {
+	public ModelAndView reviewPage(@RequestParam(value="sort", defaultValue="none") String sort, @RequestParam(value="pageId", defaultValue="1") String pageId) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("sort", sort);
 		mv.addObject("pageId", pageId);
@@ -76,7 +76,7 @@ public class CommunityController {
 		
 		String myctx = req.getContextPath();
 		String loc = "/community";
-		String pageNavi = pagination.getReviewPageNavi(myctx, loc);
+		String pageNavi = pagination.getReviewPageNavi(myctx, loc, sort);
 		
 		List<ReviewVO> arr = null;
 		if(sort.equals("popular")) {

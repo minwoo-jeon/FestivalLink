@@ -15,6 +15,7 @@ public class NoticeVO {
 	private String notice_nickname;
 	private String notice_content;
 	private String notice_date1;
+	private String notice_time;
 	private String notice_image;
 	private int notice_readnum = 0;
 	

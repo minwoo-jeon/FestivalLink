@@ -40,27 +40,36 @@ public class PaginationVO {
 		nextBlock = prevBlock + (pagingBlock + 1);
 	}
 	
-	public String getReviewPageNavi(String myctx, String loc) {		
+	public String getReviewPageNavi(String myctx, String loc, String sort) {		
 		StringBuilder buf = new StringBuilder("<ul class=\"pagination justify-content-center\">");
 		if(prevBlock > 0) {
-			buf.append("<li class=\"page-item\">")
-			.append("<a class='page-link' href='/community?pageId="+prevBlock+"'>")
-			.append("Prev")
+			buf.append("<li class=\"page-item\">");
+			if(sort.equals("none"))
+				buf.append("<a class='page-link' href='/community?pageId="+prevBlock+"'>");
+			else
+				buf.append("<a class='page-link' href='/community?sort="+sort+"&pageId="+prevBlock+"'>");
+			buf.append("Prev")
 			.append("</a>")
 			.append("</li>");
 		}
 		for(int i=prevBlock+1; i<=nextBlock-1 && i<=pageCount; i++) {
 			String css = (i == pageId)? "active":"";
-			buf.append("<li class='page-item "+css+"'>")
-			.append("<a class='page-link' href='/community?pageId="+i+"'>")
-			.append(i)
+			buf.append("<li class='page-item "+css+"'>");
+			if(sort.equals("none"))
+				buf.append("<a class='page-link' href='/community?pageId="+i+"'>");
+			else
+				buf.append("<a class='page-link' href='/community?sort="+sort+"&pageId="+i+"'>");
+			buf.append(i)
 			.append("</a>")
 			.append("</li>");
 		}
 		if(nextBlock <= pageCount) {
-			buf.append("<li class=\"page-item\">")
-			.append("<a class='page-link' href='/community?pageId="+nextBlock+"'>")
-			.append("Next")
+			buf.append("<li class=\"page-item\">");
+			if(sort.equals("none"))
+				buf.append("<a class='page-link' href='/community?pageId="+nextBlock+"'>");
+			else
+				buf.append("<a class='page-link' href='/community?sort="+sort+"&pageId="+nextBlock+"'>");
+			buf.append("Next")
 			.append("</a>")
 			.append("</li>");
 		}

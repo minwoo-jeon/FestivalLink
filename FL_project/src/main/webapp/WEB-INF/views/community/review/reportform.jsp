@@ -4,11 +4,27 @@
 
 <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
 
+<style>
+	@font-face {
+	    font-family: 'NanumSquareNeo-Variable';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+	    font-weight: normal;
+	    font-style: normal;
+	}
+	
+	h1.title{
+		color: aliceblue;
+	    font-family: 'NanumSquareNeo-Variable';
+	}
+</style>
+
 <script>
 	$(function(){
 		CKEDITOR.replace("content", {
 			autoParagraph: false,
+			forcePasteAsPlainText: true,
 		});
+		
 		$("#rf").submit(function(){
 			let str = CKEDITOR.instances.content.getData();
 			if(!str){
@@ -23,9 +39,9 @@
 </script>
 
 <div class="container">
-	<div class="row">
-		<div align="center" class="col-md-12 my-4">
-			<h2 class="text-light">리뷰 신고</h2>
+	<div class="row mt-3">
+		<div align="center" class="col-md-12 my-5">
+			<h1 class="title text-light mb-5">리뷰 신고</h1>
 			<!--파일 업로드시
 	 			method: POST
 	  			enctype: multipart/form-data 
