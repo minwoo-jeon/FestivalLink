@@ -160,7 +160,7 @@ public class UserController {
 
         session.invalidate();
 
-        return "redirect:test";
+        return "redirect:/festivals";
     }
 
     //회원 탈퇴 뷰 페이지

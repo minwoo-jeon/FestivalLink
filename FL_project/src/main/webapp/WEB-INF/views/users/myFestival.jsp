@@ -14,7 +14,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   <section class="h-100 gradient-custom">
     <div class="container py-5 h-100">
-      <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 좋아요 한 축제 ${totalCount}</h1>
+      <h1 style="color: white; font-family: 'NanumSquareNeo-Variable';">내가 좋아요 한 축제 ${totalCount}개</h1>
       <br>
       <c:if test="${myFestivalArr eq null or empty myFestivalArr}">
         <div class="bg-white rounded shadow-sm p-4 mb-4 reviews">
