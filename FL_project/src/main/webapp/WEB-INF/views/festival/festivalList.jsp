@@ -21,6 +21,10 @@
         #string a:active {
             text-decoration: dashed;
         }
+        
+        a.image img{
+        	width:100%;
+        }
     </style>
     <div class="container mt-5 pt-10">
         <div class="row">
@@ -165,7 +169,9 @@
                 str+=`<div class="row">`;
                 $.each(res, function (i, festival) {
                     str+=`<div class="card m-2" style="width: 255px; height: 515px;">
-                        <img src="`+festival.festival_image+`}" />
+                    	<a class="image" href="/festivals/`+festival.festival_id+`">
+                        	<img src="`+festival.festival_image+`" />
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title"><a href="/festivals/`+festival.festival_id+`">`+festival.festival_name+`</a>
                             </h5>
