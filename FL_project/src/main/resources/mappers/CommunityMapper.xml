@@ -3,7 +3,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.mapper.CommunityMapper">
 	<select id="getReviewList" resultType="com.project.domain.ReviewVO">
-		select a.review_id, a.user_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, to_char(a.review_date, 'hh:MM:ss') review_time, a.review_readnum, b.likes
+		select a.review_id, a.user_id_fk, a.festival_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, to_char(a.review_date, 'hh:MM:ss') review_time, a.review_readnum, b.likes
 		from reviews a 
 		left join (select review_id_fk, count(user_id_fk) likes from r_likes group by review_id_fk) b
 		on a.review_id = b.review_id_fk
@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getReviewListLatestPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.ReviewVO">
 		select * from
-		(select row_number() over(order by a.review_date desc) rn, a.review_id, a.user_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, to_char(a.review_date, 'hh:MM:ss') review_time, a.review_readnum, a.review_image, nvl(b.likes, 0) likes
+		(select row_number() over(order by a.review_date desc) rn, a.review_id, a.user_id_fk, a.festival_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, to_char(a.review_date, 'hh:MM:ss') review_time, a.review_readnum, a.review_image, nvl(b.likes, 0) likes
 		from reviews a 
 		left join (select review_id_fk, count(user_id_fk) likes from r_likes group by review_id_fk) b
 		on a.review_id = b.review_id_fk)
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="getReviewListPopularPaging" parameterType="com.project.domain.PaginationVO" resultType="com.project.domain.ReviewVO">
 		select * from
-		(select rownum rn, a.review_id, a.user_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, to_char(a.review_date, 'hh:MM:ss') review_time, a.review_readnum, a.review_image, nvl(b.likes, 0) likes
+		(select rownum rn, a.review_id, a.user_id_fk, a.festival_id_fk, a.review_nickname, a.review_content, to_char(a.review_date, 'yy-mm-dd') review_date1, to_char(a.review_date, 'hh:MM:ss') review_time, a.review_readnum, a.review_image, nvl(b.likes, 0) likes
 		from reviews a 
 		left join (select review_id_fk, count(user_id_fk) likes from r_likes group by review_id_fk) b
 		on a.review_id = b.review_id_fk

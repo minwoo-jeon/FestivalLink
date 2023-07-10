@@ -120,7 +120,7 @@ p.sort a:active {
 				str += "<div class='col-12 bg-white rounded shadow-sm p-3 mb-3 pb-3 reviews'>";
 				//str += "<li>";
 				str += "<div class='image'>";
-				str += "<a href='/community/"+review.review_id+"'>";
+				str += "<a href='/festivals/"+review.festival_id_fk+"'>";
 				str += "<img src='"+review.review_image+"'>";
 				str += "</a>";
 				str += "</div>";
