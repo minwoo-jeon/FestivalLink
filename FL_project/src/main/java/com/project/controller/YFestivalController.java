@@ -115,7 +115,7 @@ public class YFestivalController {
         // log.info("festivalInfo = {}", festivalInfo);
         model.addAttribute("festivalInfo", festivalInfo);
         model.addAttribute("total", totalCountReview);
-        return "festival_yj/festivalDetail";
+        return "festival/festivalDetail";
     }
 
     @Operation(summary = "축제 상세 페이지-리뷰불러오기") // 정의하려는 API 명시
@@ -156,7 +156,7 @@ public class YFestivalController {
         int totalCount = yFestivalMapper.getTotalFestivalCount();
         m.addAttribute("total", totalCount);
         //log.info("totalF = {}",totalCount);
-        return "festival_yj/festivalList";
+        return "festival/festivalList";
     }
 
     @Operation(summary = "축제 메인 검색 페이지") // 정의하려는 API 명시
