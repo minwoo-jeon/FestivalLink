@@ -26,14 +26,15 @@
             </c:if>
             <c:if test="${likedReviewArr ne null and not empty likedReviewArr}">
                 <c:forEach var="vo" items="${likedReviewArr}">
-                <div class="bg-white rounded shadow-sm p-4 mb-5 pb-3 reviews">
+                <div class="bg-white rounded shadow-sm p-4 mb-3 pb-3 reviews">
 
                     <!-- https://icons.getbootstrap.kr/ : thums-up fill 있음  -->
 
                     <div>
+                        <a href="/community/${vo.review_id}"
                         <div class="media" style="clear:both">
 
-                            <a href="#"><img style="width: 110px;height: 160px;" alt="Generic placeholder image" src="${vo.f_image}"
+                            <a href="/festivals/${vo.festival_id_fk}"><img style="width: 110px;height: 160px;" alt="Generic placeholder image" src="${vo.f_image}"
                                     class="mr-3 rounded-pill"></a>
                             <div class="media-body">
                                 <div class="reviews-members-header">
