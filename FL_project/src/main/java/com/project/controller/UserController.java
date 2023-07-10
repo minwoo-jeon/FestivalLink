@@ -189,7 +189,9 @@ public class UserController {
         }
         userService.userDelete(user);
         session.invalidate();
+        rttr.addFlashAttribute("msg","정상적으로 회원탈퇴 되었습니다");
         return "redirect:/festivals";
+
     }
 
 

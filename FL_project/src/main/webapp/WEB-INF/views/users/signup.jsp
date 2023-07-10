@@ -3,6 +3,7 @@
 
 <head>
     <style>
+
         .email_ok {
             color: ##2f1007;
             display: none;
