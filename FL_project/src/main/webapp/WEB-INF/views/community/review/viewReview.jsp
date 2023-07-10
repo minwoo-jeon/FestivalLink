@@ -38,7 +38,9 @@
 				</tr>
 				<tr>
 					<td width="5%"><b>축제</b></td>
-					<td width="45%" colspan="3"><c:out value="${review.festival_name}" /></td>
+					<td width="45%" colspan="3">
+						<a href="/festivals/${review.festival_id_fk}"><c:out value="${review.festival_name}" /></a>
+					</td>
 				</tr>
 				<tr height="60">
 					<td width="5%"><b>글내용</b></td>
