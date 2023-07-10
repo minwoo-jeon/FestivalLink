@@ -3,8 +3,14 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
     <style>
+         h1.text-center.mb-3 {
+                    margin-top: 150px;
+                }
+
+
+
         .nickname_ok {
-            color: ##2f1007;
+            color: #2f1007;
             display: none;
         }
 
